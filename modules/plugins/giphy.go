@@ -6,6 +6,7 @@ import (
     "github.com/bwmarrin/discordgo"
     "math/rand"
     "net/url"
+    "git.lukas.moe/sn0w/Karen/cache"
 )
 
 type Giphy struct{}
@@ -26,6 +27,16 @@ func (g *Giphy) Action(command string, content string, msg *discordgo.Message, s
     const API_KEY = "dc6zaTOxFJmzC"
     const RATING = "pg-13"
     const LIMIT = 5
+
+    // Disable GIFs for DOB because of abusive behaviour
+    ch, err := cache.Channel(msg.ChannelID)
+    if err != nil {
+        return
+    }
+    if ch.ID == "265924970469654528" {
+        session.ChannelMessageSend(msg.ChannelID, "This plugin has been temporarily disabled for DOB.")
+        return
+    }
 
     session.ChannelTyping(msg.ChannelID)
 
