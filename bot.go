@@ -248,6 +248,10 @@ func BotOnReactionAdd(session *discordgo.Session, reaction *discordgo.MessageRea
     if err != nil {
         return
     }
+    msg, err := session.ChannelMessage(reaction.ChannelID, reaction.MessageID)
+    if err != nil {
+        return
+    }
     if len(msg.Embeds) > 0 && strings.Contains(msg.Embeds[0].Footer.Text, "Poll") {
         if emojis.ToNumber(reaction.Emoji.Name) == -1 {
             session.MessageReactionRemove(reaction.ChannelID, reaction.MessageID, reaction.Emoji.Name, reaction.UserID)
