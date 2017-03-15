@@ -22,6 +22,7 @@ var BETA_GUILDS = [...]string{
     "271346578189582339", // Universe Internet Ltd. (Inside24)
     "270353850085408780", // Turdy Republic         (Moopdedoop)
     "275720670045011968", // Omurice                (Katsurice)
+    "265924970469654528", // DOB Darkorbit Bot      (Serraniel)
 }
 
 // Automatically leaves guilds that are not registered beta testers
