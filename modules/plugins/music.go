@@ -19,6 +19,7 @@ import (
     "strings"
     "sync"
     "time"
+    "math/rand"
 )
 
 // Define control messages
@@ -398,8 +399,14 @@ func (m *Music) Action(command string, content string, msg *discordgo.Message, s
         err = cursor.All(&matches)
         helpers.Relax(err)
 
-        var match Song
+        // Shuffle matches using Fisher-Yates algorithm
+        for i := range matches {
+            j := rand.Intn(i + 1)
+            matches[i], matches[j] = matches[j], matches[i]
+        }
 
+        // Select a song that isn't present yet
+        var match Song
         for _, song := range matches {
             dupe := false
 
