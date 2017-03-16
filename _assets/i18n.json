@@ -422,6 +422,7 @@
     },
     "choice": {
       "wrong-syntax": ":x: You need to pass multiple options separeated by `|`",
+      "weird-input": "Well uhm that's an odd input value :thinking:",
       "no-mentions": "I can't help you on deciding between users :thinking:",
       "result": "I've chosen %s :smiley:"
     }

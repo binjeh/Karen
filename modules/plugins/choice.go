@@ -32,8 +32,15 @@ func (c *Choice) Action(command string, content string, msg *discordgo.Message, 
     }
 
     choices := strings.Split(content, "|")
+    choice := strings.Replace(choices[rand.Intn(len(choices))], "`", "", -1)
+
+    if len(choice) == 0 {
+        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.choice.weird-input"))
+        return
+    }
+
     session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF(
         "plugins.choice.result",
-        strings.TrimSpace(choices[rand.Intn(len(choices))])),
-    )
+        strings.TrimSpace(choice),
+    ))
 }
