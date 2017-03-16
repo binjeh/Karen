@@ -33,7 +33,7 @@ func (g *Giphy) Action(command string, content string, msg *discordgo.Message, s
     if err != nil {
         return
     }
-    if ch.ID == "265924970469654528" {
+    if ch.GuildID == "265924970469654528" {
         session.ChannelMessageSend(msg.ChannelID, "This plugin has been temporarily disabled for DOB.")
         return
     }
