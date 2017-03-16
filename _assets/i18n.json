@@ -425,6 +425,9 @@
       "weird-input": "Well uhm that's an odd input value :thinking:",
       "no-mentions": "I can't help you on deciding between users :thinking:",
       "result": "I've chosen %s :smiley:"
+    },
+    "google": {
+      "no-term": "That search term is kinda short :thinking:"
     }
   }
 }
