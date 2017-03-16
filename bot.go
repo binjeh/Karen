@@ -3,7 +3,6 @@ package main
 import (
     "fmt"
     "git.lukas.moe/sn0w/Karen/cache"
-    "git.lukas.moe/sn0w/Karen/emojis"
     "git.lukas.moe/sn0w/Karen/helpers"
     Logger "git.lukas.moe/sn0w/Karen/logger"
     "git.lukas.moe/sn0w/Karen/metrics"
@@ -248,14 +247,15 @@ func BotOnReactionAdd(session *discordgo.Session, reaction *discordgo.MessageRea
     if err != nil {
         return
     }
-    if emojis.ToNumber(reaction.Emoji.Name) == -1 {
-        session.MessageReactionRemove(reaction.ChannelID, reaction.MessageID, reaction.Emoji.Name, reaction.UserID)
+    msg, err := session.ChannelMessage(reaction.ChannelID, reaction.MessageID)
+    if err != nil {
         return
     }
-    if helpers.VotePollIfItsOne(channel.GuildID, reaction.MessageReaction) {
-        helpers.UpdatePollMsg(channel.GuildID, reaction.MessageID)
+    if len(msg.Embeds) > 0 && strings.Contains(msg.Embeds[0].Footer.Text, "Poll") {
+        if helpers.VotePollIfItsOne(channel.GuildID, reaction.MessageReaction) {
+            helpers.UpdatePollMsg(channel.GuildID, reaction.MessageID)
+        }
     }
-
 }
 
 func sendHelp(message *discordgo.MessageCreate) {

@@ -224,43 +224,52 @@ func VotePollIfItsOne(guild string, r *discordgo.MessageReaction) bool {
     voted := false
     // See if msg is a poll
     for i, p := range settings.Polls {
-        if p.ID == r.MessageID {
-            // Can't vote if its closed
-            if !p.Open {
-                return false
-            }
-            userID := r.UserID
-            fieldID := emojis.ToNumber(r.Emoji.Name)
-            if fieldID == -1 {
-                session := cache.GetSession()
-                session.MessageReactionRemove(r.ChannelID, r.MessageID, r.Emoji.Name, r.UserID)
-                return false
-            }
-            // Check if user voted
-            for _, participant := range p.Participants {
-                if participant.ID == userID {
-                    session := cache.GetSession()
-                    session.MessageReactionRemove(r.ChannelID, r.MessageID, r.Emoji.Name, r.UserID)
-                    return false
-                }
-            }
-            // Search for the field
-            for j, f := range p.Fields {
-                // Found the field
-                if f.ID == fieldID {
-                    settings.Polls[i].Participants = append(settings.Polls[i].Participants, models.Participant{
-                        ID:      userID,
-                        FieldID: fieldID,
-                    })
-                    settings.Polls[i].TotalParticipants++
-                    settings.Polls[i].TotalVotes++
-                    settings.Polls[i].Fields[j].Votes++
-                    voted = true
-                    break
-                }
-            }
-            break
+        // Skip non matching polls
+        if p.ID != r.MessageID {
+            continue
         }
+        // Can't vote if its closed
+        if !p.Open {
+            return false
+        }
+        fieldID := emojis.ToNumber(r.Emoji.APIName())
+        emojiAllowed := false
+        for _, pf := range p.Fields {
+            if fieldID == pf.ID {
+                emojiAllowed = true
+                break
+            }
+        }
+        // Bad emoji
+        if !emojiAllowed {
+            session := cache.GetSession()
+            session.MessageReactionRemove(r.ChannelID, r.MessageID, r.Emoji.APIName(), r.UserID)
+            return false
+        }
+        // Check if user voted
+        for _, participant := range p.Participants {
+            if participant.ID == r.UserID {
+                session := cache.GetSession()
+                session.MessageReactionRemove(r.ChannelID, r.MessageID, r.Emoji.APIName(), r.UserID)
+                return false
+            }
+        }
+        // Search for the field
+        for j, f := range p.Fields {
+            // Found the field
+            if f.ID == fieldID {
+                settings.Polls[i].Participants = append(settings.Polls[i].Participants, models.Participant{
+                    ID:      r.UserID,
+                    FieldID: fieldID,
+                })
+                settings.Polls[i].TotalParticipants++
+                settings.Polls[i].TotalVotes++
+                settings.Polls[i].Fields[j].Votes++
+                voted = true
+                break
+            }
+        }
+        break
     }
     if !voted {
         return false
