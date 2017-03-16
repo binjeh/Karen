@@ -419,6 +419,11 @@
     },
     "reminders": {
       "empty": "You don't have any active reminders :shrug:"
+    },
+    "choice": {
+      "wrong-syntax": ":x: You need to pass multiple options separeated by `|`",
+      "no-mentions": "I can't help you on deciding between users :thinking:",
+      "result": "I've chosen %s :smiley:"
     }
   }
 }
