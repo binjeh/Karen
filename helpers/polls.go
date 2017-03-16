@@ -269,6 +269,7 @@ func VotePollIfItsOne(guild string, r *discordgo.MessageReaction) bool {
                 break
             }
         }
+        break
     }
     if !voted {
         return false

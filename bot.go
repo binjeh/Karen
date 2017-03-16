@@ -3,7 +3,6 @@ package main
 import (
     "fmt"
     "git.lukas.moe/sn0w/Karen/cache"
-    "git.lukas.moe/sn0w/Karen/emojis"
     "git.lukas.moe/sn0w/Karen/helpers"
     Logger "git.lukas.moe/sn0w/Karen/logger"
     "git.lukas.moe/sn0w/Karen/metrics"
@@ -241,7 +240,7 @@ func BotOnMessageCreate(session *discordgo.Session, message *discordgo.MessageCr
 // should die as soon as possible or spawn costly work inside of coroutines.
 // This is currently used for the *poll* plugin.
 func BotOnReactionAdd(session *discordgo.Session, reaction *discordgo.MessageReactionAdd) {
-    if user, err := session.User(reaction.UserID); err == nil && !user.Bot {
+    if user, err := session.User(reaction.UserID); err == nil && user.Bot {
         return
     }
     channel, err := session.Channel(reaction.ChannelID)
