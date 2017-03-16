@@ -104,7 +104,7 @@ func BotOnMessageCreate(session *discordgo.Session, message *discordgo.MessageCr
     }
 
     // Check if the message contains @mentions for us
-    if strings.HasPrefix(message.Content, "<@") && len(message.Mentions) > 0 && message.Mentions[0].ID == session.State.User.ID {
+    if len(message.Mentions) > 0 && strings.HasPrefix(message.Content, "<@"+session.State.User.ID+">") {
         // Consume a key for this action
         e := ratelimits.Container.Drain(1, message.Author.ID)
         if e != nil {

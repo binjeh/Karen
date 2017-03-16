@@ -72,7 +72,6 @@ func main() {
     }
 
     discord.Lock()
-    discord.Debug = false
     discord.LogLevel = discordgo.LogError
     discord.Unlock()
 
