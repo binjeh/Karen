@@ -401,6 +401,7 @@
     "with Serraniel",
     "with Kaaz",
     "with 0xFADED",
+    "with Shixz",
     "with you O_o",
     "with cats",
     "with JOHN CENA",
@@ -428,6 +429,33 @@
     },
     "google": {
       "no-term": "That search term is kinda short :thinking:"
+    },
+    "toggle": {
+        "empty_content": "You need to tell me what you want to enable :eyes:",
+        "failure": "Sorry, an error ocurred while processing the command!",
+        "joins": {
+            "enabled": "You've successfuly enabled the joins notifications on this channel!!",
+            "disabled": "You've successfuly disabled the joins notifications!!",
+            "notifications": [
+                "<@%v> just joined us!! ｡◕‿◕｡",
+                "<@%v> is now one of us! (◕‿◕✿)",
+                "Welcome to our kingdom!!! <@%v> ༼ つ ◕_◕ ༽つ",
+                "Enjoy your stay <@%v>-san (ᵔᴥᵔ)"
+            ]
+        },  
+        "leaves": {
+            "enabled": "You've successfuly enabled the leaves notifications on this channel!!",
+            "disabled": "You've successfuly disabled the leaves notifications!!",
+            "notifications": [
+                "We just got betrayed by <@%v>!! (╯°□°)╯︵ ʞooqǝɔɐɟ",
+                "<@%v>-san left us! ಥ_ಥ",
+                "We just lost <@%v>... ಥ_ಥ"
+            ]
+        },
+        "announcements": {
+            "enabled": "You've successfuly enabled the announcements notifications on this channel!!",
+            "disabled": "You've successfuly disabled the announcements notifications!!"
+        }
     }
   }
 }

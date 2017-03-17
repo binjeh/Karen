@@ -258,6 +258,36 @@ func BotOnReactionAdd(session *discordgo.Session, reaction *discordgo.MessageRea
     }
 }
 
+// BotOnGuildMemberJoin gets called after a new member joins the guild
+func BotOnGuildMemberJoin(session *discordgo.Session, member *discordgo.GuildMemberAdd) {
+    settings := helpers.GuildSettingsGetCached(member.GuildID)
+    // If this is enabled the JoinNotificationsChannel should be set too
+    if settings.JoinNotificationsEnabled {
+        if settings.JoinNotificationText == "" {
+            welcome := helpers.GetTextF("plugins.toggle.joins.notifications", member.User.ID)
+            session.ChannelMessageSend(settings.JoinNotificationsChannel, welcome)
+            return
+        }
+        session.ChannelMessageSend(settings.JoinNotificationsChannel, settings.JoinNotificationText)
+        return
+    }
+}
+
+// BotOnGuildMemberRemove gets called after a member leaves the guild
+func BotOnGuildMemberRemove(session *discordgo.Session, member *discordgo.GuildMemberRemove) {
+    settings := helpers.GuildSettingsGetCached(member.GuildID)
+    // If this is enabled the LeaveNotificationsChannel should be set too
+    if settings.LeaveNotificationsEnabled {
+        if settings.LeaveNotificationText == "" {
+            farewell := helpers.GetTextF("plugins.toggle.leaves.notifications", member.User.ID)
+            session.ChannelMessageSend(settings.LeaveNotificationsChannel, farewell)
+            return
+        }
+        session.ChannelMessageSend(settings.LeaveNotificationsChannel, settings.LeaveNotificationText)
+        return
+    }
+}
+
 func sendHelp(message *discordgo.MessageCreate) {
     cache.GetSession().ChannelMessageSend(
         message.ChannelID,

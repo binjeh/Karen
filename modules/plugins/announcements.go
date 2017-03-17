@@ -27,6 +27,9 @@ func (a *Announcement) Action(command string, content string, msg *discordgo.Mes
 
     title := ""
     contentSplit := strings.Fields(content)
+    if len(contentSplit) < 1 {
+        return
+    }
     subcommand := contentSplit[0]
     text := content[len(subcommand):]
 
@@ -37,13 +40,16 @@ func (a *Announcement) Action(command string, content string, msg *discordgo.Mes
         title = ":warning: **DOWNTIME**"
     case "maintenance":
         title = ":clock5: **MAINTENANCE**"
+    default:
+        return
     }
     // Iterate through all joined guilds
     for _, guild := range session.State.Guilds {
+        settings := helpers.GuildSettingsGetCached(guild.ID)
         // Check if we have an announcement channel set for this guild
-        if helpers.GuildSettingsGetCached(guild.ID).AnnouncementsEnabled {
+        if settings.AnnouncementsEnabled {
             // Get the announcement channel id
-            channelID := helpers.GuildSettingsGetCached(guild.ID).AnnouncementsChannel
+            channelID := settings.AnnouncementsChannel
             // Send the announce to the channel
             session.ChannelMessageSendEmbed(channelID, &discordgo.MessageEmbed{
                 Title:       title,

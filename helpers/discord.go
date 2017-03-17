@@ -1,12 +1,12 @@
 package helpers
 
 import (
+    "fmt"
     "git.lukas.moe/sn0w/Karen/cache"
     "github.com/bwmarrin/discordgo"
-    "strings"
-    "fmt"
-    "time"
     "strconv"
+    "strings"
+    "time"
 )
 
 const (

@@ -1,9 +1,8 @@
 package models
 
-
 // Config is a struct describing all config options a guild may set
 type Config struct {
-    Id    string `rethink:"id,omitempty"`
+    Id  string `rethink:"id,omitempty"`
     // Guild contains the guild ID
     Guild string `rethink:"guild"`
 
@@ -11,12 +10,17 @@ type Config struct {
 
     CleanupEnabled bool `rethink:"cleanup_enabled"`
 
-    AnnouncementsEnabled bool   `rethink:"announcements_enabled"`
+    AnnouncementsEnabled bool `rethink:"announcements_enabled"`
     // AnnouncementsChannel stores the channel ID
     AnnouncementsChannel string `rethink:"announcements_channel"`
 
-    WelcomeNewUsersEnabled bool   `rethink:"welcome_new_users_enabled"`
-    WelcomeNewUsersText    string `rethink:"welcome_new_users_text"`
+    JoinNotificationsEnabled bool   `rethink:"join_notifications_enabled"`
+    JoinNotificationsChannel string `rethink:"join_notifications_channel"`
+    JoinNotificationText     string `rethink:"join_notification_text"`
+
+    LeaveNotificationsEnabled bool   `rethink:"leave_notifications_enabled"`
+    LeaveNotificationsChannel string `rethink:"leave_notifications_channel"`
+    LeaveNotificationText     string `rethink:"leave_notification_text"`
 
     // Polls contains all open polls for the guild,
     // closed polls are also stored but will be auto-deleted
@@ -36,7 +40,12 @@ func (c Config) Default(guild string) Config {
         AnnouncementsEnabled: false,
         AnnouncementsChannel: "",
 
-        WelcomeNewUsersEnabled: false,
-        WelcomeNewUsersText:    "",
+        JoinNotificationsEnabled: false,
+        JoinNotificationsChannel: "",
+        JoinNotificationText:     "",
+
+        LeaveNotificationsEnabled: false,
+        LeaveNotificationsChannel: "",
+        LeaveNotificationText:     "",
     }
 }
