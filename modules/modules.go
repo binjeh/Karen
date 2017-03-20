@@ -35,6 +35,7 @@ var (
         &plugins.Stats{},
         &plugins.Stone{},
         &plugins.Support{},
+        &plugins.Toggle{},
         //&plugins.Translator{},
         &plugins.Uptime{},
         &plugins.UrbanDict{},

@@ -401,6 +401,7 @@
     "with Serraniel",
     "with Kaaz",
     "with 0xFADED",
+    "with Shixz",
     "with you O_o",
     "with cats",
     "with JOHN CENA",
@@ -428,6 +429,43 @@
     },
     "google": {
       "no-term": "That search term is kinda short :thinking:"
+    },
+    "toggle": {
+        "empty_content": "You need to tell me what you want to toggle :eyes:",
+        "unauthorized": [
+            "You are not allowed to do that <@%s>-san",
+            "Senpai will get mad at you for trying that <@%s>-san",
+            "<@%s>-san don't you think you should ask senpai before trying that?"
+        ],
+        "not_match": [
+            "Wait wuut, you can't toggle `%s` . . .",
+            "Hold on!!, what does `%s` even mean??",
+            "You can't toggle something that doesn't exists . . ."
+        ],
+        "failure": "Sorry, an error ocurred while processing the command!",
+        "joins": {
+            "enabled": "You've successfuly enabled the join notifications on this channel!!",
+            "disabled": "You've successfuly disabled the join notifications!!",
+            "notifications": [
+                "<@%s> just joined us!! ｡◕‿◕｡",
+                "<@%s> is now one of us! (◕‿◕✿)",
+                "Welcome to our kingdom!!! <@%s> ༼ つ ◕_◕ ༽つ",
+                "Enjoy your stay <@%s>-san (ᵔᴥᵔ)"
+            ]
+        },  
+        "leaves": {
+            "enabled": "You've successfuly enabled the leave notifications on this channel!!",
+            "disabled": "You've successfuly disabled the leave notifications!!",
+            "notifications": [
+                "We just got betrayed by <@%s>!! (╯°□°)╯︵ ʞooqǝɔɐɟ",
+                "<@%s>-san left us! ಥ_ಥ",
+                "We just lost <@%s>... ಥ_ಥ"
+            ]
+        },
+        "announcements": {
+            "enabled": "You've successfuly enabled the announcements on this channel!!",
+            "disabled": "You've successfuly disabled the announcements!!"
+        }
     }
   }
 }

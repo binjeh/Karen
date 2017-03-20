@@ -10,6 +10,5 @@
     ],
     "editor.detectIndentation": false,
     "editor.tabSize": 4,
-    "editor.insertSpaces": true,
-    "files.autoSave": "afterDelay"
+    "editor.insertSpaces": true
 }

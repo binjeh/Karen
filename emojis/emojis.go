@@ -36,7 +36,7 @@ func To(symbol string) string {
     return revlist[symbol]
 }
 
-// NumberFromEmoji returns the number that corresponds to
+// ToNumber returns the number that corresponds to
 // the emoji
 func ToNumber(emoji string) int {
     v, err := strconv.Atoi(revlist[emoji])
