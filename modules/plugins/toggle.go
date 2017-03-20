@@ -22,6 +22,9 @@ func (e *Toggle) Init(s *discordgo.Session) {}
 
 // Action func
 func (e *Toggle) Action(command, content string, msg *discordgo.Message, session *discordgo.Session) {
+	if !helpers.IsAdmin(msg) {
+		session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.toggle.unauthorized", msg.Author.ID))
+	}
     split := strings.Fields(content)
     if len(split) < 1 {
         session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.toggle.empty_content"))
@@ -85,5 +88,7 @@ func (e *Toggle) Action(command, content string, msg *discordgo.Message, session
             return
         }
         session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.toggle.announcements."+action))
+	default:
+		session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.toggle.not_match", module))
     }
 }
