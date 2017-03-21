@@ -81,11 +81,10 @@ func (r *Reminders) Init(session *discordgo.Session) {
                                 Text: fmt.Sprintf("Reminder for: %s", user.Username),
                             },
                         }
-                        _, err = session.ChannelMessageSendEmbed(reminder.ChannelID, embed)
+                        _, err = session.ChannelMessageSendEmbedWithMessage(reminder.ChannelID, fmt.Sprintf("<@%s>", reminders.UserID), embed)
                         if err != nil {
                             continue
                         }
-                        session.ChannelMessageSend(reminder.ChannelID, fmt.Sprintf(":rolling_eyes: <@%s>", reminders.UserID))
 
                         reminders.Reminders = append(reminders.Reminders[:idx], reminders.Reminders[idx+1:]...)
                         changes = true
