@@ -11,18 +11,22 @@ import (
     "github.com/olebedev/when/rules/en"
     "strings"
     "time"
+    "fmt"
 )
 
+// Reminders command
 type Reminders struct {
     parser *when.Parser
 }
 
+// DB_Reminders struct
 type DB_Reminders struct {
     Id        string        `gorethink:"id,omitempty"`
     UserID    string        `gorethink:"userid"`
     Reminders []DB_Reminder `gorethink:"reminders"`
 }
 
+// DB_Reminder struct
 type DB_Reminder struct {
     Message   string `gorethink:"message"`
     ChannelID string `gorethink:"channelID"`
@@ -30,6 +34,7 @@ type DB_Reminder struct {
     Timestamp int64  `gorethink:"timestamp"`
 }
 
+// Commands that triggers reminders
 func (r *Reminders) Commands() []string {
     return []string{
         "remind",
@@ -39,6 +44,7 @@ func (r *Reminders) Commands() []string {
     }
 }
 
+// Init the reminders loop
 func (r *Reminders) Init(session *discordgo.Session) {
     r.parser = when.New(nil)
     r.parser.Add(en.All...)
@@ -63,10 +69,23 @@ func (r *Reminders) Init(session *discordgo.Session) {
                     reminder := reminders.Reminders[idx]
 
                     if reminder.Timestamp <= time.Now().Unix() {
-                        session.ChannelMessageSend(
-                            reminder.ChannelID,
-                            ":alarm_clock: Ring! Ring! <@"+reminders.UserID+">\n"+"You wanted me to remind you to `"+reminder.Message+"` :slight_smile:",
-                        )
+                        user, err := session.User(reminders.UserID)
+                        if err != nil {
+                            continue
+                        }
+                        embed := &discordgo.MessageEmbed {
+                            Title: ":alarm_clock: Ring! Ring!",
+                            Description: reminder.Message,
+                            Color: 0x0FADED,
+                            Footer: &discordgo.MessageEmbedFooter {
+                                Text: fmt.Sprintf("Reminder for: %s", user.Username),
+                            },
+                        }
+                        _, err = session.ChannelMessageSendEmbed(reminder.ChannelID, embed)
+                        if err != nil {
+                            continue
+                        }
+                        session.ChannelMessageSend(reminder.ChannelID, fmt.Sprintf(":rolling_eyes: <@%s>", reminders.UserID))
 
                         reminders.Reminders = append(reminders.Reminders[:idx], reminders.Reminders[idx+1:]...)
                         changes = true
@@ -85,6 +104,7 @@ func (r *Reminders) Init(session *discordgo.Session) {
     logger.PLUGIN.L("reminders", "Started reminder loop (10s)")
 }
 
+// Action executes the reminders command
 func (r *Reminders) Action(command string, content string, msg *discordgo.Message, session *discordgo.Session) {
     switch command {
     case "rm", "remind":
