@@ -477,6 +477,10 @@
             "Hold on!!, what does `%s` even mean??",
             "`%s` doesn't exists!"
         ],
+        "missing_perms": [
+          "I'm not allowed to do that",
+          "I don't have enough permissions"
+        ],
         "role_add": {
             "failure": [
                 "Sorry, I couldn't add the role :bow:",
