@@ -22,10 +22,20 @@ type Config struct {
     LeaveNotificationsChannel string `rethink:"leave_notifications_channel"`
     LeaveNotificationText     string `rethink:"leave_notification_text"`
 
+    // Roles contains the available self-assignable
+    // roles on this guild
+    Roles []Role `rethink:"roles"`
+
     // Polls contains all open polls for the guild,
     // closed polls are also stored but will be auto-deleted
     // one day after its state changes to closed
     Polls []Poll `rethink:"polls"`
+}
+
+// Role struct
+type Role struct {
+    ID   string `rethink:"id"`
+    Name string `rethink:"name"`
 }
 
 // Default is a helper for generating default config values
