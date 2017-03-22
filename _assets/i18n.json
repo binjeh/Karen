@@ -479,8 +479,8 @@
         ],
         "role_add": {
             "failure": [
-                "Sorry, i couldn't add the role :bow:",
-                "Sorry senpai, i couldn't add the role :bow:"
+                "Sorry, I couldn't add the role :bow:",
+                "Sorry senpai, I couldn't add the role :bow:"
             ],
             "success": [
                 "Succesfuly added %s role",
@@ -490,8 +490,8 @@
         },
         "role_remove": {
             "failure": [
-                "Sorry, i couldn't remove the role :bow:",
-                "Sorry senpai, i couldn't remove the role :bow:"
+                "Sorry, I couldn't remove the role :bow:",
+                "Sorry senpai, I couldn't remove the role :bow:"
             ],
             "success": [
                 "Succesfuly removed %s role",
@@ -501,7 +501,7 @@
         },
         "roles": {
             "failure": [
-                "Something went wrong, couldn't list all self-assignable roles :bow:"
+                "Something went wrong. I couldn't list all self-assignable roles :bow:"
             ]
         },
         "iam": {
