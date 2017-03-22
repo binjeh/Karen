@@ -1,7 +1,7 @@
 // Place your settings in this file to overwrite default and user settings.
+{
     // go get github.com/Shixzie/gosfmt
     // to use spaces instead of tabs
-{
     "go.formatTool": "gosfmt",
     "go.formatFlags": [
         "-w",
