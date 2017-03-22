@@ -521,7 +521,7 @@
             ],
             "success": [
                 "Left the %s group",
-                "IS no longer part of %s"
+                "Is no longer part of %s"
             ]
         }
     }

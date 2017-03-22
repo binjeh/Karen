@@ -32,6 +32,7 @@ var (
         &plugins.Reminders{},
         &plugins.Roll{},
         &plugins.RPS{},
+		&plugins.SelfRoles{},
         &plugins.Stats{},
         &plugins.Stone{},
         &plugins.Support{},
