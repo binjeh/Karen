@@ -92,7 +92,7 @@ func (r *Reminders) Init(session *discordgo.Session) {
                 }
 
                 if changes {
-                    setReminders(reminders.UserID, reminders)
+                    r.setReminders(reminders.UserID, reminders)
                 }
             }
 
@@ -110,34 +110,35 @@ func (r *Reminders) Action(command string, content string, msg *discordgo.Messag
         channel, err := cache.Channel(msg.ChannelID)
         helpers.Relax(err)
 
-        parts := strings.Split(content, " ")
+        parts := strings.Fields(content)
 
         if len(parts) < 3 {
             session.ChannelMessageSend(msg.ChannelID, ":x: Please check if the format is correct")
             return
         }
 
-        r, err := r.parser.Parse(content, time.Now())
+        result, err := r.parser.Parse(content, time.Now())
         helpers.Relax(err)
-        if r == nil {
+        if result == nil {
             session.ChannelMessageSend(msg.ChannelID, ":x: Please check if the format is correct")
             return
         }
 
-        reminders := getReminders(msg.Author.ID)
+        reminders := r.getReminders(msg.Author.ID)
         reminders.Reminders = append(reminders.Reminders, DB_Reminder{
-            Message:   strings.Replace(content, r.Text, "", 1),
+            Message:   strings.Replace(content, result.Text, "", 1),
             ChannelID: channel.ID,
             GuildID:   channel.GuildID,
-            Timestamp: r.Time.Unix(),
+            Timestamp: result.Time.Unix(),
         })
-        setReminders(msg.Author.ID, reminders)
+        reminders.UserID = msg.Author.ID
+        r.setReminders(msg.Author.ID, reminders)
 
         session.ChannelMessageSend(msg.ChannelID, "Ok I'll remind you :ok_hand:")
         break
 
     case "rms", "reminders":
-        reminders := getReminders(msg.Author.ID)
+        reminders := r.getReminders(msg.Author.ID)
         embedFields := []*discordgo.MessageEmbedField{}
 
         for _, reminder := range reminders.Reminders {
@@ -176,7 +177,7 @@ func (r *Reminders) Action(command string, content string, msg *discordgo.Messag
     }
 }
 
-func getReminders(uid string) DB_Reminders {
+func (r *Reminders) getReminders(uid string) DB_Reminders {
     var reminderBucket DB_Reminders
     listCursor, err := rethink.Table("reminders").Filter(
         rethink.Row.Field("userid").Eq(uid),
@@ -195,7 +196,7 @@ func getReminders(uid string) DB_Reminders {
         if e != nil {
             panic(e)
         } else {
-            return getReminders(uid)
+            return reminderBucket
         }
     } else if err != nil {
         panic(err)
@@ -204,7 +205,7 @@ func getReminders(uid string) DB_Reminders {
     return reminderBucket
 }
 
-func setReminders(uid string, reminders DB_Reminders) {
-    _, err := rethink.Table("reminders").Update(reminders).Run(helpers.GetDB())
+func (r *Reminders) setReminders(uid string, reminders DB_Reminders) {
+    _, err := rethink.Table("reminders").Update(reminders).RunWrite(helpers.GetDB())
     helpers.Relax(err)
 }
