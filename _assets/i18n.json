@@ -419,7 +419,10 @@
       "check_format": "Please check that your query is in the format `<language_in> <language_out> <text>`"
     },
     "reminders": {
-      "empty": "You don't have any active reminders :shrug:"
+      "empty": "You don't have any active reminders :shrug:",
+      "empty_timezone": [
+        "Ok I'll remind you, but you haven't set your timezone!!\nUse the `tz set <timezone>` command to set it!\n(Use one of the TZ column values from https://goo.gl/XmqMpF)\nExample: `tz set America/New_York`"
+      ]
     },
     "choice": {
       "wrong-syntax": ":x: You need to pass multiple options separeated by `|`",
@@ -528,6 +531,28 @@
                 "Is no longer part of %s"
             ]
         }
+    },
+    "time_zone": {
+      "not_set": [
+        "You haven't set your timezone!\nUse the `tz s <timezone>` command to set it!\n(Use one of the TZ column values from https://goo.gl/XmqMpF)\nExample: `tz s America/New_York`"
+      ],
+      "missing_param": [
+        "Wait.. You forgot something!!!",
+        "Aren't you missing something?",
+        "Are you sure that everything is well spelled?¿?"
+      ],
+      "wrong_subcommand": [
+        "Hold on!!, what does `%s` even mean??",
+        "`%s` doesn't exists!"
+      ],
+      "set": {
+        "wrong_format": [
+          "`%s` doesn't exists!\n(Use one of the TZ column values from https://goo.gl/XmqMpF)\nExample: `tz s America/New_York`"
+        ],
+        "success": [
+          "You've successfuly set your time zone to `%s`"
+        ]
+      }
     }
   }
 }

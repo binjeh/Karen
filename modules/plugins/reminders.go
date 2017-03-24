@@ -23,6 +23,10 @@ type Reminders struct {
 type DB_Reminders struct {
     Id        string        `gorethink:"id,omitempty"`
     UserID    string        `gorethink:"userid"`
+    // Timezone is stored in the format specified by
+    // the IANA Timezone db, as well as
+    // time.LoadLocation()/time.Time.In()
+    Timezone  string        `gorethink:"timezone"`
     Reminders []DB_Reminder `gorethink:"reminders"`
 }
 
@@ -68,7 +72,12 @@ func (r *Reminders) Init(session *discordgo.Session) {
                 for idx := len(reminders.Reminders) - 1; idx >= 0; idx-- {
                     reminder := reminders.Reminders[idx]
 
-                    if reminder.Timestamp <= time.Now().Unix() {
+                    loc, err := time.LoadLocation(reminders.Timezone)
+                    if err != nil {
+                        loc = time.UTC
+                    }
+
+                    if reminder.Timestamp <= time.Now().In(loc).Unix() {
                         user, err := session.User(reminders.UserID)
                         if err != nil {
                             continue
@@ -117,14 +126,20 @@ func (r *Reminders) Action(command string, content string, msg *discordgo.Messag
             return
         }
 
-        result, err := r.parser.Parse(content, time.Now())
+        reminders := r.getReminders(msg.Author.ID)
+
+        loc, err := time.LoadLocation(reminders.Timezone)
+        if err != nil {
+            loc = time.UTC
+        }
+
+        result, err := r.parser.Parse(content, time.Now().In(loc))
         helpers.Relax(err)
         if result == nil {
             session.ChannelMessageSend(msg.ChannelID, ":x: Please check if the format is correct")
             return
         }
 
-        reminders := r.getReminders(msg.Author.ID)
         reminders.Reminders = append(reminders.Reminders, DB_Reminder{
             Message:   strings.Replace(content, result.Text, "", 1),
             ChannelID: channel.ID,
@@ -134,15 +149,23 @@ func (r *Reminders) Action(command string, content string, msg *discordgo.Messag
         reminders.UserID = msg.Author.ID
         r.setReminders(msg.Author.ID, reminders)
 
-        session.ChannelMessageSend(msg.ChannelID, "Ok I'll remind you :ok_hand:")
-        break
+        if reminders.Timezone == "" {
+            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.reminders.empty_timezone"))
+        } else {
+            session.ChannelMessageSend(msg.ChannelID, "Ok I'll remind you :ok_hand:")
+        }
 
     case "rms", "reminders":
         reminders := r.getReminders(msg.Author.ID)
         embedFields := []*discordgo.MessageEmbedField{}
 
+        loc, err := time.LoadLocation(reminders.Timezone)
+        if err != nil {
+            loc = time.UTC
+        }
+
         for _, reminder := range reminders.Reminders {
-            ts := time.Unix(reminder.Timestamp, 0)
+            ts := time.Unix(reminder.Timestamp, 0).In(loc)
             channel := "?"
             guild := "?"
 
@@ -159,7 +182,7 @@ func (r *Reminders) Action(command string, content string, msg *discordgo.Messag
             embedFields = append(embedFields, &discordgo.MessageEmbedField{
                 Inline: false,
                 Name:   reminder.Message,
-                Value:  "At " + ts.String() + " in #" + channel + " of " + guild,
+                Value:  fmt.Sprintf("At %s in #%s of %s", ts, channel, guild),
             })
         }
 
@@ -172,12 +195,14 @@ func (r *Reminders) Action(command string, content string, msg *discordgo.Messag
             Title:  "Pending reminders",
             Fields: embedFields,
             Color:  0x0FADED,
+            Footer: &discordgo.MessageEmbedFooter {
+                Text: fmt.Sprintf("Timezone: %s", reminders.Timezone),
+            },
         })
-        break
     }
 }
 
-func (r *Reminders) getReminders(uid string) DB_Reminders {
+func (r Reminders) getReminders(uid string) DB_Reminders {
     var reminderBucket DB_Reminders
     listCursor, err := rethink.Table("reminders").Filter(
         rethink.Row.Field("userid").Eq(uid),
@@ -205,7 +230,7 @@ func (r *Reminders) getReminders(uid string) DB_Reminders {
     return reminderBucket
 }
 
-func (r *Reminders) setReminders(uid string, reminders DB_Reminders) {
+func (r Reminders) setReminders(uid string, reminders DB_Reminders) {
     _, err := rethink.Table("reminders").Update(reminders).RunWrite(helpers.GetDB())
     helpers.Relax(err)
 }
