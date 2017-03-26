@@ -1,23 +1,26 @@
 package plugins
 
 import (
-    "fmt"
     "git.lukas.moe/sn0w/Karen/helpers"
     "github.com/bwmarrin/discordgo"
 )
 
+// Avatar command
 type Avatar struct{}
 
+// Commands func
 func (a *Avatar) Commands() []string {
     return []string{
         "avatar",
     }
 }
 
+// Init func
 func (a *Avatar) Init(session *discordgo.Session) {
 
 }
 
+// Action func
 func (a *Avatar) Action(command string, content string, msg *discordgo.Message, session *discordgo.Session) {
     mentionCount := len(msg.Mentions)
 
@@ -31,9 +34,21 @@ func (a *Avatar) Action(command string, content string, msg *discordgo.Message, 
         return
     }
 
-    session.ChannelMessageSend(msg.ChannelID, "Here you go :smiley: \n "+fmt.Sprintf(
-        "https://cdn.discordapp.com/avatars/%s/%s.jpg",
-        msg.Mentions[0].ID,
-        msg.Mentions[0].Avatar,
-    ))
+    mention := msg.Mentions[0]
+
+    embed := &discordgo.MessageEmbed{
+        Title: "Avatar",
+        Thumbnail: &discordgo.MessageEmbedThumbnail{
+            URL: helpers.GetAvatarUrl(mention),
+        },
+        Fields: []*discordgo.MessageEmbedField{
+            &discordgo.MessageEmbedField {
+                Name: "Link",
+                Value: helpers.GetAvatarUrl(mention),
+            },
+        },
+        Color: 0x0FADED,
+    }
+
+    session.ChannelMessageSendEmbed(msg.ChannelID, embed)
 }
