@@ -26,15 +26,6 @@ We can't help you with this topic though.<br>
 
 ### Requirements
 
-This guide assumes that [git](http://git-scm.com) and [go](http://golang.org)  are already installed and ready to use.
-Check if everything works and especially if your GOPATH is set-up.
-
-If you're a Windows user you need to setup a UNIX-like environment.
-That means installing a software like [MINGW](http://www.mingw.org/) or [Cygwin](https://www.cygwin.com/)
-and using BASH instead of CMD or PowerShell.
-
-<br>
-
 - Hardware
     - A 64bit CPU
     - CPU-Support for AVX2, AVX or SSE3+ instructions is a plus but not (yet) mandatory
@@ -52,10 +43,16 @@ and using BASH instead of CMD or PowerShell.
 
 <br>
 
+If you're a Windows user you need to setup a UNIX-like environment.<br>
+That means installing a software like [MINGW](http://www.mingw.org/) or [Cygwin](https://www.cygwin.com/)<br>
+and using BASH instead of CMD or PowerShell.
+
+<br>
+
 ***PLEASE NOTE:***<br>
 Do **NOT** use the "classic" POSIX Shell (`sh`).<br>
-Our scripts use advanced parameter-expansion and the double-braced `if` condition (`[[ <condition> ]];`) and those features
-are not supported below bash.
+Our scripts use advanced parameter-expansion and the double-braced `if` condition (`[[ <condition> ]];`) <br>
+and those features are not supported below bash.
 
 ## Getting Started
 
