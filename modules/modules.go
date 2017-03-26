@@ -38,6 +38,7 @@ var (
         &plugins.Support{},
         &plugins.Toggle{},
         //&plugins.Translator{},
+        &plugins.Timezone{},
         &plugins.Uptime{},
         &plugins.UrbanDict{},
         &plugins.Weather{},
