@@ -1,4 +1,4 @@
-package src
+package main
 
 import (
     "git.lukas.moe/sn0w/Karen/src/logger"

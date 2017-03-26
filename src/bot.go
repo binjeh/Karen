@@ -13,7 +13,6 @@ import (
     "regexp"
     "strings"
     "time"
-    "git.lukas.moe/sn0w/Karen/src/vendor/github.com/getsentry/raven-go"
 )
 
 // BotOnReady gets called after the gateway connected
