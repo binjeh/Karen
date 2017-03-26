@@ -7,7 +7,16 @@ config.json
 config.json
 karen
 
-# Created by https://www.gitignore.io/api/go,windows,osx,linux
+### CMake ###
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
 
 ### Go ###
 # Compiled Object files, Static and Dynamic libs (Shared Objects)
