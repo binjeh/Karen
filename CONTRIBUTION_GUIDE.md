@@ -16,10 +16,7 @@ If you're a Windows user you need to setup a UNIX-like environment.
 That means installing a software like [MINGW](http://www.mingw.org/) or [Cygwin](https://www.cygwin.com/)
 and using BASH instead of CMD or PowerShell.
 
-***PLEASE NOTE:***<br>
-Do **NOT** use the "classic" POSIX Shell (`sh`).<br>
-Our scripts use advanced parameter-expansion and the double-braced `if` condition (`[[ <condition> ]];`) and those features
-are not supported below bash.
+<br>
 
 - Hardware
     - A 64bit CPU
@@ -35,6 +32,13 @@ are not supported below bash.
 - Mandatory Tools
     - [go-bindata](https://github.com/jteeuwen/go-bindata)
     - [Glide](https://glide.sh/)
+
+<br>
+
+***PLEASE NOTE:***<br>
+Do **NOT** use the "classic" POSIX Shell (`sh`).<br>
+Our scripts use advanced parameter-expansion and the double-braced `if` condition (`[[ <condition> ]];`) and those features
+are not supported below bash.
 
 ### Getting Started
 
