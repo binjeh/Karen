@@ -44,7 +44,7 @@ We can't help you with this topic though.<br>
 <br>
 
 If you're a Windows user you need to setup a UNIX-like environment.<br>
-That means installing a software like [MINGW](http://www.mingw.org/) or [Cygwin](https://www.cygwin.com/)<br>
+That means installing a software like [MINGW](http://www.mingw.org/) or [Cygwin](https://www.cygwin.com/)
 and using BASH instead of CMD or PowerShell.
 
 <br>
