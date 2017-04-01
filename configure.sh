@@ -17,15 +17,15 @@ fi
 erb build/Makefile.am > Makefile
 
 # Include jobs
-for job in build/jobs.d/*.am; do
-    erb $job >> Makefile
+for job in build/jobs.d/*.mk; do
+    erb ${job} >> Makefile
     echo "" >> Makefile
 done
 
 # Add PHONY targets
-echo "PHONY: all" >> Makefile
-for job in build/jobs.d/*.am; do
+echo "PHONY:" >> Makefile
+for job in build/jobs.d/*.mk; do
     job=${job##*/}
-    job=${job%.am}
+    job=${job%.mk}
     sed -i "/^PHONY:/ s/\$/ $job/" Makefile
 done

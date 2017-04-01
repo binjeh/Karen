@@ -1,3 +1,0 @@
-assets:
-	test -d assets || mkdir assets
-	go-bindata -nomemcopy -nocompress -pkg assets -o assets/assets.go _assets/

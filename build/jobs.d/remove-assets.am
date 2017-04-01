@@ -1,2 +1,0 @@
-remove-assets:
-	test -d assets && rm assets
