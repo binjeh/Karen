@@ -43,7 +43,7 @@ println "yes"
 
 checkBin make
 checkIf "make supports GNU extensions"
-if [[ "$(man make)" != *"GNU make"* ]]; then
+if [[ "$(make -h)" != *"gnu.org"* ]]; then
     println "no"
     exit 1
 fi
