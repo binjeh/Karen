@@ -33,13 +33,6 @@ function checkBin {
     println "found"
 }
 
-checkIf "os has /dev/stdin"
-if [[ ! -c /dev/stdin ]]; then
-    println "no"
-    exit 1
-fi
-println "yes"
-
 checkBin ruby
 checkIf "ruby is version 2.*"
 if [[ "$(ruby -v)" != *"ruby 2"* ]]; then
