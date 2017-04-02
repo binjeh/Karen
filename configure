@@ -33,14 +33,6 @@ function checkBin {
     println "found"
 }
 
-checkBin ruby
-checkIf "ruby is version 2.*"
-if [[ "$(ruby -v)" != *"ruby 2"* ]]; then
-    println "no"
-    exit 1
-fi
-println "yes"
-
 checkBin go
 checkIf "go is version 1.8.*"
 if [[ "$(go version)" != *"go1.8"* ]]; then
@@ -57,7 +49,6 @@ if [[ "$(man make)" != *"GNU make"* ]]; then
 fi
 println "yes"
 
-checkBin erb
 checkBin cpp
 checkBin gpp
 checkBin gcc
@@ -133,11 +124,11 @@ if [[ -f Makefile ]]; then
 fi
 
 # Build base makefile
-erb build/Makefile.mk > Makefile
+cat build/Makefile.mk > Makefile
 
 # Include jobs
 for job in build/jobs.d/*.mk; do
-    erb ${job} >> Makefile
+    cat ${job} >> Makefile
     echo "" >> Makefile
 done
 
