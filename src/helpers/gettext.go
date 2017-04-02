@@ -11,7 +11,7 @@ import (
 var translations *gabs.Container
 
 func LoadTranslations() {
-    jsonFile, err := assets.Asset("_assets/i18n.json")
+    jsonFile, err := assets.Asset("assets/i18n.json")
     Relax(err)
 
     json, err := gabs.ParseJSON(jsonFile)

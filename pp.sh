@@ -7,5 +7,6 @@ gpp \
     +s "\"" "\"" "\\" \
     +s "'" "'" "\\" \
     --nostdinc \
+    --includemarker "/* ___INCLUSION_BOUNDARY___ | Line:% | File:% | % */" \
     "${@:2}" \
     $1

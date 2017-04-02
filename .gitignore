@@ -4,6 +4,7 @@
 /config.json
 /src/assets/
 /src/modules/modules.go
+/src/modules/utils.go
 /vendor/
 /.idea/
 /.vscode/
