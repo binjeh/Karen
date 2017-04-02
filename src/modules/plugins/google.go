@@ -4,7 +4,7 @@ import (
     "fmt"
     "github.com/bwmarrin/discordgo"
     "net/url"
-    "git.lukas.moe/sn0w/Karen/src/helpers"
+    "git.lukas.moe/sn0w/Karen/x/helpers"
 )
 
 type Google struct{}

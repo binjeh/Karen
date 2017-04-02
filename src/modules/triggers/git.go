@@ -1,6 +1,6 @@
 package triggers
 
-import "git.lukas.moe/sn0w/Karen/src/helpers"
+import "git.lukas.moe/sn0w/Karen/x/helpers"
 
 type Git struct{}
 

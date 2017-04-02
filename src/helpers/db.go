@@ -1,9 +1,9 @@
 package helpers
 
 import (
-    "git.lukas.moe/sn0w/Karen/src/cache"
-    Logger "git.lukas.moe/sn0w/Karen/src/logger"
-    "git.lukas.moe/sn0w/Karen/src/models"
+    "git.lukas.moe/sn0w/Karen/x/cache"
+    Logger "git.lukas.moe/sn0w/Karen/x/logger"
+    "git.lukas.moe/sn0w/Karen/x/models"
     "github.com/getsentry/raven-go"
     rethink "github.com/gorethink/gorethink"
     "sync"

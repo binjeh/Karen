@@ -3,7 +3,7 @@ package helpers
 import (
     "bytes"
     "errors"
-    "git.lukas.moe/sn0w/Karen/src/version"
+    "git.lukas.moe/sn0w/Karen/x/version"
     "github.com/Jeffail/gabs"
     "io"
     "net/http"

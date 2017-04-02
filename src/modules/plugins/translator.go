@@ -3,7 +3,7 @@ package plugins
 import (
     "cloud.google.com/go/translate"
     "context"
-    "git.lukas.moe/sn0w/Karen/src/helpers"
+    "git.lukas.moe/sn0w/Karen/x/helpers"
     "github.com/bwmarrin/discordgo"
     "golang.org/x/text/language"
     "google.golang.org/api/option"

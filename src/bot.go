@@ -2,12 +2,12 @@ package main
 
 import (
     "fmt"
-    "git.lukas.moe/sn0w/Karen/src/cache"
-    "git.lukas.moe/sn0w/Karen/src/helpers"
-    Logger "git.lukas.moe/sn0w/Karen/src/logger"
-    "git.lukas.moe/sn0w/Karen/src/metrics"
-    "git.lukas.moe/sn0w/Karen/src/modules"
-    "git.lukas.moe/sn0w/Karen/src/ratelimits"
+    "git.lukas.moe/sn0w/Karen/x/cache"
+    "git.lukas.moe/sn0w/Karen/x/helpers"
+    Logger "git.lukas.moe/sn0w/Karen/x/logger"
+    "git.lukas.moe/sn0w/Karen/x/metrics"
+    "git.lukas.moe/sn0w/Karen/x/modules"
+    "git.lukas.moe/sn0w/Karen/x/ratelimits"
     "github.com/bwmarrin/discordgo"
     "github.com/getsentry/raven-go"
     "regexp"

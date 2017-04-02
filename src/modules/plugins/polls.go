@@ -2,11 +2,11 @@ package plugins
 
 import (
     "fmt"
-    "git.lukas.moe/sn0w/Karen/src/emojis"
-    "git.lukas.moe/sn0w/Karen/src/helpers"
-    Logger "git.lukas.moe/sn0w/Karen/src/logger"
-    "git.lukas.moe/sn0w/Karen/src/metrics"
-    "git.lukas.moe/sn0w/Karen/src/models"
+    "git.lukas.moe/sn0w/Karen/x/emojis"
+    "git.lukas.moe/sn0w/Karen/x/helpers"
+    Logger "git.lukas.moe/sn0w/Karen/x/logger"
+    "git.lukas.moe/sn0w/Karen/x/metrics"
+    "git.lukas.moe/sn0w/Karen/x/models"
     "github.com/bwmarrin/discordgo"
     "strconv"
     "strings"

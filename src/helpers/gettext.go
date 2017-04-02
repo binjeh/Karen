@@ -5,12 +5,13 @@ import (
     "github.com/Jeffail/gabs"
     "math/rand"
     "strings"
+    "git.lukas.moe/sn0w/Karen/x/assets"
 )
 
 var translations *gabs.Container
 
 func LoadTranslations() {
-    jsonFile, err := Asset("_assets/i18n.json")
+    jsonFile, err := assets.Asset("_assets/i18n.json")
     Relax(err)
 
     json, err := gabs.ParseJSON(jsonFile)

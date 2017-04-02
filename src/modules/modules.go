@@ -2,11 +2,11 @@ package modules
 
 import (
     //#ifdef(INCLUDE_PLUGINS)
-    "git.lukas.moe/sn0w/Karen/src/modules/plugins"
+    "git.lukas.moe/sn0w/Karen/x/modules/plugins"
     //#endif
 
     //#ifdef(INCLUDE_TRIGGERS)
-    "git.lukas.moe/sn0w/Karen/src/modules/triggers"
+    "git.lukas.moe/sn0w/Karen/x/modules/triggers"
     //#endif
 )
 

@@ -2,8 +2,8 @@ package metrics
 
 import (
     "expvar"
-    "git.lukas.moe/sn0w/Karen/src/helpers"
-    "git.lukas.moe/sn0w/Karen/src/logger"
+    "git.lukas.moe/sn0w/Karen/x/helpers"
+    "git.lukas.moe/sn0w/Karen/x/logger"
     "github.com/bwmarrin/discordgo"
     "net/http"
     "runtime"

@@ -1,7 +1,7 @@
 package helpers
 
 import (
-    "git.lukas.moe/sn0w/Karen/src/models"
+    "git.lukas.moe/sn0w/Karen/x/models"
 )
 
 func GuildRoleByName(guild, name string) (models.Role, bool) {

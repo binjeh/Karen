@@ -3,8 +3,8 @@ package plugins
 import (
     "github.com/bwmarrin/discordgo"
     "strings"
-    "git.lukas.moe/sn0w/Karen/src/helpers"
-    "git.lukas.moe/sn0w/Karen/src/models"
+    "git.lukas.moe/sn0w/Karen/x/helpers"
+    "git.lukas.moe/sn0w/Karen/x/models"
     "fmt"
 )
 

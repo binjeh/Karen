@@ -2,9 +2,9 @@ package plugins
 
 import (
     "strings"
-    Logger "git.lukas.moe/sn0w/Karen/src/logger"
+    Logger "git.lukas.moe/sn0w/Karen/x/logger"
     "github.com/bwmarrin/discordgo"
-    "git.lukas.moe/sn0w/Karen/src/helpers"
+    "git.lukas.moe/sn0w/Karen/x/helpers"
     "time"
 )
 

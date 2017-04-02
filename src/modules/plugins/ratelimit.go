@@ -1,7 +1,7 @@
 package plugins
 
 import (
-    "git.lukas.moe/sn0w/Karen/src/ratelimits"
+    "git.lukas.moe/sn0w/Karen/x/ratelimits"
     "github.com/bwmarrin/discordgo"
     "strconv"
 )

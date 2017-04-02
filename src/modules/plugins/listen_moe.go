@@ -3,9 +3,9 @@ package plugins
 import (
     "bufio"
     "encoding/binary"
-    "git.lukas.moe/sn0w/Karen/src/cache"
-    "git.lukas.moe/sn0w/Karen/src/helpers"
-    "git.lukas.moe/sn0w/Karen/src/logger"
+    "git.lukas.moe/sn0w/Karen/x/cache"
+    "git.lukas.moe/sn0w/Karen/x/helpers"
+    "git.lukas.moe/sn0w/Karen/x/logger"
     "git.lukas.moe/sn0w/radio-b"
     "github.com/bwmarrin/discordgo"
     "github.com/getsentry/raven-go"

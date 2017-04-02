@@ -14,7 +14,7 @@ if [[ -f Makefile ]]; then
 fi
 
 # Build base makefile
-erb build/Makefile.am > Makefile
+cp build/Makefile.am > Makefile
 
 # Include jobs
 for job in build/jobs.d/*.mk; do
@@ -23,9 +23,9 @@ for job in build/jobs.d/*.mk; do
 done
 
 # Add PHONY targets
-echo "PHONY:" >> Makefile
+echo ".PHONY:" >> Makefile
 for job in build/jobs.d/*.mk; do
     job=${job##*/}
     job=${job%.mk}
-    sed -i "/^PHONY:/ s/\$/ $job/" Makefile
+    sed -i "/^\.PHONY:/ s/\$/ $job/" Makefile
 done
