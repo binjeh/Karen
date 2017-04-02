@@ -4,7 +4,6 @@ config.json
 .idea
 *.iml
 **/*/token
-config.json
 karen
 
 ### CMake ###
