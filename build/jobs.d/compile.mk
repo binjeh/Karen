@@ -11,7 +11,7 @@ release: assets_update
 			-X git.lukas.moe/sn0w/Karen/x/version.BUILD_USER=$(BUILD_USER) \
 			-X git.lukas.moe/sn0w/Karen/x/version.BUILD_HOST=$(BUILD_HOST) \
 		" \
-		./src
+		./x
 
 debug: assets_update
 	go build -v -race -o karen \
@@ -21,6 +21,6 @@ debug: assets_update
 			-X git.lukas.moe/sn0w/Karen/x/version.BUILD_USER=$(BUILD_USER) \
 			-X git.lukas.moe/sn0w/Karen/x/version.BUILD_HOST=$(BUILD_HOST) \
 		" \
-		./src
+		./x
 
 compile: release
