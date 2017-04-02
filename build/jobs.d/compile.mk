@@ -1,10 +1,14 @@
-BOT_VERSION=$(shell git describe --tags)
-BUILD_TIME=$(shell date +%T-%D)
-BUILD_USER=$(shell whoami)
-BUILD_HOST=$(shell hostname)
+BOT_VERSION := $(shell git describe --tags)
+BUILD_TIME := $(shell date +%T-%D)
+BUILD_USER := $(shell whoami)
+BUILD_HOST := $(shell hostname)
+
+ifeq ($(GOTARGET),)
+GOTARGET := "karen"
+endif
 
 release: assets_update
-	go build -v -o karen \
+	go build -v -o $(GOTARGET) \
 		--ldflags=" \
 			-X code.lukas.moe/x/karen/src/version.BOT_VERSION=$(BOT_VERSION) \
 			-X code.lukas.moe/x/karen/src/version.BUILD_TIME=$(BUILD_TIME) \
@@ -14,7 +18,7 @@ release: assets_update
 		./src
 
 debug: assets_update
-	go build -v -race -o karen \
+	go build -v -race -o $(GOTARGET) \
 		--ldflags=" \
 			-X code.lukas.moe/x/karen/src/version.BOT_VERSION=$(BOT_VERSION) \
 			-X code.lukas.moe/x/karen/src/version.BUILD_TIME=$(BUILD_TIME) \

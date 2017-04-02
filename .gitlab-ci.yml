@@ -20,18 +20,6 @@ cache:
     - /glide/
     - vendor/
 
-cyclo:
-  stage: test
-  image: sn0w/go-ci
-  allow_failure: true
-  script: gocyclo -over 15 . | grep -v vendor
-
-misspell:
-  stage: test
-  image: sn0w/go-ci
-  allow_failure: true
-  script: misspell . | grep -v vendor
-
 build:linux:
   stage: build
   image: sn0w/go-ci
