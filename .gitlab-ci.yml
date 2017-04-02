@@ -7,8 +7,8 @@ variables:
   GLIDE_HOME: /cache/glide
 
 before_script:
-  - mkdir -p /go/src/git.lukas.moe/sn0w /cache/glide
-  - mv /builds/$CI_PROJECT_PATH /go/src/git.lukas.moe/sn0w
+  - mkdir -p /go/src/code.lukas.moe/x /cache/glide
+  - mv /builds/$CI_PROJECT_PATH /go/src/code.lukas.moe/x
   - mkdir -p /builds/$CI_PROJECT_PATH
 
 after_script:
