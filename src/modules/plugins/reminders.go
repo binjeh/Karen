@@ -1,9 +1,9 @@
 package plugins
 
 import (
-    "git.lukas.moe/sn0w/Karen/x/cache"
-    "git.lukas.moe/sn0w/Karen/x/helpers"
-    "git.lukas.moe/sn0w/Karen/x/logger"
+    "code.lukas.moe/x/karen/src/cache"
+    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/logger"
     "github.com/bwmarrin/discordgo"
     rethink "github.com/gorethink/gorethink"
     "github.com/olebedev/when"

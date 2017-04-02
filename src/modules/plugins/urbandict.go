@@ -1,7 +1,7 @@
 package plugins
 
 import (
-    "git.lukas.moe/sn0w/Karen/x/helpers"
+    "code.lukas.moe/x/karen/src/helpers"
     "github.com/bwmarrin/discordgo"
     "net/url"
     "strconv"

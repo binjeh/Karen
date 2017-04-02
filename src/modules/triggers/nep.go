@@ -1,6 +1,6 @@
 package triggers
 
-import "git.lukas.moe/sn0w/Karen/x/helpers"
+import "code.lukas.moe/x/karen/src/helpers"
 
 /**
  * Full credit to Der-Eddy and his original python implementation for Shinobu-Chan.

@@ -1,11 +1,11 @@
 package main
 
 import (
-    "git.lukas.moe/sn0w/Karen/x/helpers"
-    Logger "git.lukas.moe/sn0w/Karen/x/logger"
-    "git.lukas.moe/sn0w/Karen/x/metrics"
-    "git.lukas.moe/sn0w/Karen/x/migrations"
-    "git.lukas.moe/sn0w/Karen/x/version"
+    "code.lukas.moe/x/karen/src/helpers"
+    Logger "code.lukas.moe/x/karen/src/logger"
+    "code.lukas.moe/x/karen/src/metrics"
+    "code.lukas.moe/x/karen/src/migrations"
+    "code.lukas.moe/x/karen/src/version"
     "github.com/bwmarrin/discordgo"
     "github.com/getsentry/raven-go"
     "math/rand"

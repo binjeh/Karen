@@ -1,8 +1,8 @@
 package migrations
 
 import (
-    "git.lukas.moe/sn0w/Karen/x/helpers"
-    "git.lukas.moe/sn0w/Karen/x/logger"
+    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/logger"
     "reflect"
     "runtime"
 )

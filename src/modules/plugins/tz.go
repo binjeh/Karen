@@ -4,7 +4,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 	"strings"
 	"fmt"
-	"git.lukas.moe/sn0w/Karen/x/helpers"
+	"code.lukas.moe/x/karen/src/helpers"
 	"time"
 )
 

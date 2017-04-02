@@ -1,7 +1,7 @@
 package migrations
 
 import (
-    "git.lukas.moe/sn0w/Karen/x/helpers"
+    "code.lukas.moe/x/karen/src/helpers"
     rethink "github.com/gorethink/gorethink"
 )
 

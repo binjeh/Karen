@@ -4,7 +4,7 @@ import (
     "github.com/bwmarrin/discordgo"
     "math/rand"
     "strings"
-    "git.lukas.moe/sn0w/Karen/x/helpers"
+    "code.lukas.moe/x/karen/src/helpers"
 )
 
 type Choice struct{}

@@ -2,7 +2,7 @@ package helpers
 
 import (
     "fmt"
-    "git.lukas.moe/sn0w/Karen/x/cache"
+    "code.lukas.moe/x/karen/src/cache"
     "github.com/bwmarrin/discordgo"
     "strconv"
     "strings"

@@ -2,8 +2,8 @@ package plugins
 
 import (
     "fmt"
-    "git.lukas.moe/sn0w/Karen/x/metrics"
-    "git.lukas.moe/sn0w/Karen/x/version"
+    "code.lukas.moe/x/karen/src/metrics"
+    "code.lukas.moe/x/karen/src/version"
     "github.com/bwmarrin/discordgo"
     "github.com/dustin/go-humanize"
     "runtime"

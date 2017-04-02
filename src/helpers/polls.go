@@ -3,9 +3,9 @@ package helpers
 import (
     "errors"
     "fmt"
-    "git.lukas.moe/sn0w/Karen/x/cache"
-    "git.lukas.moe/sn0w/Karen/x/emojis"
-    "git.lukas.moe/sn0w/Karen/x/models"
+    "code.lukas.moe/x/karen/src/cache"
+    "code.lukas.moe/x/karen/src/emojis"
+    "code.lukas.moe/x/karen/src/models"
     "github.com/bwmarrin/discordgo"
     "strconv"
     "time"

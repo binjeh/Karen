@@ -1,7 +1,7 @@
 package plugins
 
 import (
-    "git.lukas.moe/sn0w/Karen/x/metrics"
+    "code.lukas.moe/x/karen/src/metrics"
     "github.com/bwmarrin/discordgo"
     "strconv"
     "time"

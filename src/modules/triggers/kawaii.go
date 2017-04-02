@@ -1,6 +1,6 @@
 package triggers
 
-import "git.lukas.moe/sn0w/Karen/x/helpers"
+import "code.lukas.moe/x/karen/src/helpers"
 
 // Kawaii holder for the kawaii command
 type Kawaii struct{}

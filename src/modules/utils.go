@@ -2,11 +2,11 @@ package modules
 
 import (
     "fmt"
-    "git.lukas.moe/sn0w/Karen/x/cache"
-    "git.lukas.moe/sn0w/Karen/x/helpers"
-    "git.lukas.moe/sn0w/Karen/x/logger"
-    "git.lukas.moe/sn0w/Karen/x/metrics"
-    "git.lukas.moe/sn0w/Karen/x/ratelimits"
+    "code.lukas.moe/x/karen/src/cache"
+    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/logger"
+    "code.lukas.moe/x/karen/src/metrics"
+    "code.lukas.moe/x/karen/src/ratelimits"
     "github.com/bwmarrin/discordgo"
     "strconv"
     "os"

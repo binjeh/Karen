@@ -2,7 +2,7 @@ package plugins
 
 import (
     "fmt"
-    "git.lukas.moe/sn0w/Karen/x/helpers"
+    "code.lukas.moe/x/karen/src/helpers"
     "github.com/bwmarrin/discordgo"
 )
 

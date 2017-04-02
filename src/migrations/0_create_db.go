@@ -1,6 +1,6 @@
 package migrations
 
-import "git.lukas.moe/sn0w/Karen/x/helpers"
+import "code.lukas.moe/x/karen/src/helpers"
 
 func m0_create_db() {
     CreateDBIfNotExists(

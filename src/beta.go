@@ -1,7 +1,7 @@
 package main
 
 import (
-    "git.lukas.moe/sn0w/Karen/x/logger"
+    "code.lukas.moe/x/karen/src/logger"
     "github.com/bwmarrin/discordgo"
     "time"
 )

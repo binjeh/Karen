@@ -5,7 +5,7 @@ import (
     "github.com/Jeffail/gabs"
     "math/rand"
     "strings"
-    "git.lukas.moe/sn0w/Karen/x/assets"
+    "code.lukas.moe/x/karen/src/assets"
 )
 
 var translations *gabs.Container

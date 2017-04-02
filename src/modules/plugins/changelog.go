@@ -1,9 +1,9 @@
 package plugins
 
 import (
-    "git.lukas.moe/sn0w/Karen/x/helpers"
-    "git.lukas.moe/sn0w/Karen/x/logger"
-    "git.lukas.moe/sn0w/Karen/x/version"
+    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/logger"
+    "code.lukas.moe/x/karen/src/version"
     "github.com/bwmarrin/discordgo"
     "strings"
 )

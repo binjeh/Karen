@@ -6,21 +6,21 @@ BUILD_HOST=$(shell hostname)
 release: assets_update
 	go build -v -o karen \
 		--ldflags=" \
-			-X git.lukas.moe/sn0w/Karen/x/version.BOT_VERSION=$(BOT_VERSION) \
-			-X git.lukas.moe/sn0w/Karen/x/version.BUILD_TIME=$(BUILD_TIME) \
-			-X git.lukas.moe/sn0w/Karen/x/version.BUILD_USER=$(BUILD_USER) \
-			-X git.lukas.moe/sn0w/Karen/x/version.BUILD_HOST=$(BUILD_HOST) \
+			-X code.lukas.moe/x/karen/src/version.BOT_VERSION=$(BOT_VERSION) \
+			-X code.lukas.moe/x/karen/src/version.BUILD_TIME=$(BUILD_TIME) \
+			-X code.lukas.moe/x/karen/src/version.BUILD_USER=$(BUILD_USER) \
+			-X code.lukas.moe/x/karen/src/version.BUILD_HOST=$(BUILD_HOST) \
 		" \
-		./x
+		./src
 
 debug: assets_update
 	go build -v -race -o karen \
 		--ldflags=" \
-			-X git.lukas.moe/sn0w/Karen/x/version.BOT_VERSION=$(BOT_VERSION) \
-			-X git.lukas.moe/sn0w/Karen/x/version.BUILD_TIME=$(BUILD_TIME) \
-			-X git.lukas.moe/sn0w/Karen/x/version.BUILD_USER=$(BUILD_USER) \
-			-X git.lukas.moe/sn0w/Karen/x/version.BUILD_HOST=$(BUILD_HOST) \
+			-X code.lukas.moe/x/karen/src/version.BOT_VERSION=$(BOT_VERSION) \
+			-X code.lukas.moe/x/karen/src/version.BUILD_TIME=$(BUILD_TIME) \
+			-X code.lukas.moe/x/karen/src/version.BUILD_USER=$(BUILD_USER) \
+			-X code.lukas.moe/x/karen/src/version.BUILD_HOST=$(BUILD_HOST) \
 		" \
-		./x
+		./src
 
 compile: release
