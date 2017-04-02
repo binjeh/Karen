@@ -13,7 +13,7 @@ before_script:
 
 after_script:
   - rm -r /builds/$CI_PROJECT_PATH
-  - mv /go/src/git.lukas.moe/sn0w/Karen /builds/$CI_PROJECT_PATH
+  - mv /go/src/code.lukas.moe/x/karen /builds/$CI_PROJECT_PATH
 
 cache:
   paths:
@@ -31,7 +31,7 @@ build:linux:
     expire_in: 15 mins
     paths:
       - karen.o
-  script: cd /go/src/git.lukas.moe/sn0w/Karen && glide install && ./configure && make compile
+  script: cd /go/src/code.lukas.moe/x/karen && glide install && ./configure && make compile
 
 build:osx:
   stage: build
@@ -44,7 +44,7 @@ build:osx:
       expire_in: 15 mins
       paths:
         - karen.xo
-  script: cd /go/src/git.lukas.moe/sn0w/Karen && glide install && ./configure && make compile
+  script: cd /go/src/code.lukas.moe/x/karen && glide install && ./configure && make compile
 
 build:windows:
   stage: build
@@ -57,7 +57,7 @@ build:windows:
       expire_in: 15 mins
       paths:
         - karen.exe
-  script: cd /go/src/git.lukas.moe/sn0w/Karen && glide install && ./configure && make compile
+  script: cd /go/src/code.lukas.moe/x/karen && glide install && ./configure && make compile
 
 collect_artifacts:
   stage: deploy
