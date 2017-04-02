@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 ### Defines ###
 PP_DEFS=""
 
@@ -31,6 +33,21 @@ function checkBin {
     println "found"
 }
 
+checkIf "os has /dev/stdin"
+if [[ ! -c /dev/stdin ]]; then
+    println "no"
+    exit 1
+fi
+println "yes"
+
+checkBin ruby
+checkIf "ruby is version 2.*"
+if [[ "$(ruby -v)" != *"ruby 2"* ]]; then
+    println "no"
+    exit 1
+fi
+println "yes"
+
 checkBin go
 checkIf "go is version 1.8.*"
 if [[ "$(go version)" != *"go1.8"* ]]; then
@@ -39,15 +56,26 @@ if [[ "$(go version)" != *"go1.8"* ]]; then
 fi
 println "yes"
 
-checkBin ruby
+checkBin make
+checkIf "make supports GNU extensions"
+if [[ "$(man make)" != *"GNU make"* ]]; then
+    println "no"
+    exit 1
+fi
+println "yes"
+
 checkBin erb
-checkBin gcc
 checkBin cpp
+checkBin gpp
+checkBin gcc
+
 checkBin glide
 checkBin go-bindata
+checkBin goimports
 checkBin ropus
 checkBin ffmpeg
 checkBin ffprobe
+checkBin youtube-dl
 
 ### Dynamic compilation ###
 while test $# -gt 0; do
@@ -112,7 +140,7 @@ if [[ -f Makefile ]]; then
 fi
 
 # Build base makefile
-cp build/Makefile.mk Makefile
+erb build/Makefile.mk > Makefile
 
 # Include jobs
 for job in build/jobs.d/*.mk; do
