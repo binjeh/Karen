@@ -17,8 +17,8 @@ import (
 // msg     - The message object
 // session - The discord session
 func CallBotPlugin(command string, content string, msg *discordgo.Message) {
-    //#if(defined(EXCLUDE_PLUGINS))
-        //#warning(modules#CallBotPlugin() will be a no-op in this build)
+    //#ifdef EXCLUDE_PLUGINS
+        //#warning modules#CallBotPlugin() will be a no-op in this build
     //#else
         // Defer a recovery in case anything panics
         defer helpers.RecoverDiscord(msg)
@@ -39,8 +39,8 @@ func CallBotPlugin(command string, content string, msg *discordgo.Message) {
 // msg     - The message that triggered the execution
 // session - The discord session
 func CallTriggerPlugin(trigger string, content string, msg *discordgo.Message) {
-    //#if(defined(EXCLUDE_TRIGGERS))
-        //#warning(modules#CallTriggerPlugin() will be a no-op in this build)
+    //#ifdef EXCLUDE_TRIGGERS
+        //#warning modules#CallTriggerPlugin() will be a no-op in this build
     //#else
         defer helpers.RecoverDiscord(msg)
 
@@ -59,15 +59,15 @@ func CallTriggerPlugin(trigger string, content string, msg *discordgo.Message) {
 
 // Init warms the caches and initializes the plugins
 func Init(session *discordgo.Session) {
-    //#if(defined(EXCLUDE_PLUGINS) && defined(EXCLUDE_TRIGGERS))
-        //#warning(modules#Init() will only print a line of text in this build)
+    //#if defined(EXCLUDE_PLUGINS) && defined(EXCLUDE_TRIGGERS)
+        //#warning modules#Init() will only print a line of text in this build
     //#else
         checkDuplicateCommands()
         listeners := ""
         logTemplate := ""
     //#endif
 
-    //#ifndef(EXCLUDE_PLUGINS)
+    //#ifndef EXCLUDE_PLUGINS
     pluginCount := len(PluginList)
     pluginCache = make(map[string]*Plugin)
 
@@ -92,7 +92,7 @@ func Init(session *discordgo.Session) {
     }
     //#endif
 
-    //#ifndef(EXCLUDE_PLUGINS)
+    //#ifndef EXCLUDE_PLUGINS
     triggerCount := len(TriggerPluginList)
     triggerCache = make(map[string]*TriggerPlugin)
     logTemplate = "[TRIG] %s gets triggered by [ %s]"
@@ -117,13 +117,13 @@ func Init(session *discordgo.Session) {
     var lenPlugins string
     var lenTriggers string
 
-    //#ifndef(EXCLUDE_PLUGINS)
+    //#ifndef EXCLUDE_PLUGINS
     lenPlugins = strconv.Itoa(len(PluginList)) + " plugins"
     //#else
     lenPlugins = "no plugins (-DEXCLUDE_PLUGINS)"
     //#endif
 
-    //#ifndef(EXCLUDE_TRIGGERS)
+    //#ifndef EXCLUDE_TRIGGERS
     lenTriggers = strconv.Itoa(len(TriggerPluginList)) + " triggers"
     //#else
     lenTriggers = "no triggers (-DEXCLUDE_TRIGGERS)"
@@ -135,13 +135,13 @@ func Init(session *discordgo.Session) {
     )
 }
 
-//#if(defined(EXCLUDE_PLUGINS) && defined(EXCLUDE_TRIGGERS))
-//#warning(modules#checkDuplicateCommands() will be stripped from this build)
+//#if defined(EXCLUDE_PLUGINS) && defined(EXCLUDE_TRIGGERS)
+//#warning modules#checkDuplicateCommands() will be stripped from this build
 //#else
 func checkDuplicateCommands() {
     cmds := make(map[string]string)
 
-    //#ifndef(EXCLUDE_PLUGINS)
+    //#ifndef EXCLUDE_PLUGINS
     for _, plug := range PluginList {
         for _, cmd := range plug.Commands() {
             t := helpers.Typeof(plug)
@@ -156,7 +156,7 @@ func checkDuplicateCommands() {
     }
     //#endif
 
-    //#ifndef(EXCLUDE_TRIGGERS)
+    //#ifndef EXCLUDE_TRIGGERS
     for _, trig := range TriggerPluginList {
         for _, cmd := range trig.Triggers() {
             t := helpers.Typeof(trig)

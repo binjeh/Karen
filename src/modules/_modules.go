@@ -1,31 +1,31 @@
 package modules
 
 import (
-    //#ifndef(EXCLUDE_PLUGINS)
+    //#ifndef EXCLUDE_PLUGINS
     "code.lukas.moe/x/karen/src/modules/plugins"
     //#endif
 
-    //#ifndef(EXCLUDE_TRIGGERS)
+    //#ifndef EXCLUDE_TRIGGERS
     "code.lukas.moe/x/karen/src/modules/triggers"
     //#endif
 )
 
 var (
-    //#ifndef(EXCLUDE_PLUGINS)
+    //#ifndef EXCLUDE_PLUGINS
     pluginCache  map[string]*Plugin
     //#endif
 
-    //#ifndef(EXCLUDE_TRIGGERS)
+    //#ifndef EXCLUDE_TRIGGERS
     triggerCache map[string]*TriggerPlugin
     //#endif
 
-    //#ifndef(EXCLUDE_PLUGINS)
+    //#ifndef EXCLUDE_PLUGINS
     PluginList = []Plugin{
-        //#ifndef(EXCLUDE_MUSIC)
+        //#ifndef EXCLUDE_MUSIC
         &plugins.Music{},
         //#endif
 
-        //#ifndef(EXCLUDE_RADIO)
+        //#ifndef EXCLUDE_RADIO
         &plugins.ListenDotMoe{},
         //#endif
 
@@ -64,7 +64,7 @@ var (
     }
     //#endif
 
-    //#ifndef(EXCLUDE_TRIGGERS)
+    //#ifndef EXCLUDE_TRIGGERS
     TriggerPluginList = []TriggerPlugin{
         &triggers.CSS{},
         &triggers.Donate{},
