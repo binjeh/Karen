@@ -1,4 +1,4 @@
-package: code.lukas.moe/x/karen/src
+package: code.lukas.moe/x/karen
 import:
 - package: github.com/Jeffail/gabs
   version: ^1.0.0
