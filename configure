@@ -56,10 +56,6 @@ checkBin gcc
 checkBin glide
 checkBin go-bindata
 checkBin goimports
-checkBin ropus
-checkBin ffmpeg
-checkBin ffprobe
-checkBin youtube-dl
 
 ### Dynamic compilation ###
 while test $# -gt 0; do
