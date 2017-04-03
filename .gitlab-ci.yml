@@ -4,7 +4,7 @@ stages:
   - deploy
 
 variables:
-  GLIDE_HOME: /cache/glide
+  GLIDE_HOME: /glide
 
 before_script:
   - mkdir -p /go/src/code.lukas.moe/x /cache/glide
@@ -22,7 +22,7 @@ cache:
 
 build:linux:
   stage: build
-  image: sn0w/go-ci
+  image: sn0w/karen-build
   variables:
     GOOS: linux
     GOARCH: amd64
@@ -35,7 +35,7 @@ build:linux:
 
 build:osx:
   stage: build
-  image: sn0w/go-ci
+  image: sn0w/karen-build
   variables:
     GOOS: darwin
     GOARCH: amd64
@@ -48,7 +48,7 @@ build:osx:
 
 build:windows:
   stage: build
-  image: sn0w/go-ci
+  image: sn0w/karen-build
   variables:
     GOOS: windows
     GOARCH: amd64
@@ -61,7 +61,7 @@ build:windows:
 
 collect_artifacts:
   stage: deploy
-  image: sn0w/go-ci
+  image: busybox
   script: echo "Empty job that collects artifacts! :)"
   dependencies:
     - build:linux
