@@ -92,7 +92,7 @@ func Init(session *discordgo.Session) {
     }
     //#endif
 
-    //#ifndef EXCLUDE_PLUGINS
+    //#ifndef EXCLUDE_TRIGGERS
     triggerCount := len(TriggerPluginList)
     triggerCache = make(map[string]*TriggerPlugin)
     logTemplate = "[TRIG] %s gets triggered by [ %s]"
