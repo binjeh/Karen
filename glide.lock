@@ -1,5 +1,5 @@
-hash: c036be91cc57259859bdcff329fe0f82de54f0af54ff89352734311a25f659bd
-updated: 2017-03-14T19:56:15.194430143+01:00
+hash: 9f3f3e3ce445c4e7f8cd7c72575f48f2ad1ec873d717dd97e3658195cace6100
+updated: 2017-04-03T22:45:48.528551023+02:00
 imports:
 - name: cloud.google.com/go
   version: 2e6a95edb1071d750f6d7db777bf66cd2997af6c
@@ -15,7 +15,7 @@ imports:
 - name: github.com/andybalholm/cascadia
   version: 349dd0209470eabd9514242c688c403c0926d266
 - name: github.com/bwmarrin/discordgo
-  version: d4f874c0f4c3752f5d18503415307106ed7c3837
+  version: 17819ac7c65c687569c48582e102a9db69387397
 - name: github.com/cenkalti/backoff
   version: 3db60c813733fce657c114634171689bbf1f8dee
 - name: github.com/certifi/gocertifi
@@ -33,7 +33,7 @@ imports:
 - name: github.com/gorethink/gorethink
   version: 610fcc04c971a9fa42f1b6625c7c52b5bb472c51
 - name: github.com/gorilla/websocket
-  version: b258b4fadb573ac412f187b9f31974ea99d32f50
+  version: a91eba7f97777409bc2c443f5534d41dd20c5720
 - name: github.com/hailocab/go-hostpool
   version: e80d13ce29ede4452c43dea11e79b9bc8a15b478
 - name: github.com/Jeffail/gabs
@@ -58,7 +58,7 @@ imports:
 - name: github.com/ttacon/chalk
   version: 76b3c8b611dea8f83e49e9ce81fc2b189e0ef3d2
 - name: github.com/ugjka/cleverbot-go
-  version: 8c40b3daf02485c397f72111332355ed86bd4aad
+  version: cea1c5a41b22c6d457c7dcee7ab095392ecb36fd
 - name: golang.org/x/crypto
   version: 728b753d0135da6801d45a38e6f43ff55779c5c2
   subpackages:

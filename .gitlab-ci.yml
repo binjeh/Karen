@@ -4,37 +4,25 @@ stages:
   - deploy
 
 variables:
-  GLIDE_HOME: /cache/glide
+  GLIDE_HOME: /glide
 
 before_script:
-  - mkdir -p /go/src/git.lukas.moe/sn0w /cache/glide
-  - mv /builds/$CI_PROJECT_PATH /go/src/git.lukas.moe/sn0w
+  - mkdir -p /go/src/code.lukas.moe/x /cache/glide
+  - mv /builds/$CI_PROJECT_PATH /go/src/code.lukas.moe/x
   - mkdir -p /builds/$CI_PROJECT_PATH
 
 after_script:
   - rm -r /builds/$CI_PROJECT_PATH
-  - mv /go/src/git.lukas.moe/sn0w/Karen /builds/$CI_PROJECT_PATH
+  - mv /go/src/code.lukas.moe/x/karen /builds/$CI_PROJECT_PATH
 
 cache:
   paths:
     - /glide/
     - vendor/
 
-cyclo:
-  stage: test
-  image: sn0w/go-ci
-  allow_failure: true
-  script: gocyclo -over 15 . | grep -v vendor
-
-misspell:
-  stage: test
-  image: sn0w/go-ci
-  allow_failure: true
-  script: misspell . | grep -v vendor
-
 build:linux:
   stage: build
-  image: sn0w/go-ci
+  image: sn0w/karen-build
   variables:
     GOOS: linux
     GOARCH: amd64
@@ -43,11 +31,11 @@ build:linux:
     expire_in: 15 mins
     paths:
       - karen.o
-  script: cd /go/src/git.lukas.moe/sn0w/Karen && glide install && ./build.sh -v
+  script: cd /go/src/code.lukas.moe/x/karen && glide install && ./configure && make assets && make compile
 
 build:osx:
   stage: build
-  image: sn0w/go-ci
+  image: sn0w/karen-build
   variables:
     GOOS: darwin
     GOARCH: amd64
@@ -56,11 +44,11 @@ build:osx:
       expire_in: 15 mins
       paths:
         - karen.xo
-  script: cd /go/src/git.lukas.moe/sn0w/Karen && glide install && ./build.sh -v
+  script: cd /go/src/code.lukas.moe/x/karen && glide install && ./configure && make assets && make compile
 
 build:windows:
   stage: build
-  image: sn0w/go-ci
+  image: sn0w/karen-build
   variables:
     GOOS: windows
     GOARCH: amd64
@@ -69,11 +57,11 @@ build:windows:
       expire_in: 15 mins
       paths:
         - karen.exe
-  script: cd /go/src/git.lukas.moe/sn0w/Karen && glide install && ./build.sh -v
+  script: cd /go/src/code.lukas.moe/x/karen && glide install && ./configure && make assets && make compile
 
 collect_artifacts:
   stage: deploy
-  image: sn0w/go-ci
+  image: busybox
   script: echo "Empty job that collects artifacts! :)"
   dependencies:
     - build:linux
