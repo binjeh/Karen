@@ -34,10 +34,26 @@ Public invite link is coming after the private beta ends.
 Want access?<br>
 Register here: https://goo.gl/forms/9J9GYMg8c9IM6a5Z2
 
-### How does this work?
-I've drawn a colorful picture just for you!
+### Can I `go get` this bot?
+Short answer: No you can't.
 
-![](http://i.imgur.com/lI3VJDo.png)
+Long answer:<br>
+No you can't because `go get` sucks.
+
+Huge projects like this need proper version locking.<br>
+gopkg.in is a nice try but not good enough.<br>
+
+I use https://glide.sh
+
+### Can I `go build` this bot?
+Short answer: No you can't.
+
+Long answer:<br>
+No you can't because `go build` sucks.
+
+I use a sophisticated and completely handcrafted build system that uses modular makefiles at it's core.<br>
+Thus this is most likely the only go-project that supports c-style macros in comments and conditional compilation.<br>
+Are we awesome yet?
 
 ### Why are you saying `high performance` all the time?
 I've built a few bots already and all of them were far from performant.<br>
@@ -53,7 +69,7 @@ I want to create a bot that:
  - Will **never** use more resources than absolutely needed
  - Never crashes (or to be precise: be able to recover from almost any `panic()`)
 
-To archieve these goals I defined some basic rules:
+To archieve these goals, the basic rules of coding Karen are:
  - Plugins are compiled into the bot instead of lazy-loading
  - All commands are stateless
  - If a plugin cannot work without states (like `music.go`) it has to implement the state-handling itself
@@ -68,8 +84,8 @@ To archieve these goals I defined some basic rules:
 
 ### Achievements
 
-- Never exceeded 1% CPU usage at the time of writing.
-- Never used more than 6MB of it's allocated heap.
+- Never exceeded 2% CPU usage at the time of writing.
+- Never used more than 8MB of it's allocated heap.
 
 ![](https://i.imgur.com/lGf08Yo.png)
 
@@ -94,3 +110,8 @@ This project will probably never reach more than a D on GoReportCard because I h
 
 The primary reason for having GoReportCard at all are the go_vet, gocyclo, ineffassign and misspell tests.<br>
 You are forced to keep the score as-is or improve it when making contributions to the project.
+
+### How does this work?
+I've drawn a colorful picture just for you!
+
+![](http://i.imgur.com/lI3VJDo.png)
