@@ -7,7 +7,10 @@ ifeq ($(GOTARGET),)
 GOTARGET := "karen"
 endif
 
-release: assets_update
+glide_install:
+	test -d vendor || glide install
+
+release: assets_update glide_install
 	go build -v -o $(GOTARGET) \
 		--ldflags=" \
 			-X code.lukas.moe/x/karen/src/version.BOT_VERSION=$(BOT_VERSION) \
@@ -17,7 +20,7 @@ release: assets_update
 		" \
 		./src
 
-debug: assets_update
+debug: assets_update glide_install
 	go build -v -race -o $(GOTARGET) \
 		--ldflags=" \
 			-X code.lukas.moe/x/karen/src/version.BOT_VERSION=$(BOT_VERSION) \
