@@ -50,6 +50,7 @@ var (
         &plugins.Roll{},
         &plugins.RPS{},
         &plugins.SelfRoles{},
+        &plugins.Spoiler{},
         &plugins.Stats{},
         &plugins.Stone{},
         &plugins.Support{},

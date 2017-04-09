@@ -351,7 +351,7 @@
         "https://media.giphy.com/media/l1KVaFOGAY2OuJqVi/source.gif",
         "https://media.giphy.com/media/xUPGcphmwCfOXqFs2s/source.gif"
       ],
-      "msg" : [
+      "msg": [
         "<@%s> is patting you <@%s> (◕‿◕✿)",
         "<@%s> is patting you <@%s> (ᵔᴥᵔ)",
         "<@%s> is patting you <@%s> ( ﾟヮﾟ)"
@@ -434,103 +434,103 @@
       "no-term": "That search term is kinda short :thinking:"
     },
     "toggle": {
-        "empty_content": "You need to tell me what you want to toggle :eyes:",
-        "unauthorized": [
-            "You are not allowed to do that <@%s>-san",
-            "Senpai will get mad at you for trying that <@%s>-san",
-            "<@%s>-san don't you think you should ask senpai before trying that?"
-        ],
-        "not_match": [
-            "Wait wuut, you can't toggle `%s` . . .",
-            "Hold on!!, what does `%s` even mean??",
-            "You can't toggle something that doesn't exists . . ."
-        ],
-        "failure": "Sorry, an error ocurred while processing the command!",
-        "joins": {
-            "enabled": "You've successfuly enabled the join notifications on this channel!!",
-            "disabled": "You've successfuly disabled the join notifications!!",
-            "notifications": [
-                "<@%s> just joined us!! ｡◕‿◕｡",
-                "<@%s> is now one of us! (◕‿◕✿)",
-                "Welcome to our kingdom!!! <@%s> ༼ つ ◕_◕ ༽つ",
-                "Enjoy your stay <@%s>-san (ᵔᴥᵔ)"
-            ]
-        },  
-        "leaves": {
-            "enabled": "You've successfuly enabled the leave notifications on this channel!!",
-            "disabled": "You've successfuly disabled the leave notifications!!",
-            "notifications": [
-                "We just got betrayed by <@%s>!! (╯°□°)╯︵ ʞooqǝɔɐɟ",
-                "<@%s>-san left us! ಥ_ಥ",
-                "We just lost <@%s>... ಥ_ಥ"
-            ]
-        },
-        "announcements": {
-            "enabled": "You've successfuly enabled the announcements on this channel!!",
-            "disabled": "You've successfuly disabled the announcements!!"
-        }
+      "empty_content": "You need to tell me what you want to toggle :eyes:",
+      "unauthorized": [
+        "You are not allowed to do that <@%s>-san",
+        "Senpai will get mad at you for trying that <@%s>-san",
+        "<@%s>-san don't you think you should ask senpai before trying that?"
+      ],
+      "not_match": [
+        "Wait wuut, you can't toggle `%s` . . .",
+        "Hold on!!, what does `%s` even mean??",
+        "You can't toggle something that doesn't exists . . ."
+      ],
+      "failure": "Sorry, an error ocurred while processing the command!",
+      "joins": {
+        "enabled": "You've successfuly enabled the join notifications on this channel!!",
+        "disabled": "You've successfuly disabled the join notifications!!",
+        "notifications": [
+          "<@%s> just joined us!! ｡◕‿◕｡",
+          "<@%s> is now one of us! (◕‿◕✿)",
+          "Welcome to our kingdom!!! <@%s> ༼ つ ◕_◕ ༽つ",
+          "Enjoy your stay <@%s>-san (ᵔᴥᵔ)"
+        ]
+      },
+      "leaves": {
+        "enabled": "You've successfuly enabled the leave notifications on this channel!!",
+        "disabled": "You've successfuly disabled the leave notifications!!",
+        "notifications": [
+          "We just got betrayed by <@%s>!! (╯°□°)╯︵ ʞooqǝɔɐɟ",
+          "<@%s>-san left us! ಥ_ಥ",
+          "We just lost <@%s>... ಥ_ಥ"
+        ]
+      },
+      "announcements": {
+        "enabled": "You've successfuly enabled the announcements on this channel!!",
+        "disabled": "You've successfuly disabled the announcements!!"
+      }
     },
     "self_roles": {
-        "missing_param": [
-            "Wait.. You forgot something!!!",
-            "Aren't you missing something?",
-            "Are you sure that everything is well spelled?¿?"
+      "missing_param": [
+        "Wait.. You forgot something!!!",
+        "Aren't you missing something?",
+        "Are you sure that everything is well spelled?¿?"
+      ],
+      "wrong_subcommand": [
+        "Hold on!!, what does `%s` even mean??",
+        "`%s` doesn't exists!"
+      ],
+      "missing_perms": [
+        "I'm not allowed to do that",
+        "I don't have enough permissions"
+      ],
+      "role_add": {
+        "failure": [
+          "Sorry, I couldn't add the role :bow:",
+          "Sorry senpai, I couldn't add the role :bow:"
         ],
-        "wrong_subcommand": [
-            "Hold on!!, what does `%s` even mean??",
-            "`%s` doesn't exists!"
+        "success": [
+          "Succesfuly added %s role",
+          "All done senpai!! The %s role has been created",
+          "Now you can be part of %s too!!!"
+        ]
+      },
+      "role_remove": {
+        "failure": [
+          "Sorry, I couldn't remove the role :bow:",
+          "Sorry senpai, I couldn't remove the role :bow:"
         ],
-        "missing_perms": [
-          "I'm not allowed to do that",
-          "I don't have enough permissions"
+        "success": [
+          "Succesfuly removed %s role",
+          "All done senpai!! The %s role has been removed",
+          "Now anyone can be part of %s"
+        ]
+      },
+      "roles": {
+        "failure": [
+          "Something went wrong. I couldn't list all self-assignable roles :bow:"
+        ]
+      },
+      "iam": {
+        "failure": [
+          "Sorry <@%s>-san something went wrong",
+          "I'm so sorry <@%s> senpai!!! I failed the mission!!! :bow:"
         ],
-        "role_add": {
-            "failure": [
-                "Sorry, I couldn't add the role :bow:",
-                "Sorry senpai, I couldn't add the role :bow:"
-            ],
-            "success": [
-                "Succesfuly added %s role",
-                "All done senpai!! The %s role has been created",
-                "Now you can be part of %s too!!!"
-            ]
-        },
-        "role_remove": {
-            "failure": [
-                "Sorry, I couldn't remove the role :bow:",
-                "Sorry senpai, I couldn't remove the role :bow:"
-            ],
-            "success": [
-                "Succesfuly removed %s role",
-                "All done senpai!! The %s role has been removed",
-                "Now anyone can be part of %s"
-            ]
-        },
-        "roles": {
-            "failure": [
-                "Something went wrong. I couldn't list all self-assignable roles :bow:"
-            ]
-        },
-        "iam": {
-            "failure": [
-                "Sorry <@%s>-san something went wrong",
-                "I'm so sorry <@%s> senpai!!! I failed the mission!!! :bow:"
-            ],
-            "success": [
-                "Joined the %s group",
-                "Is now part of %s"
-            ]
-        },
-        "iamnot": {
-            "failure": [
-                "Sorry <@%s>-san something went wrong",
-                "I'm so sorry <@%s> senpai!!! I failed the mission!!! :bow:"
-            ],
-            "success": [
-                "Left the %s group",
-                "Is no longer part of %s"
-            ]
-        }
+        "success": [
+          "Joined the %s group",
+          "Is now part of %s"
+        ]
+      },
+      "iamnot": {
+        "failure": [
+          "Sorry <@%s>-san something went wrong",
+          "I'm so sorry <@%s> senpai!!! I failed the mission!!! :bow:"
+        ],
+        "success": [
+          "Left the %s group",
+          "Is no longer part of %s"
+        ]
+      }
     },
     "time_zone": {
       "not_set": [
@@ -553,6 +553,11 @@
           "You've successfuly set your time zone to `%s`"
         ]
       }
+    },
+    "spoiler": {
+      "topic": "%s posted a %s spoiler!",
+      "topicless": "%s posted a spoiler!",
+      "flagged": "%s's post got marked as a spoiler by %s!"
     }
   }
 }

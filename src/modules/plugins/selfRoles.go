@@ -9,11 +9,11 @@ import (
 )
 
 // SelfRoles command
-type SelfRoles struct {}
+type SelfRoles struct{}
 
 // Commands triggers for SelfRoles
 func (s *SelfRoles) Commands() []string {
-    return []string {
+    return []string{
         // role [add, a|remove, rm, del] <role_name>
         "role",
         // roles
@@ -59,10 +59,10 @@ func (s *SelfRoles) role(content string, msg *discordgo.Message, session *discor
     // Add role
     case "add", "a":
         s.addRole(roleName, msg, session)
-    // Remove role
+        // Remove role
     case "remove", "rm", "del":
         s.removeRole(roleName, msg, session)
-    // Wrong subcommand
+        // Wrong subcommand
     default:
         session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.self_roles.wrong_subcommand", subcommand))
         return
@@ -104,7 +104,7 @@ func (s *SelfRoles) addRole(roleName string, msg *discordgo.Message, session *di
     session.ChannelMessageSendEmbed(msg.ChannelID, &discordgo.MessageEmbed{
         Title:       "Added role",
         Description: helpers.GetTextF("plugins.self_roles.role_add.success", roleName),
-        Color: 0x0FADED,
+        Color:       0x0FADED,
     })
 }
 
@@ -160,7 +160,7 @@ func (s *SelfRoles) removeRole(roleName string, msg *discordgo.Message, session 
     session.ChannelMessageSendEmbed(msg.ChannelID, &discordgo.MessageEmbed{
         Title:       "Removed role",
         Description: helpers.GetTextF("plugins.self_roles.role_remove.success", roleName),
-        Color: 0x0FADED,
+        Color:       0x0FADED,
     })
 }
 
@@ -171,7 +171,7 @@ func (s *SelfRoles) roles(content string, msg *discordgo.Message, session *disco
         return
     }
     settings := helpers.GuildSettingsGetCached(channel.GuildID)
-    embed := &discordgo.MessageEmbed {
+    embed := &discordgo.MessageEmbed{
         Title: "List of available self-assignable roles",
         Color: 0x0FADED,
     }
@@ -214,10 +214,13 @@ func (s *SelfRoles) iam(content string, msg *discordgo.Message, session *discord
         return
     }
     // Profit :LeftShark:
-    session.ChannelMessageSendEmbedWithMessage(msg.ChannelID, fmt.Sprintf("<@%s>", msg.Author.ID), &discordgo.MessageEmbed{
-        Title: "Joined role",
-        Description: helpers.GetTextF("plugins.self_roles.iam.success", role.Name),
-        Color: 0x0FADED,
+    session.ChannelMessageSendComplex(msg.ChannelID, &discordgo.MessageSend{
+        Content: fmt.Sprintf("<@%s>", msg.Author.ID),
+        Embed: &discordgo.MessageEmbed{
+            Title:       "Joined role",
+            Description: helpers.GetTextF("plugins.self_roles.iam.success", role.Name),
+            Color:       0x0FADED,
+        },
     })
 }
 
@@ -251,9 +254,12 @@ func (s *SelfRoles) iamnot(content string, msg *discordgo.Message, session *disc
         return
     }
     // Profit :LeftShark:
-    session.ChannelMessageSendEmbedWithMessage(msg.ChannelID, fmt.Sprintf("<@%s>", msg.Author.ID), &discordgo.MessageEmbed{
-        Title: "Left role",
-        Description: helpers.GetTextF("plugins.self_roles.iamnot.success", role.Name),
-        Color: 0x0FADED,
+    session.ChannelMessageSendComplex(msg.ChannelID, &discordgo.MessageSend{
+        Content: fmt.Sprintf("<@%s>", msg.Author.ID),
+        Embed: &discordgo.MessageEmbed{
+            Title:       "Left role",
+            Description: helpers.GetTextF("plugins.self_roles.iamnot.success", role.Name),
+            Color:       0x0FADED,
+        },
     })
 }

@@ -1,5 +1,5 @@
-hash: 9f3f3e3ce445c4e7f8cd7c72575f48f2ad1ec873d717dd97e3658195cace6100
-updated: 2017-04-03T22:45:48.528551023+02:00
+hash: f2a85e8c88125f10eda25d2e5f310c224f3af83d5d1becc871cec5f2bbe60c2e
+updated: 2017-04-09T15:08:36.294096014+02:00
 imports:
 - name: cloud.google.com/go
   version: 2e6a95edb1071d750f6d7db777bf66cd2997af6c
@@ -15,7 +15,7 @@ imports:
 - name: github.com/andybalholm/cascadia
   version: 349dd0209470eabd9514242c688c403c0926d266
 - name: github.com/bwmarrin/discordgo
-  version: 17819ac7c65c687569c48582e102a9db69387397
+  version: fea42d937a35acdee93224e226cf25ead1221bd2
 - name: github.com/cenkalti/backoff
   version: 3db60c813733fce657c114634171689bbf1f8dee
 - name: github.com/certifi/gocertifi
@@ -24,6 +24,11 @@ imports:
   version: 259d2a102b871d17f30e3cd9881a642961a1e486
 - name: github.com/getsentry/raven-go
   version: b68337dbf03e7fbb53d9fd9b63fd09b28e8f13f7
+- name: github.com/golang/freetype
+  version: 255de57f4e681ed92b2d55a483a27194dfa2b3dc
+  subpackages:
+  - raster
+  - truetype
 - name: github.com/golang/protobuf
   version: c9c7427a2a70d2eb3bafa0ab2dc163e45f143317
   subpackages:
@@ -66,6 +71,11 @@ imports:
   - pbkdf2
   - poly1305
   - salsa20/salsa
+- name: golang.org/x/image
+  version: 84a65118940ed74c8e841be84d3e502c29eff703
+  subpackages:
+  - font
+  - math/fixed
 - name: golang.org/x/net
   version: a6577fac2d73be281a500b310739095313165611
   subpackages:

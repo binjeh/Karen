@@ -21,8 +21,8 @@ type Reminders struct {
 
 // DB_Reminders struct
 type DB_Reminders struct {
-    Id        string        `gorethink:"id,omitempty"`
-    UserID    string        `gorethink:"userid"`
+    Id     string        `gorethink:"id,omitempty"`
+    UserID string        `gorethink:"userid"`
     // Timezone is stored in the format specified by
     // the IANA Timezone db, as well as
     // time.LoadLocation()/time.Time.In()
@@ -82,15 +82,20 @@ func (r *Reminders) Init(session *discordgo.Session) {
                         if err != nil {
                             continue
                         }
-                        embed := &discordgo.MessageEmbed {
-                            Title: ":alarm_clock: Ring! Ring!",
+                        embed := &discordgo.MessageEmbed{
+                            Title:       ":alarm_clock: Ring! Ring!",
                             Description: reminder.Message,
-                            Color: 0x0FADED,
-                            Footer: &discordgo.MessageEmbedFooter {
+                            Color:       0x0FADED,
+                            Footer: &discordgo.MessageEmbedFooter{
                                 Text: fmt.Sprintf("Reminder for: %s", user.Username),
                             },
                         }
-                        _, err = session.ChannelMessageSendEmbedWithMessage(reminder.ChannelID, fmt.Sprintf("<@%s>", reminders.UserID), embed)
+
+                        _, err = session.ChannelMessageSendComplex(reminder.ChannelID, &discordgo.MessageSend{
+                            Tts:     false,
+                            Content: fmt.Sprintf("<@%s>", reminders.UserID),
+                            Embed:   embed,
+                        })
                         if err != nil {
                             continue
                         }
@@ -195,7 +200,7 @@ func (r *Reminders) Action(command string, content string, msg *discordgo.Messag
             Title:  "Pending reminders",
             Fields: embedFields,
             Color:  0x0FADED,
-            Footer: &discordgo.MessageEmbedFooter {
+            Footer: &discordgo.MessageEmbedFooter{
                 Text: fmt.Sprintf("Timezone: %s", reminders.Timezone),
             },
         })
