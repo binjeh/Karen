@@ -22,7 +22,7 @@ var (
     //#ifndef EXCLUDE_PLUGINS
     PluginList = []Plugin{
         //#ifndef EXCLUDE_MUSIC
-        &plugins.Music{},
+        //&plugins.Music{},
         //#endif
 
         //#ifndef EXCLUDE_RADIO
