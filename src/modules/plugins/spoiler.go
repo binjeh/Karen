@@ -19,14 +19,13 @@ import (
 )
 
 const (
-    GIF_WIDTH        = 640
-    GIF_HEIGHT       = 480
-    GIF_DPI          = 72
-    GIF_FONT         = "assets/Helvetica.ttf"
-    GIF_FONT_SIZE    = 42
-    GIF_LINE_SPACING = 1.5
-    GIF_FG           = 0xffff
-    GIF_BG           = 0x0
+    GIF_WIDTH          = 640
+    GIF_MAX_HEIGHT     = 480
+    GIF_DPI            = 72
+    GIF_FONT           = "assets/Helvetica.ttf"
+    GIF_FONT_SIZE      = 24
+    GIF_LINE_SPACING   = 1.5
+    GIF_MAX_LINE_CHARS = 55
 )
 
 type Spoiler struct{}
@@ -38,9 +37,6 @@ func (s *Spoiler) Commands() []string {
         "spoil",
         "spoiler",
 
-        // Internal command for on-the-fly spoilers
-        "stopic",
-
         // Admin command to mark spoilers
         "spoils",
     }
@@ -51,8 +47,19 @@ func (s *Spoiler) Init(session *discordgo.Session) {
 }
 
 func (s *Spoiler) MessageInspector(session *discordgo.Session, e *discordgo.MessageCreate) {
-    if regexp.MustCompile("^.*?:(s|spoil|spoiler):.*$").MatchString(e.Content) {
-        s.Action("stopic", e.Content, e.Message, session)
+    msg := strings.Replace(e.Content, "\n", "{{{NEWLINE}}}", -1)
+    regex := regexp.MustCompile("(?i)^(.*?)(:s:|:spoil:|:spoiler:)(.*)$")
+
+    if regex.MatchString(msg) {
+        matches := regex.FindStringSubmatch(msg)
+
+        s.MarkAndHide(
+            e.Message.ChannelID,
+            e.Message.ID,
+            strings.Replace(matches[3], "{{{NEWLINE}}}", "\n", -1),
+            helpers.GetTextF("plugins.spoiler.topic", e.Author.Username, matches[1]),
+            session,
+        )
     }
 }
 
@@ -60,20 +67,13 @@ func (s *Spoiler) Action(command, content string, msg *discordgo.Message, sessio
     switch command {
     case "sflag":
         args := strings.Fields(content)
+        spoiler := strings.Join(append(args[:0], args[1:]...), " ")
+
         s.MarkAndHide(
             msg.ChannelID,
             args[0],
+            spoiler,
             helpers.GetTextF("plugins.spoiler.flagged", msg.Author.Username),
-            session,
-        )
-        break
-
-    case "stopic":
-        topic := strings.Split(content, ":s:")
-        s.MarkAndHide(
-            msg.ChannelID,
-            msg.ID,
-            helpers.GetTextF("plugins.spoiler.topic", msg.Author.Username, topic),
             session,
         )
         break
@@ -82,6 +82,7 @@ func (s *Spoiler) Action(command, content string, msg *discordgo.Message, sessio
         s.MarkAndHide(
             msg.ChannelID,
             msg.ID,
+            content,
             helpers.GetTextF("plugins.spoiler.topicless", msg.Author.Username),
             session,
         )
@@ -89,17 +90,13 @@ func (s *Spoiler) Action(command, content string, msg *discordgo.Message, sessio
     }
 }
 
-func (s *Spoiler) MarkAndHide(channelId string, messageId string, attachmentText string, session *discordgo.Session) {
+func (s *Spoiler) MarkAndHide(channelId string, messageId string, spoilerText string, attachmentText string, session *discordgo.Session) {
     var e error
-
-    // Store copy of image
-    msg, e := session.ChannelMessage(channelId, messageId)
-    helpers.Relax(e)
 
     // Create a new gif
     frames := []*image.Paletted{
         drawImage([]string{"Hover to reveal spoiler"}),
-        drawImage([]string{msg.Content}),
+        drawImage(strings.Split(wordWrap(spoilerText, GIF_MAX_LINE_CHARS), "\n")),
     }
     delays := []int{0, 60000}
 
@@ -136,9 +133,8 @@ func (s *Spoiler) MarkAndHide(channelId string, messageId string, attachmentText
 
 //noinspection GoStructInitializationWithoutFieldNames
 func drawImage(text []string) (*image.Paletted) {
-    ruler := color.RGBA{0x22, 0x22, 0x22, 0xff}
-    fg := image.NewUniform(color.Gray16{GIF_FG})
-    bg := image.NewUniform(color.Gray16{GIF_BG})
+    fg := image.NewUniform(color.RGBA{255, 255, 255, 255})
+    bg := image.NewUniform(color.RGBA{60, 63, 68, 255})
 
     fontBytes, err := assets.Asset(GIF_FONT)
     helpers.Relax(err)
@@ -158,11 +154,6 @@ func drawImage(text []string) (*image.Paletted) {
     c.SetSrc(fg)
     c.SetHinting(font.HintingNone)
 
-    for i := 0; i < 200; i++ {
-        img.Set(10, 10+i, ruler)
-        img.Set(10+i, 10, ruler)
-    }
-
     pt := freetype.Pt(10, 10+int(c.PointToFixed(GIF_FONT_SIZE)>>6))
     for _, s := range text {
         _, err = c.DrawString(s, pt)
@@ -171,4 +162,27 @@ func drawImage(text []string) (*image.Paletted) {
     }
 
     return img
+}
+
+func wordWrap(text string, lineWidth int) string {
+    words := strings.Fields(strings.TrimSpace(text))
+
+    if len(words) == 0 {
+        return text
+    }
+
+    wrapped := words[0]
+    spaceLeft := lineWidth - len(wrapped)
+
+    for _, word := range words[1:] {
+        if len(word)+1 > spaceLeft {
+            wrapped += "\n" + word
+            spaceLeft = lineWidth - len(word)
+        } else {
+            wrapped += " " + word
+            spaceLeft -= 1 + len(word)
+        }
+    }
+
+    return wrapped
 }
