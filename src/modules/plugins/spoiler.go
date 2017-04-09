@@ -20,7 +20,7 @@ import (
 
 const (
     GIF_WIDTH          = 640
-    GIF_MAX_HEIGHT     = 480
+    GIF_HEIGHT         = 480
     GIF_DPI            = 72
     GIF_FONT           = "assets/Helvetica.ttf"
     GIF_FONT_SIZE      = 24
@@ -38,7 +38,7 @@ func (s *Spoiler) Commands() []string {
         "spoiler",
 
         // Admin command to mark spoilers
-        "spoils",
+        "sflag",
     }
 }
 
@@ -67,13 +67,14 @@ func (s *Spoiler) Action(command, content string, msg *discordgo.Message, sessio
     switch command {
     case "sflag":
         args := strings.Fields(content)
-        spoiler := strings.Join(append(args[:0], args[1:]...), " ")
+        flagged, e := session.ChannelMessage(msg.ChannelID, args[0])
+        helpers.Relax(e)
 
         s.MarkAndHide(
             msg.ChannelID,
-            args[0],
-            spoiler,
-            helpers.GetTextF("plugins.spoiler.flagged", msg.Author.Username),
+            flagged.ID,
+            flagged.Content,
+            helpers.GetTextF("plugins.spoiler.flagged", flagged.Author.Username, msg.Author.Username),
             session,
         )
         break
