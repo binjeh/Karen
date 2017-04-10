@@ -16,6 +16,7 @@ import (
     "code.lukas.moe/x/karen/src/assets"
     "golang.org/x/image/font"
     "strings"
+    "code.lukas.moe/x/karen/src/cache"
 )
 
 const (
@@ -58,7 +59,6 @@ func (s *Spoiler) MessageInspector(session *discordgo.Session, e *discordgo.Mess
             e.Message.ID,
             strings.Replace(matches[3], "{{{NEWLINE}}}", "\n", -1),
             helpers.GetTextF("plugins.spoiler.topic", e.Author.Username, matches[1]),
-            session,
         )
     }
 }
@@ -66,17 +66,18 @@ func (s *Spoiler) MessageInspector(session *discordgo.Session, e *discordgo.Mess
 func (s *Spoiler) Action(command, content string, msg *discordgo.Message, session *discordgo.Session) {
     switch command {
     case "sflag":
-        args := strings.Fields(content)
-        flagged, e := session.ChannelMessage(msg.ChannelID, args[0])
-        helpers.Relax(e)
+        helpers.RequireAdmin(msg, func() {
+            args := strings.Fields(content)
+            flagged, e := session.ChannelMessage(msg.ChannelID, args[0])
+            helpers.Relax(e)
 
-        s.MarkAndHide(
-            msg.ChannelID,
-            flagged.ID,
-            flagged.Content,
-            helpers.GetTextF("plugins.spoiler.flagged", flagged.Author.Username, msg.Author.Username),
-            session,
-        )
+            s.MarkAndHide(
+                msg.ChannelID,
+                flagged.ID,
+                flagged.Content,
+                helpers.GetTextF("plugins.spoiler.flagged", flagged.Author.Username, msg.Author.Username),
+            )
+        })
         break
 
     default:
@@ -85,13 +86,12 @@ func (s *Spoiler) Action(command, content string, msg *discordgo.Message, sessio
             msg.ID,
             content,
             helpers.GetTextF("plugins.spoiler.topicless", msg.Author.Username),
-            session,
         )
         break
     }
 }
 
-func (s *Spoiler) MarkAndHide(channelId string, messageId string, spoilerText string, attachmentText string, session *discordgo.Session) {
+func (s *Spoiler) MarkAndHide(channelId string, messageId string, spoilerText string, attachmentText string) {
     var e error
 
     // Create a new gif
@@ -118,7 +118,7 @@ func (s *Spoiler) MarkAndHide(channelId string, messageId string, spoilerText st
     fr, e := os.OpenFile(filename, os.O_RDONLY, 0644)
     helpers.Relax(e)
 
-    _, e = session.ChannelFileSendWithMessage(channelId, attachmentText, filename, fr)
+    _, e = cache.GetSession().ChannelFileSendWithMessage(channelId, attachmentText, filename, fr)
     helpers.Relax(e)
 
     e = fr.Close()
@@ -128,7 +128,7 @@ func (s *Spoiler) MarkAndHide(channelId string, messageId string, spoilerText st
     helpers.Relax(e)
 
     // Delete the original message
-    e = session.ChannelMessageDelete(channelId, messageId)
+    e = cache.GetSession().ChannelMessageDelete(channelId, messageId)
     helpers.Relax(e)
 }
 
