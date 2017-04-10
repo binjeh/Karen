@@ -1,5 +1,5 @@
-hash: c036be91cc57259859bdcff329fe0f82de54f0af54ff89352734311a25f659bd
-updated: 2017-03-14T19:56:15.194430143+01:00
+hash: f2a85e8c88125f10eda25d2e5f310c224f3af83d5d1becc871cec5f2bbe60c2e
+updated: 2017-04-09T15:08:36.294096014+02:00
 imports:
 - name: cloud.google.com/go
   version: 2e6a95edb1071d750f6d7db777bf66cd2997af6c
@@ -15,7 +15,7 @@ imports:
 - name: github.com/andybalholm/cascadia
   version: 349dd0209470eabd9514242c688c403c0926d266
 - name: github.com/bwmarrin/discordgo
-  version: d4f874c0f4c3752f5d18503415307106ed7c3837
+  version: fea42d937a35acdee93224e226cf25ead1221bd2
 - name: github.com/cenkalti/backoff
   version: 3db60c813733fce657c114634171689bbf1f8dee
 - name: github.com/certifi/gocertifi
@@ -24,6 +24,11 @@ imports:
   version: 259d2a102b871d17f30e3cd9881a642961a1e486
 - name: github.com/getsentry/raven-go
   version: b68337dbf03e7fbb53d9fd9b63fd09b28e8f13f7
+- name: github.com/golang/freetype
+  version: 255de57f4e681ed92b2d55a483a27194dfa2b3dc
+  subpackages:
+  - raster
+  - truetype
 - name: github.com/golang/protobuf
   version: c9c7427a2a70d2eb3bafa0ab2dc163e45f143317
   subpackages:
@@ -33,7 +38,7 @@ imports:
 - name: github.com/gorethink/gorethink
   version: 610fcc04c971a9fa42f1b6625c7c52b5bb472c51
 - name: github.com/gorilla/websocket
-  version: b258b4fadb573ac412f187b9f31974ea99d32f50
+  version: a91eba7f97777409bc2c443f5534d41dd20c5720
 - name: github.com/hailocab/go-hostpool
   version: e80d13ce29ede4452c43dea11e79b9bc8a15b478
 - name: github.com/Jeffail/gabs
@@ -58,7 +63,7 @@ imports:
 - name: github.com/ttacon/chalk
   version: 76b3c8b611dea8f83e49e9ce81fc2b189e0ef3d2
 - name: github.com/ugjka/cleverbot-go
-  version: 8c40b3daf02485c397f72111332355ed86bd4aad
+  version: cea1c5a41b22c6d457c7dcee7ab095392ecb36fd
 - name: golang.org/x/crypto
   version: 728b753d0135da6801d45a38e6f43ff55779c5c2
   subpackages:
@@ -66,6 +71,11 @@ imports:
   - pbkdf2
   - poly1305
   - salsa20/salsa
+- name: golang.org/x/image
+  version: 84a65118940ed74c8e841be84d3e502c29eff703
+  subpackages:
+  - font
+  - math/fixed
 - name: golang.org/x/net
   version: a6577fac2d73be281a500b310739095313165611
   subpackages:
