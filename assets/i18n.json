@@ -421,7 +421,7 @@
     "reminders": {
       "empty": "You don't have any active reminders :shrug:",
       "empty_timezone": [
-        "Ok I'll remind you, but you haven't set your timezone!!\nUse the `tz set <timezone>` command to set it!\n(Use one of the TZ column values from https://goo.gl/XmqMpF)\nExample: `tz set America/New_York`"
+        "Ok I'll remind you, but you haven't set your timezone yet!\nUse the `tz set <timezone>` command to set it!\n(Use one of the TZ column values from https://goo.gl/XmqMpF)\nExample: `tz set America/New_York`"
       ]
     },
     "choice": {
