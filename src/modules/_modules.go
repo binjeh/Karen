@@ -30,7 +30,7 @@ var (
         //#endif
 
         &plugins.About{},
-        &plugins.Announcement{},
+        //&plugins.Announcement{},
         &plugins.Avatar{},
         &plugins.Calc{},
         &plugins.Changelog{},
@@ -43,7 +43,7 @@ var (
         &plugins.Minecraft{},
         &plugins.Osu{},
         &plugins.Ping{},
-        &plugins.Poll{},
+        //&plugins.Poll{},
         &plugins.RandomCat{},
         &plugins.Ratelimit{},
         &plugins.Reminders{},
