@@ -443,7 +443,7 @@
       "not_match": [
         "Wait wuut, you can't toggle `%s` . . .",
         "Hold on!!, what does `%s` even mean??",
-        "You can't toggle something that doesn't exists . . ."
+        "You can't toggle something that doesn't exist..."
       ],
       "failure": "Sorry, an error ocurred while processing the command!",
       "joins": {
@@ -478,7 +478,7 @@
       ],
       "wrong_subcommand": [
         "Hold on!!, what does `%s` even mean??",
-        "`%s` doesn't exists!"
+        "`%s` doesn't exist!"
       ],
       "missing_perms": [
         "I'm not allowed to do that",
@@ -543,11 +543,11 @@
       ],
       "wrong_subcommand": [
         "Hold on!!, what does `%s` even mean??",
-        "`%s` doesn't exists!"
+        "`%s` doesn't exist!"
       ],
       "set": {
         "wrong_format": [
-          "`%s` doesn't exists!\n(Use one of the TZ column values from https://goo.gl/XmqMpF)\nExample: `tz s America/New_York`"
+          "`%s` doesn't exist!\n(Use one of the TZ column values from https://goo.gl/XmqMpF)\nExample: `tz s America/New_York`"
         ],
         "success": [
           "You've successfuly set your time zone to `%s`"
