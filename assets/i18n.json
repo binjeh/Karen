@@ -474,7 +474,7 @@
       "missing_param": [
         "Wait.. You forgot something!!!",
         "Aren't you missing something?",
-        "Are you sure that everything is well spelled?¿?"
+        "Are you sure that everything is well spelled?"
       ],
       "wrong_subcommand": [
         "Hold on!!, what does `%s` even mean??",
@@ -484,15 +484,16 @@
         "I'm not allowed to do that",
         "I don't have enough permissions"
       ],
+      "not_assignable": "Sorry but `%s` is not self-assignable right now :neutral_face:",
       "role_add": {
         "failure": [
           "Sorry, I couldn't add the role :bow:",
           "Sorry senpai, I couldn't add the role :bow:"
         ],
         "success": [
-          "Succesfuly added %s role",
-          "All done senpai!! The %s role has been created",
-          "Now you can be part of %s too!!!"
+          "Succesfuly added the role `%s`!",
+          "All done senpai!! The `%s` role has been added!",
+          "Now you can be part of `%s` too!!!"
         ]
       },
       "role_remove": {
@@ -501,9 +502,9 @@
           "Sorry senpai, I couldn't remove the role :bow:"
         ],
         "success": [
-          "Succesfuly removed %s role",
-          "All done senpai!! The %s role has been removed",
-          "Now anyone can be part of %s"
+          "Succesfuly removed the role `%s`!",
+          "All done senpai!! The role `%s` has been removed",
+          "Now anyone can be part of `%s`!"
         ]
       },
       "roles": {
@@ -517,8 +518,8 @@
           "I'm so sorry <@%s> senpai!!! I failed the mission!!! :bow:"
         ],
         "success": [
-          "Joined the %s group",
-          "Is now part of %s"
+          "Joined the `%s` group",
+          "Is now part of `%s`"
         ]
       },
       "iamnot": {
@@ -527,8 +528,8 @@
           "I'm so sorry <@%s> senpai!!! I failed the mission!!! :bow:"
         ],
         "success": [
-          "Left the %s group",
-          "Is no longer part of %s"
+          "Left the `%s` group",
+          "Is no longer part of `%s`"
         ]
       }
     },
