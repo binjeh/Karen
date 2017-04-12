@@ -48,6 +48,8 @@ func (s *Spoiler) Init(session *discordgo.Session) {
 }
 
 func (s *Spoiler) MessageInspector(session *discordgo.Session, e *discordgo.MessageCreate) {
+    defer helpers.RecoverDiscord(e.Message)
+
     msg := strings.Replace(e.Content, "\n", "{{{NEWLINE}}}", -1)
     regex := regexp.MustCompile("(?i)^(.*?)(:s:|:spoil:|:spoiler:)(.*)$")
 
@@ -118,17 +120,23 @@ func (s *Spoiler) MarkAndHide(channelId string, messageId string, spoilerText st
     fr, e := os.OpenFile(filename, os.O_RDONLY, 0644)
     helpers.Relax(e)
 
-    _, e = cache.GetSession().ChannelFileSendWithMessage(channelId, attachmentText, filename, fr)
-    helpers.Relax(e)
+    // Cleanup and close handles when this method dies
+    defer func() {
+        e = fr.Close()
+        helpers.Relax(e)
 
-    e = fr.Close()
-    helpers.Relax(e)
-
-    e = os.Remove(filename)
-    helpers.Relax(e)
+        e = os.Remove(filename)
+        helpers.Relax(e)
+    }()
 
     // Delete the original message
     e = cache.GetSession().ChannelMessageDelete(channelId, messageId)
+    if strings.Contains(e.Error(), "403") {
+        cache.GetSession().ChannelMessageSend(channelId, "I have no permissions to delete the spoiler :frowning:")
+        return
+    }
+
+    _, e = cache.GetSession().ChannelFileSendWithMessage(channelId, attachmentText, filename, fr)
     helpers.Relax(e)
 }
 
