@@ -80,22 +80,41 @@ func (s *SelfRoles) addRole(roleName string, msg *discordgo.Message, session *di
         return
     }
 
-    // Create the role
-    role, err := session.GuildRoleCreate(channel.GuildID)
+    // Get the guild
+    guild, err := session.Guild(channel.GuildID)
     if err != nil {
-        if strings.Contains(err.Error(), "403") {
-            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.missing_perms"))
-            return
-        }
         session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_add.failure"))
         return
     }
 
-    // Edit the role
-    _, err = session.GuildRoleEdit(channel.GuildID, role.ID, roleName, role.Color, role.Hoist, 0, true)
-    if err != nil {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_add.failure"))
-        return
+    // Check if the role exists
+    var role *discordgo.Role
+    for _, r := range guild.Roles {
+        if r.Name == roleName {
+            role = r
+            break
+        }
+    }
+
+    // If not create it
+    if role == nil {
+        // Create the role
+        role, err := session.GuildRoleCreate(channel.GuildID)
+        if err != nil {
+            if strings.Contains(err.Error(), "403") {
+                session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.missing_perms"))
+                return
+            }
+            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_add.failure"))
+            return
+        }
+
+        // Edit the role
+        _, err = session.GuildRoleEdit(channel.GuildID, role.ID, roleName, role.Color, role.Hoist, 0, true)
+        if err != nil {
+            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_add.failure"))
+            return
+        }
     }
 
     // Persist to db
