@@ -60,7 +60,7 @@ No.<br>
 There will be neither guides nor setup help.<br>
 The code is provided for transparency and community-contributions only.
 <br>
-If you decide to fork Karen remember to comply with the [LICENSE](/blob/production/LICENSE).
+If you decide to fork Karen remember to comply with the [LICENSE](https://github.com/sn0w/karen/blob/master/LICENSE).
 
 ### Why are you saying `high performance` all the time?
 I've built a few bots already and all of them were far from performant.<br>
