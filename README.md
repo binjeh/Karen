@@ -55,6 +55,13 @@ I use a sophisticated and completely handcrafted build system that uses modular 
 Thus this is most likely the only go-project that supports c-style macros in comments and conditional compilation.<br>
 Are we awesome yet?
 
+### Can I host my own version of this bot?
+No.<br>
+There will be neither guides nor setup help.<br>
+The code is provided for transparency and community-contributions only.
+<br>
+If you decide to fork Karen remember to comply with the [LICENSE](https://github.com/sn0w/karen/blob/master/LICENSE).
+
 ### Why are you saying `high performance` all the time?
 I've built a few bots already and all of them were far from performant.<br>
 Why do we live in a time where it's acceptable that an EMPTY Java class consumes 10mb RAM?<br>
@@ -98,12 +105,6 @@ the homepage for usage help.
 ### Disclaimer
 This bot is still in a early stage.<br>
 Please expect (rare) crashes and minor performance problems until the bot is mature enough.
-
-### Selfhosted Bot
-I'd prefer if you don't run a copy of Karen "on premises".<br>
-The source code is mostly provided for educational purposes and transparency.<br>
-If you still want to run her yourself please ping me on discord.<br>
-The setup is not as trivial as intended so you might need some help from me.
 
 ### About the bad GoReportCard score
 This project will probably never reach more than a D on GoReportCard because I hugely disagree on gofmt's decision to use tabs instead of spaces. I know that this discussion is as old as programming itself, but this is my opinion on this. I prefer spaces. Always. I might create a fork of gofmt that allows spaces at some point.

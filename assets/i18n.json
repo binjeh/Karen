@@ -477,8 +477,7 @@
         "Are you sure that everything is well spelled?"
       ],
       "wrong_subcommand": [
-        "Hold on!!, what does `%s` even mean??",
-        "`%s` doesn't exist!"
+        "Hold on!!, what does `%s` even mean?? (wrong subcommand)"
       ],
       "missing_perms": [
         "I'm not allowed to do that",
