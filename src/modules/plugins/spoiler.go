@@ -131,7 +131,7 @@ func (s *Spoiler) MarkAndHide(channelId string, messageId string, spoilerText st
 
     // Delete the original message
     e = cache.GetSession().ChannelMessageDelete(channelId, messageId)
-    if strings.Contains(e.Error(), "403") {
+    if e != nil && strings.Contains(e.Error(), "403") {
         cache.GetSession().ChannelMessageSend(channelId, "I have no permissions to delete the spoiler :frowning:")
         return
     }
