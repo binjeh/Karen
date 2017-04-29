@@ -3,34 +3,30 @@ package main
 import (
     "code.lukas.moe/x/karen/src/logger"
     "github.com/bwmarrin/discordgo"
+    "strings"
     "time"
 )
 
-var BETA_GUILDS = [...]string{
-    "180818466847064065", // FADED's Sandbox        (Me)
-    "172041631258640384", // P0WERPLANT             (Me)
-    "286474230634381312", // Ronin                  (Me/Serenity)
-    "161637499939192832", // Coding Lounge          (Devsome)
-    "225168913808228352", // Emily's Space          (Kaaz)
-    "267186654312136704", // Shinda Sekai Sensen    (黒ゲロロロ)
-    "244110097599430667", // S E K A I              (Senpai /「 ステ 」Abuse)
-    "268279577598492672", // ZAKINET                (Senpai /「 ステ 」Abuse)
-    "266326434505687041", // Bot Test               (quoththeraven)
-    "267658193407049728", // Bot Creation           (quoththeraven)
-    "106029722458136576", // Shadow Realm           (WhereIsMyAim)
-    "268143270520029187", // Joel's Beasts          (Joel)
-    "270353850085408780", // Turdy Republic         (Moopdedoop)
-    "282364725835333644", // SelfProgramming        (Shixz)
-}
-
 // Automatically leaves guilds that are not registered beta testers
-func autoLeaver(session *discordgo.Session) {
+func autoLeaver(session *discordgo.Session, betaGuildsContainer []interface{}) {
+    // Converts []interface to [][]string
+    betaGuilds := [][]string{}
+    for _, c := range betaGuildsContainer {
+        betaGuilds = append(betaGuilds, strings.Split(c.(string), "|"))
+    }
+
+    // Print enabled guilds
+    for _, betaGuild := range betaGuilds {
+        logger.INFO.L("beta", "[BETA] Enabled "+betaGuild[0]+" ("+betaGuild[1]+") by "+betaGuild[2])
+    }
+
+    // Endless loop that checks for unpermitted usage
     for {
         for _, guild := range session.State.Guilds {
             match := false
 
-            for _, betaGuild := range BETA_GUILDS {
-                if guild.ID == betaGuild {
+            for _, betaGuild := range betaGuilds {
+                if guild.ID == betaGuild[0] {
                     match = true
                     break
                 }
