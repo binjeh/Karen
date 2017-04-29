@@ -1,13 +1,13 @@
 package main
 
 import (
-    "fmt"
     "code.lukas.moe/x/karen/src/cache"
     "code.lukas.moe/x/karen/src/helpers"
     Logger "code.lukas.moe/x/karen/src/logger"
     "code.lukas.moe/x/karen/src/metrics"
     "code.lukas.moe/x/karen/src/modules"
     "code.lukas.moe/x/karen/src/ratelimits"
+    "fmt"
     "github.com/bwmarrin/discordgo"
     "github.com/getsentry/raven-go"
     "regexp"
@@ -18,7 +18,7 @@ import (
 // BotOnReady gets called after the gateway connected
 func BotOnReady(session *discordgo.Session, event *discordgo.Ready) {
     Logger.INFO.L("bot", "Connected to discord!")
-    Logger.VERBOSE.L("bot", "Invite link: "+fmt.Sprintf(
+    Logger.VERBOSE.L("bot", "Invite link: "+ fmt.Sprintf(
         "https://discordapp.com/oauth2/authorize?client_id=%s&scope=bot&permissions=%s",
         helpers.GetConfig().Path("discord.id").Data().(string),
         helpers.GetConfig().Path("discord.perms").Data().(string),
@@ -37,7 +37,7 @@ func BotOnReady(session *discordgo.Session, event *discordgo.Ready) {
     go changeGameInterval(session)
 
     // Run auto-leaver for non-beta guilds
-    go autoLeaver(session)
+    go autoLeaver(session, helpers.GetConfig().Path("beta.whitelist").Data().([]interface{}))
 
     // Run ratelimiter
     ratelimits.Container.Init()
