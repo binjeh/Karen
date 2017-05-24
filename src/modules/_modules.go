@@ -12,7 +12,7 @@ import (
 
 var (
     //#ifndef EXCLUDE_PLUGINS
-    pluginCache  map[string]*Plugin
+    pluginCache map[string]*Plugin
     //#endif
 
     //#ifndef EXCLUDE_TRIGGERS

@@ -16,6 +16,7 @@ import (
     "strings"
     "sync"
     "time"
+    "code.lukas.moe/x/karen/src/config"
 )
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -368,7 +369,7 @@ func (l *ListenDotMoe) tracklistWorker() {
             continue
         }
 
-        c.WriteJSON(map[string]string{"token": helpers.GetConfig().Path("listen_moe").Data().(string)})
+        c.WriteJSON(map[string]string{"token": config.Get("listen_moe").(string)})
         helpers.Relax(err)
 
         for {

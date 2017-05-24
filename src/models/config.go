@@ -2,7 +2,7 @@ package models
 
 // Config is a struct describing all config options a guild may set
 type Config struct {
-    Id  string `rethink:"id,omitempty"`
+    Id string `rethink:"id,omitempty"`
     // Guild contains the guild ID
     Guild string `rethink:"guild"`
 

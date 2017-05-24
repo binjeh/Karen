@@ -6,6 +6,7 @@ import (
     "github.com/bwmarrin/discordgo"
     "regexp"
     "strings"
+    "code.lukas.moe/x/karen/src/config"
 )
 
 type Osu struct{}
@@ -51,7 +52,7 @@ func (o *Osu) Action(command string, content string, msg *discordgo.Message, ses
     jsonc, err := helpers.GetJSON(
         fmt.Sprintf(
             "https://osu.ppy.sh/api/get_user?k=%s&u=%s&type=u&m=%s",
-            helpers.GetConfig().Path("osu").Data().(string),
+            config.Get("osu").(string),
             user,
             mode,
         ),

@@ -18,21 +18,21 @@ import (
 // session - The discord session
 func CallBotPlugin(command string, content string, msg *discordgo.Message) {
     //#ifdef EXCLUDE_PLUGINS
-        //#warning modules#CallBotPlugin() will be a no-op in this build
+    //#warning modules#CallBotPlugin() will be a no-op in this build
     //#else
-        // Defer a recovery in case anything panics
-        defer helpers.RecoverDiscord(msg)
+    // Defer a recovery in case anything panics
+    defer helpers.RecoverDiscord(msg)
 
-        // Consume a key for this action
-        ratelimits.Container.Drain(1, msg.Author.ID)
+    // Consume a key for this action
+    ratelimits.Container.Drain(1, msg.Author.ID)
 
-        // Track metrics
-        metrics.CommandsExecuted.Add(1)
+    // Track metrics
+    metrics.CommandsExecuted.Add(1)
 
-        // Call the module
-        if ref, ok := pluginCache[command]; ok {
-            (*ref).Action(command, content, msg, cache.GetSession())
-        }
+    // Call the module
+    if ref, ok := pluginCache[command]; ok {
+        (*ref).Action(command, content, msg, cache.GetSession())
+    }
     //#endif
 }
 
@@ -40,31 +40,31 @@ func CallBotPlugin(command string, content string, msg *discordgo.Message) {
 // session - The discord session
 func CallTriggerPlugin(trigger string, content string, msg *discordgo.Message) {
     //#ifdef EXCLUDE_TRIGGERS
-        //#warning modules#CallTriggerPlugin() will be a no-op in this build
+    //#warning modules#CallTriggerPlugin() will be a no-op in this build
     //#else
-        defer helpers.RecoverDiscord(msg)
+    defer helpers.RecoverDiscord(msg)
 
-        // Consume a key for this action
-        ratelimits.Container.Drain(1, msg.Author.ID)
+    // Consume a key for this action
+    ratelimits.Container.Drain(1, msg.Author.ID)
 
-        // Redirect trigger
-        if ref, ok := triggerCache[trigger]; ok {
-            cache.GetSession().ChannelMessageSend(
-                msg.ChannelID,
-                (*ref).Response(trigger, content),
-            )
-        }
+    // Redirect trigger
+    if ref, ok := triggerCache[trigger]; ok {
+        cache.GetSession().ChannelMessageSend(
+            msg.ChannelID,
+            (*ref).Response(trigger, content),
+        )
+    }
     //#endif
 }
 
 // Init warms the caches and initializes the plugins
 func Init(session *discordgo.Session) {
     //#if defined(EXCLUDE_PLUGINS) && defined(EXCLUDE_TRIGGERS)
-        //#warning modules#Init() will only print a line of text in this build
+    //#warning modules#Init() will only print a line of text in this build
     //#else
-        checkDuplicateCommands()
-        listeners := ""
-        logTemplate := ""
+    checkDuplicateCommands()
+    listeners := ""
+    logTemplate := ""
     //#endif
 
     //#ifndef EXCLUDE_PLUGINS

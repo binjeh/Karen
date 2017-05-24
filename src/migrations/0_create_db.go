@@ -1,9 +1,11 @@
 package migrations
 
-import "code.lukas.moe/x/karen/src/helpers"
+import (
+    "code.lukas.moe/x/karen/src/config"
+)
 
 func m0_create_db() {
     CreateDBIfNotExists(
-        helpers.GetConfig().Path("rethink.db").Data().(string),
+        config.Get("rethink.db").(string),
     )
 }

@@ -1,15 +1,16 @@
-package helpers
+package cleverbot
 
 import (
     "github.com/bwmarrin/discordgo"
     "github.com/ugjka/cleverbot-go"
+    "code.lukas.moe/x/karen/src/config"
 )
 
 // cleverbotSessions stores all cleverbot connections
 var cleverbotSessions map[string]*cleverbot.Session
 
 // CleverbotSend sends a message to cleverbot and responds with it's answer.
-func CleverbotSend(session *discordgo.Session, channel string, message string) {
+func Send(session *discordgo.Session, channel string, message string) {
     var msg string
 
     if _, e := cleverbotSessions[channel]; !e {
@@ -17,7 +18,7 @@ func CleverbotSend(session *discordgo.Session, channel string, message string) {
             cleverbotSessions = make(map[string]*cleverbot.Session)
         }
 
-        CleverbotRefreshSession(channel)
+        RefreshSession(channel)
     }
 
     response, err := cleverbotSessions[channel].Ask(message)
@@ -38,8 +39,8 @@ func CleverbotSend(session *discordgo.Session, channel string, message string) {
 }
 
 // CleverbotRefreshSession refreshes the cleverbot session for said channel
-func CleverbotRefreshSession(channel string) {
+func RefreshSession(channel string) {
     cleverbotSessions[channel] = cleverbot.New(
-        GetConfig().Path("cleverbot.key").Data().(string),
+        config.Get("cleverbot.key").(string),
     )
 }

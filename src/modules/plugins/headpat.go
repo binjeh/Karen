@@ -41,7 +41,7 @@ func (h *Headpat) Action(command string, content string, msg *discordgo.Message,
                 "triggers.headpat.msg",
                 msg.Author.ID,
                 msg.Mentions[0].ID,
-            )+"\n"+helpers.GetText("triggers.headpat.link"),
+            )+ "\n"+ helpers.GetText("triggers.headpat.link"),
         )
         return
     }

@@ -68,7 +68,7 @@ func GuildSettingsSet(guild string, config models.Config) error {
         _, err = rethink.Table("guild_configs").Insert(config).RunWrite(GetDB())
         break
 
-    // Update
+        // Update
     case nil:
         _, err = rethink.Table("guild_configs").Filter(
             map[string]interface{}{"guild": guild},

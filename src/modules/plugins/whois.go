@@ -68,7 +68,7 @@ func (w *WhoIs) Action(command string, content string, msg *discordgo.Message, s
             URL: helpers.GetAvatarUrl(target.User),
         },
         Color: 0x0FADED,
-        Fields: []*discordgo.MessageEmbedField {
+        Fields: []*discordgo.MessageEmbedField{
             {
                 Name:   "Joined server",
                 Value:  joined.Format(time.RFC1123),
@@ -80,8 +80,8 @@ func (w *WhoIs) Action(command string, content string, msg *discordgo.Message, s
                 Inline: true,
             },
             {
-                Name:  "Avatar link",
-                Value: helpers.GetAvatarUrl(target.User),
+                Name:   "Avatar link",
+                Value:  helpers.GetAvatarUrl(target.User),
                 Inline: false,
             },
             {

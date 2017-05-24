@@ -13,6 +13,8 @@ import (
     "regexp"
     "strings"
     "time"
+    "code.lukas.moe/x/karen/src/config"
+    "code.lukas.moe/x/karen/src/cleverbot"
 )
 
 // BotOnReady gets called after the gateway connected
@@ -20,8 +22,8 @@ func BotOnReady(session *discordgo.Session, event *discordgo.Ready) {
     Logger.INFO.L("bot", "Connected to discord!")
     Logger.VERBOSE.L("bot", "Invite link: "+ fmt.Sprintf(
         "https://discordapp.com/oauth2/authorize?client_id=%s&scope=bot&permissions=%s",
-        helpers.GetConfig().Path("discord.id").Data().(string),
-        helpers.GetConfig().Path("discord.perms").Data().(string),
+        config.Get("discord.id").(string),
+        config.Get("discord.perms").(string),
     ))
 
     // Cache the session
@@ -37,7 +39,7 @@ func BotOnReady(session *discordgo.Session, event *discordgo.Ready) {
     go changeGameInterval(session)
 
     // Run auto-leaver for non-beta guilds
-    go autoLeaver(session, helpers.GetConfig().Path("beta.whitelist").Data().([]interface{}))
+    go autoLeaver(session, config.Get("beta.whitelist").([]interface{}))
 
     // Run ratelimiter
     ratelimits.Container.Init()
@@ -45,8 +47,8 @@ func BotOnReady(session *discordgo.Session, event *discordgo.Ready) {
     go func() {
         time.Sleep(3 * time.Second)
 
-        configName := helpers.GetConfig().Path("bot.name").Data().(string)
-        configAvatar := helpers.GetConfig().Path("bot.avatar").Data().(string)
+        configName := config.Get("bot.name").(string)
+        configAvatar := config.Get("bot.avatar").(string)
 
         // Change avatar if desired
         if configAvatar != "" && configAvatar != session.State.User.Avatar {
@@ -151,7 +153,7 @@ func BotOnMessageCreate(session *discordgo.Session, message *discordgo.MessageCr
             metrics.CommandsExecuted.Add(1)
             helpers.RequireAdmin(message.Message, func() {
                 // Refresh cleverbot session
-                helpers.CleverbotRefreshSession(channel.ID)
+                cleverbot.RefreshSession(channel.ID)
                 cache.GetSession().ChannelMessageSend(channel.ID, helpers.GetText("bot.cleverbot.refreshed"))
             })
             return
@@ -195,7 +197,7 @@ func BotOnMessageCreate(session *discordgo.Session, message *discordgo.MessageCr
             msg = regexp.MustCompile(`:\w+:`).ReplaceAllString(msg, "")
 
             // Send to cleverbot
-            helpers.CleverbotSend(session, channel.ID, msg)
+            cleverbot.Send(session, channel.ID, msg)
             return
         }
     }

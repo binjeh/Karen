@@ -8,6 +8,7 @@ import (
     "golang.org/x/text/language"
     "google.golang.org/api/option"
     "strings"
+    "code.lukas.moe/x/karen/src/config"
 )
 
 type Translator struct {
@@ -28,7 +29,7 @@ func (t *Translator) Init(session *discordgo.Session) {
 
     client, err := translate.NewClient(
         t.ctx,
-        option.WithAPIKey(helpers.GetConfig().Path("google.translate").Data().(string)),
+        option.WithAPIKey(config.Get("google.translate").(string)),
     )
     helpers.Relax(err)
     t.client = client

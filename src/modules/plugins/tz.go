@@ -1,19 +1,19 @@
 package plugins
 
 import (
-	"github.com/bwmarrin/discordgo"
-	"strings"
-	"fmt"
-	"code.lukas.moe/x/karen/src/helpers"
-	"time"
+    "github.com/bwmarrin/discordgo"
+    "strings"
+    "fmt"
+    "code.lukas.moe/x/karen/src/helpers"
+    "time"
 )
 
 // Timezone command
-type Timezone struct {}
+type Timezone struct{}
 
 // Commands func
 func (tz *Timezone) Commands() []string {
-    return []string {
+    return []string{
         "tz",
         "timezone",
     }

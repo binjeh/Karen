@@ -12,15 +12,12 @@ import (
     "os"
     "os/signal"
     "time"
+    "code.lukas.moe/x/karen/src/config"
 )
 
 // Entrypoint
 func main() {
     Logger.BOOT.L("launcher", "Booting Karen...")
-
-    // Read config
-    helpers.LoadConfig("config.json")
-    config := helpers.GetConfig()
 
     // Read i18n
     helpers.LoadTranslations()
@@ -35,7 +32,7 @@ func main() {
     rand.Seed(time.Now().UTC().UnixNano())
 
     // Check if the bot is being debugged
-    if config.Path("debug").Data().(bool) {
+    if config.Get("debug").(bool) {
         helpers.DEBUG_MODE = true
         Logger.DEBUG_MODE = true
     }
@@ -45,7 +42,7 @@ func main() {
 
     // Call home
     Logger.BOOT.L("launcher", "[SENTRY] Calling home...")
-    err := raven.SetDSN(config.Path("sentry").Data().(string))
+    err := raven.SetDSN(config.Get("sentry").(string))
     if err != nil {
         panic(err)
     }
@@ -54,8 +51,8 @@ func main() {
     // Connect to DB
     Logger.BOOT.L("launcher", "Opening database connection...")
     helpers.ConnectDB(
-        config.Path("rethink.url").Data().(string),
-        config.Path("rethink.db").Data().(string),
+        config.Get("rethink.url").(string),
+        config.Get("rethink.db").(string),
     )
 
     // Close DB when main dies
@@ -66,7 +63,7 @@ func main() {
 
     // Connect and add event handlers
     Logger.BOOT.L("launcher", "Connecting to discord...")
-    discord, err := discordgo.New("Bot " + config.Path("discord.token").Data().(string))
+    discord, err := discordgo.New("Bot " + config.Get("discord.token").(string))
     if err != nil {
         panic(err)
     }

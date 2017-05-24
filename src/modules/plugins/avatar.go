@@ -42,8 +42,8 @@ func (a *Avatar) Action(command string, content string, msg *discordgo.Message, 
             URL: helpers.GetAvatarUrl(mention),
         },
         Fields: []*discordgo.MessageEmbedField{
-            &discordgo.MessageEmbedField {
-                Name: "Link",
+            &discordgo.MessageEmbedField{
+                Name:  "Link",
                 Value: helpers.GetAvatarUrl(mention),
             },
         },
