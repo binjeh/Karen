@@ -1,8 +1,3 @@
-Origin: https://git.lukas.moe/sn0w/Karen<br>
-Mirror: https://github.com/sn0w/Karen
-
-<hr>
-
 <p align="center">
   <a href="https://git.lukas.moe/sn0w/Karen/commits/master">
     <img alt="build status" src="https://git.lukas.moe/sn0w/Karen/badges/master/build.svg" />
@@ -55,7 +50,7 @@ I use a sophisticated and completely handcrafted build system that uses modular 
 Thus this is most likely the only go-project that supports c-style macros in comments and conditional compilation.<br>
 Are we awesome yet?
 
-### Can I host my own version of this bot?
+### Can you help me self-hosting Karen?
 No.<br>
 There will be neither guides nor setup help.<br>
 The code is provided for transparency and community-contributions only.
@@ -63,7 +58,6 @@ The code is provided for transparency and community-contributions only.
 If you decide to fork Karen remember to comply with the [LICENSE](https://github.com/sn0w/karen/blob/master/LICENSE).
 
 ### Why are you saying `high performance` all the time?
-I've built a few bots already and all of them were far from performant.<br>
 Why do we live in a time where it's acceptable that an EMPTY Java class consumes 10mb RAM?<br>
 Why does no one care about optimizing anymore?
 
