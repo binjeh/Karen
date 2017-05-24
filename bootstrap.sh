@@ -13,8 +13,8 @@ set -x
 
 require go
 require curl
+require glide
 
-curl https://glide.sh/get | sh
 go get -u golang.org/x/tools/cmd/goimports
 go get -u github.com/lestrrat/go-bindata/...
 go get -u git.lukas.moe/sn0w/ropus

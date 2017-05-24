@@ -1,8 +1,8 @@
 <p align="center">
   <img alt="karen" width="96" src="http://i.imgur.com/VfgrwQz.jpg">
   <br>
-  <a href="https://git.lukas.moe/sn0w/Karen/commits/master">
-    <img alt="build status" src="https://git.lukas.moe/sn0w/Karen/badges/master/build.svg" />
+  <a href="<https://travis-ci.org/sn0w/karen">
+    <img alt="build status" src="https://travis-ci.org/sn0w/karen.svg?branch=master" />
   </a>
   <a href="/">
     <img src="https://img.shields.io/github/tag/sn0w/karen.svg?style=flat-square" alt="GitHub tag"/>
