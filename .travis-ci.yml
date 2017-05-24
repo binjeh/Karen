@@ -1,0 +1,21 @@
+sudo: true
+
+env:
+  - GOOS=linux GOARCH=amd64 GOTARGET=karen.o
+  - GOOS=windows GOARCH=amd64 GOTARGET=karen.exe
+  - GOOS=darwin GOARCH=amd64 GOTARGET=karen.xo
+
+language: go
+go: 1.x
+
+go_import_path: code.lukas.moe/x/karen
+
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y gpp
+
+install:
+  - ./bootstrap.sh
+  - ./configure
+
+script: make compile
