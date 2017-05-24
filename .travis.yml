@@ -11,9 +11,10 @@ go: 1.x
 go_import_path: code.lukas.moe/x/karen
 
 before_install:
+  - go get -u -v github.com/Masterminds/glide
+  - cd $GOPATH/src/github.com/Masterminds/glide && git checkout 84607742b10f492430762d038e954236bbaf23f7 && go install && cd -
   - sudo apt-get -qq update
   - sudo apt-get install -y gpp
-  - curl https://glide.sh/get | sh
 
 install:
   - ./bootstrap.sh
