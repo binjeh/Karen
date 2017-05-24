@@ -18,4 +18,6 @@ install:
   - ./bootstrap.sh
   - ./configure
 
-script: make compile
+script:
+  - make assets
+  - make compile
