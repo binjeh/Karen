@@ -245,10 +245,10 @@ func (l *ListenDotMoe) resolveVoiceChannel(user *discordgo.User, guild *discordg
 
 func (l *ListenDotMoe) streamer() {
     for {
-        logger.PLUGIN.L("listen_moe", "Allocating channels")
+        logger.PLUGIN.L("Allocating channels")
         RadioChan = radio.NewRadio()
 
-        logger.PLUGIN.L("listen_moe", "Piping subprocesses")
+        logger.PLUGIN.L("Piping subprocesses")
 
         // Read stream with ffmpeg and turn it into PCM
         ffmpeg := exec.Command(
@@ -268,12 +268,12 @@ func (l *ListenDotMoe) streamer() {
         helpers.Relax(err)
 
         // Run ffmpeg
-        logger.PLUGIN.L("listen_moe", "Running FFMPEG")
+        logger.PLUGIN.L("Running FFMPEG")
         err = ffmpeg.Start()
         helpers.Relax(err)
 
         // Run ropus
-        logger.PLUGIN.L("listen_moe", "Running ROPUS")
+        logger.PLUGIN.L("Running ROPUS")
         err = ropus.Start()
         helpers.Relax(err)
 
@@ -283,7 +283,7 @@ func (l *ListenDotMoe) streamer() {
         // Stream ropus output to discord
         var opusLength int16
 
-        logger.PLUGIN.L("listen_moe", "Streaming :3")
+        logger.PLUGIN.L("Streaming :3")
         for {
             // Read opus frame length
             err = binary.Read(robuf, binary.LittleEndian, &opusLength)
@@ -304,15 +304,15 @@ func (l *ListenDotMoe) streamer() {
             RadioChan.Broadcast(opus)
         }
 
-        logger.ERROR.L("listen_moe", "Stream died :(")
-        logger.PLUGIN.L("listen_moe", "Waiting for ffmpeg and ropus to die")
+        logger.ERROR.L("Stream died :(")
+        logger.PLUGIN.L("Waiting for ffmpeg and ropus to die")
         ffmpeg.Wait()
         ropus.Wait()
 
-        logger.PLUGIN.L("listen_moe", "Telling coroutines the bad news...")
+        logger.PLUGIN.L("Telling coroutines the bad news...")
         RadioChan.Alienate()
 
-        logger.PLUGIN.L("listen_moe", "Will reconnect in 2 seconds")
+        logger.PLUGIN.L("Will reconnect in 2 seconds")
         time.Sleep(2 * time.Second)
     }
 }
@@ -385,7 +385,7 @@ func (l *ListenDotMoe) tracklistWorker() {
             }
         }
 
-        logger.WARNING.L("listen_moe", "Connection to wss://listen.moe lost. Reconnecting!")
+        logger.WARNING.L("Connection to wss://listen.moe lost. Reconnecting!")
         c.Close()
 
         time.Sleep(5 * time.Second)

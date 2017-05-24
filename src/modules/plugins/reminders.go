@@ -114,7 +114,7 @@ func (r *Reminders) Init(session *discordgo.Session) {
         }
     }()
 
-    logger.PLUGIN.L("reminders", "Started reminder loop (10s)")
+    logger.PLUGIN.L("Started reminder loop (10s)")
 }
 
 // Action executes the reminders command

@@ -19,7 +19,7 @@ var (
 
 // ConnectDB connects to rethink and stores the session
 func ConnectDB(url string, db string) {
-    Logger.INFO.L("db", "Connecting to "+url)
+    Logger.INFO.L("Connecting to "+url)
 
     rethink.SetTags("rethink", "json")
 
@@ -29,7 +29,7 @@ func ConnectDB(url string, db string) {
     })
 
     if err != nil {
-        Logger.ERROR.L("db", err.Error())
+        Logger.ERROR.L(err.Error())
         panic(err)
     }
 
@@ -39,7 +39,7 @@ func ConnectDB(url string, db string) {
     guildSettingsCache = make(map[string]models.Config)
     cacheMutex.Unlock()
 
-    Logger.INFO.L("db", "Connected!")
+    Logger.INFO.L("Connected!")
 }
 
 // GetDB is a simple getter for the rethink session.

@@ -81,7 +81,7 @@ func Init(session *discordgo.Session) {
             listeners += cmd + " "
         }
 
-        logger.INFO.L("modules", fmt.Sprintf(
+        logger.INFO.L(fmt.Sprintf(
             logTemplate,
             helpers.Typeof(*ref),
             listeners,
@@ -105,7 +105,7 @@ func Init(session *discordgo.Session) {
             listeners += trigger + " "
         }
 
-        logger.INFO.L("modules", fmt.Sprintf(
+        logger.INFO.L(fmt.Sprintf(
             logTemplate,
             helpers.Typeof(*ref),
             listeners,
@@ -130,7 +130,6 @@ func Init(session *discordgo.Session) {
     //#endif
 
     logger.INFO.L(
-        "modules",
         "Initializer finished. Loaded "+lenPlugins+" and "+lenTriggers,
     )
 }
@@ -147,7 +146,7 @@ func checkDuplicateCommands() {
             t := helpers.Typeof(plug)
 
             if occupant, ok := cmds[cmd]; ok {
-                logger.ERROR.L("modules", "Failed to load "+t+" because '"+cmd+"' was already registered by "+occupant)
+                logger.ERROR.L("Failed to load "+t+" because '"+cmd+"' was already registered by "+occupant)
                 os.Exit(1)
             }
 
@@ -162,7 +161,7 @@ func checkDuplicateCommands() {
             t := helpers.Typeof(trig)
 
             if occupant, ok := cmds[cmd]; ok {
-                logger.ERROR.L("modules", "Failed to load "+t+" because '"+cmd+"' was already registered by "+occupant)
+                logger.ERROR.L("Failed to load "+t+" because '"+cmd+"' was already registered by "+occupant)
                 os.Exit(1)
             }
 

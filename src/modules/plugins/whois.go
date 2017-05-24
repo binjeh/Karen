@@ -32,21 +32,21 @@ func (w *WhoIs) Action(command string, content string, msg *discordgo.Message, s
     // Get channel info
     channel, err := session.Channel(msg.ChannelID)
     if err != nil {
-        Logger.PLUGIN.L("whois", err.Error())
+        Logger.PLUGIN.L(err.Error())
         return
     }
 
     // Guild info
     guild, err := session.Guild(channel.GuildID)
     if err != nil {
-        Logger.PLUGIN.L("whois", err.Error())
+        Logger.PLUGIN.L(err.Error())
         return
     }
 
     // Get the member object for the @user
     target, err := session.GuildMember(guild.ID, msg.Mentions[0].ID)
     if err != nil {
-        Logger.PLUGIN.L("whois", err.Error())
+        Logger.PLUGIN.L(err.Error())
         return
     }
 

@@ -21,7 +21,7 @@ func (c *Changelog) Commands() []string {
 }
 
 func (c *Changelog) Init(session *discordgo.Session) {
-    logger.PLUGIN.L("changelog", "Retrieving release information...")
+    logger.PLUGIN.L("Retrieving release information...")
 
     c.log = make(map[string]string)
 
@@ -33,7 +33,7 @@ func (c *Changelog) Init(session *discordgo.Session) {
                 "date":   "-",
                 "body":   "Sorry but i can't find a changelog for " + version.BOT_VERSION,
             }
-            logger.PLUGIN.L("changelog", "Network error. Applied fallback.")
+            logger.PLUGIN.L("Network error. Applied fallback.")
         }
     }()
 
@@ -57,7 +57,7 @@ func (c *Changelog) Init(session *discordgo.Session) {
     c.log["body"] = strings.Replace(c.log["body"], "### Removed stuff", ":wastebasket: **REMOVED STUFF**", 1)
     c.log["body"] = strings.Replace(c.log["body"], "\n-", "\n•", -1)
 
-    logger.PLUGIN.L("changelog", "Done")
+    logger.PLUGIN.L("Done")
 }
 
 func (c *Changelog) Action(command string, content string, msg *discordgo.Message, session *discordgo.Session) {

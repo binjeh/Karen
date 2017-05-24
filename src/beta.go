@@ -17,7 +17,7 @@ func autoLeaver(session *discordgo.Session, betaGuildsContainer []interface{}) {
 
     // Print enabled guilds
     for _, betaGuild := range betaGuilds {
-        logger.INFO.L("beta", "[BETA] Enabled "+betaGuild[0]+" ("+betaGuild[1]+") by "+betaGuild[2])
+        logger.INFO.L("[BETA] Enabled "+betaGuild[0]+" ("+betaGuild[1]+") by "+betaGuild[2])
     }
 
     // Endless loop that checks for unpermitted usage
@@ -33,7 +33,7 @@ func autoLeaver(session *discordgo.Session, betaGuildsContainer []interface{}) {
             }
 
             if !match {
-                logger.WARNING.L("beta", "Leaving guild "+guild.ID+" ("+guild.Name+") because it didn't apply for the beta")
+                logger.WARNING.L("Leaving guild "+guild.ID+" ("+guild.Name+") because it didn't apply for the beta")
                 session.GuildLeave(guild.ID)
             }
         }

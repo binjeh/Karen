@@ -41,7 +41,7 @@ var (
 
 // Init starts a http server on 127.0.0.1:1337
 func Init() {
-    logger.INFO.L("metrics", "Listening on TCP/1337")
+    logger.INFO.L("Listening on TCP/1337")
     Uptime.Set(time.Now().Unix())
     go http.ListenAndServe(config.Get("metrics_ip").(string)+":1337", nil)
 }

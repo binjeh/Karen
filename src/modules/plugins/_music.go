@@ -132,7 +132,7 @@ func (m *Music) Init(session *discordgo.Session) {
     m.enabled = false
     foundYTD, foundFFPROBE, foundFFMPEG, foundRopus := false, false, false, false
 
-    Logger.PLUGIN.L("music", "Checking for youtube-dl, ropus, ffmpeg and ffprobe...")
+    Logger.PLUGIN.L("Checking for youtube-dl, ropus, ffmpeg and ffprobe...")
     for _, path := range strings.Split(os.Getenv("PATH"), ":") {
         files, _ := ioutil.ReadDir(path)
 
@@ -159,20 +159,20 @@ func (m *Music) Init(session *discordgo.Session) {
 
     if foundYTD && foundFFPROBE && foundFFMPEG && foundRopus {
         m.enabled = true
-        Logger.PLUGIN.L("music", "Found. Music enabled!")
+        Logger.PLUGIN.L("Found. Music enabled!")
 
         // Allocate connections map
         m.guildConnections = make(map[string]*GuildConnection)
 
         // Start loop that processes videos in background
-        Logger.PLUGIN.L("music", "Starting async processor loop")
+        Logger.PLUGIN.L("Starting async processor loop")
         go m.processorLoop()
 
         // Start janitor that removes files which are not tracked in the DB
-        Logger.PLUGIN.L("music", "Starting async janitor")
+        Logger.PLUGIN.L("Starting async janitor")
         go m.janitor()
     } else {
-        Logger.PLUGIN.L("music", "Not Found. Music disabled!")
+        Logger.PLUGIN.L("Not Found. Music disabled!")
     }
 }
 
@@ -682,7 +682,7 @@ func (m *Music) processorLoop() {
     defer func() {
         helpers.Recover()
 
-        Logger.ERROR.L("music", "The processorLoop died. Please investigate!")
+        Logger.ERROR.L("The processorLoop died. Please investigate!")
         time.Sleep(5 * time.Second)
         go m.processorLoop()
     }()
@@ -710,7 +710,7 @@ func (m *Music) processorLoop() {
             continue
         }
 
-        Logger.INFO.L("music", "Found "+strconv.Itoa(len(songs))+" unprocessed items!")
+        Logger.INFO.L("Found "+strconv.Itoa(len(songs))+" unprocessed items!")
 
         // Loop through songs
         for _, song := range songs {
@@ -718,7 +718,7 @@ func (m *Music) processorLoop() {
 
             name := helpers.BtoA(song.URL)
 
-            Logger.INFO.L("music", "Downloading "+song.URL+" as "+name)
+            Logger.INFO.L("Downloading "+song.URL+" as "+name)
 
             // Download with youtube-dl
             ytdl := exec.Command(
@@ -747,7 +747,7 @@ func (m *Music) processorLoop() {
 
             // WAV => RAW OPUS
             cstart := time.Now().Unix()
-            Logger.INFO.L("music", "PCM => ROPUS | "+name)
+            Logger.INFO.L("PCM => ROPUS | "+name)
 
             // Create file
             opusFile, err := os.Create("/srv/karen-data/" + name + ".ro")
@@ -984,7 +984,7 @@ func (m *Music) janitor() {
             }
 
             if !foundFile {
-                Logger.INFO.L("music", "[JANITOR] Removing "+file.Name())
+                Logger.INFO.L("[JANITOR] Removing "+file.Name())
                 err = os.Remove("/srv/karen-data/" + file.Name())
                 helpers.Relax(err)
             }
