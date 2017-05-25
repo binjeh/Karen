@@ -13,11 +13,11 @@
     [core.db]
         name = "karen"
         ip = "127.0.0.1"
-        port = 27001
+        port = "28015"
 
     [core.metrics]
         ip = "0.0.0.0"
-        port = 1337
+        port = "1337"
 
     [core.sentry]
         dsn = "https://YOU_SENTRY_TOKEN_1:YOUR_SENTRY_TOKEN_2@sentry.io/YOUR_SENTRY_PROJECT"

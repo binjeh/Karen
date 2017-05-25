@@ -1,5 +1,8 @@
-RegisterReply(
+require("karen").registerReply(
     "css",
-    {"css", "cs:s"},
+    {
+        "css",
+        "cs:s"
+    },
     "triggers.css"
 )

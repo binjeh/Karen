@@ -7,7 +7,6 @@ import (
     "code.lukas.moe/x/karen/src/helpers"
     "strings"
     "code.lukas.moe/x/karen/src/logger"
-    "fmt"
     "code.lukas.moe/x/karen/src/dsl/api"
     "code.lukas.moe/x/karen/src/dsl/stdlib"
 )
@@ -19,34 +18,58 @@ func Load() {
         IncludeGoStackTrace: true,
     })
 
+    vm.OpenLibs()
     registerGlobals(vm)
 
-    ex, err := helpers.FileExists("./_scripts")
+    ex, err := helpers.FileExists("./scripts")
     if !ex || err != nil {
         return
     }
 
-    filepath.Walk("./_scripts", walkHandler)
-}
+    filepath.Walk("./scripts/lib", func(path string, info os.FileInfo, err error) error {
+        if info.IsDir() || !strings.Contains(path, ".lua") {
+            return nil
+        }
 
-func walkHandler(path string, info os.FileInfo, err error) error {
-    if !info.IsDir() && strings.Contains(path, ".lua") {
-        logger.INFO.L("Loading " + path)
+        logger.INFO.L("Loading library " + path)
 
+        parts := strings.Split(path, "/")
+        name := strings.Replace(parts[len(parts)-1], ".lua", "", -1)
+
+        mod, err := vm.LoadFile(path)
+        if err != nil {
+            panic(err)
+        }
+
+        preload := vm.GetField(vm.GetField(vm.Get(lua.EnvironIndex), "package"), "preload")
+        vm.SetField(preload, name, mod)
+
+        return nil
+    })
+
+    filepath.Walk("./scripts", func(path string, info os.FileInfo, err error) error {
+        if info.IsDir() || !strings.Contains(path, ".lua") {
+            return nil
+        }
+
+        if strings.Contains(path, "lib") {
+            return nil
+        }
+
+        logger.INFO.L("Loading script " + path)
         err = vm.DoFile(path)
         if err != nil {
             logger.ERROR.L("Error loading " + path)
-            fmt.Printf("%#v", err)
-            return nil
+            panic(err)
         }
-    }
 
-    return nil
+        return nil
+    })
 }
 
 func registerGlobals(vm *lua.LState) {
-    vm.SetGlobal("RegisterReply", vm.NewFunction(api.RegisterReply))
-    vm.SetGlobal("RegisterComplexReply", vm.NewFunction(api.RegisterComplexReply))
-    vm.SetGlobal("__", vm.NewFunction(stdlib.GetText))
-    vm.SetGlobal("_f", vm.NewFunction(stdlib.GetTextF))
+    vm.SetGlobal("__KAREN_REGISTER_REPLY__", vm.NewFunction(api.RegisterReply))
+    vm.SetGlobal("__KAREN_REGISTER_COMPLEX__", vm.NewFunction(api.RegisterComplexReply))
+    vm.SetGlobal("__KAREN_GETTEXT__", vm.NewFunction(stdlib.GetText))
+    vm.SetGlobal("__KAREN_GETTEXT_F__", vm.NewFunction(stdlib.GetTextF))
 }

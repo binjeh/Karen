@@ -60,6 +60,11 @@ checkBin goimports
 ### Dynamic compilation ###
 while test $# -gt 0; do
     case "$1" in
+        --without-scripting)
+        PP_DEFS="$PP_DEFS -DEXCLUDE_SCRIPTING"
+        shift
+        ;;
+
         --without-music)
         PP_DEFS="$PP_DEFS -DEXCLUDE_MUSIC"
         shift

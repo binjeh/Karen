@@ -10,6 +10,7 @@ import (
     "code.lukas.moe/x/karen/src/metrics"
     "code.lukas.moe/x/karen/src/ratelimits"
     "github.com/bwmarrin/discordgo"
+    "code.lukas.moe/x/karen/src/dsl"
 )
 
 // command - The command that triggered this execution
@@ -65,6 +66,10 @@ func Init(session *discordgo.Session) {
     checkDuplicateCommands()
     listeners := ""
     logTemplate := ""
+    //#endif
+
+    //#ifndef EXCLUDE_SCRIPTING
+    dsl.Load()
     //#endif
 
     //#ifndef EXCLUDE_PLUGINS
