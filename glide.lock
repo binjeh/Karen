@@ -1,5 +1,5 @@
-hash: 74f74e979bbea8a110139d9a922f57a1929dc24e9afcf7cc4fa2104f289cb42b
-updated: 2017-05-25T15:50:05.36089467+02:00
+hash: b93eb296fbc92ffd77b741ae0e7b7c8d899d39483ec8a5215b28e0deb519a86f
+updated: 2017-05-25T16:49:36.763998742+02:00
 imports:
 - name: cloud.google.com/go
   version: ff3a4a928549efd9c569f4d812b885ae7736d402
@@ -42,8 +42,6 @@ imports:
   version: e80d13ce29ede4452c43dea11e79b9bc8a15b478
 - name: github.com/Jeffail/gabs
   version: c9fb5b700cddb62013b2ee9dfc9ce011caea55e0
-- name: github.com/laurent22/toml-go
-  version: fa06a499644c65faa23ac72a41a2f38aa3020ba8
 - name: github.com/marcmak/calc
   version: 5bbbfc3b3149741fda5147a18568a62f6cd3fec1
   subpackages:
@@ -55,6 +53,8 @@ imports:
   - rules/common
   - rules/en
   - rules/ru
+- name: github.com/pelletier/go-buffruneio
+  version: c37440a7cf42ac63b919c752ca73a85067e05992
 - name: github.com/pelletier/go-toml
   version: 13d49d4606eb801b8f01ae542b4afc4c6ee3d84a
 - name: github.com/pkg/errors

@@ -1,42 +1,32 @@
 package: code.lukas.moe/x/karen
 import:
-- package: github.com/Jeffail/gabs
-  version: master
-- package: github.com/dustin/go-humanize
-  version: master
-- package: github.com/getsentry/raven-go
-  version: master
-- package: github.com/PuerkitoBio/goquery
-  version: master
 - package: golang.org/x/net
   subpackages:
   - html
 - package: golang.org/x/text
   subpackages:
   - unicode/norm
-- package: github.com/ttacon/chalk
-  version: master
-- package: github.com/marcmak/calc
-  version: master
-- package: github.com/olebedev/when
-  version: master
-- package: github.com/bwmarrin/discordgo
-  version: develop
-- package: github.com/gorethink/gorethink
-  version: master
-- package: git.lukas.moe/sn0w/radio-b
-  version: master
-- package: github.com/gorilla/websocket
-  version: master
-- package: cloud.google.com/go
-  version: master
-  subpackages:
-  - translate
-- package: github.com/ugjka/cleverbot-go
-  version: master
-- package: github.com/golang/freetype
 - package: golang.org/x/image
   subpackages:
   - font
+
+- package: cloud.google.com/go
+  subpackages:
+  - translate
+
+- package: github.com/Jeffail/gabs
+- package: github.com/dustin/go-humanize
+- package: github.com/getsentry/raven-go
+- package: github.com/PuerkitoBio/goquery
+- package: github.com/ttacon/chalk
+- package: github.com/marcmak/calc
+- package: github.com/olebedev/when
+- package: github.com/gorethink/gorethink
+- package: github.com/gorilla/websocket
+- package: github.com/ugjka/cleverbot-go
+- package: github.com/golang/freetype
 - package: github.com/pelletier/go-toml
-  version: ^0.5.0
+- package: github.com/bwmarrin/discordgo
+  version: develop
+
+- package: git.lukas.moe/sn0w/radio-b
