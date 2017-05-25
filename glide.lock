@@ -1,11 +1,11 @@
-hash: f2a85e8c88125f10eda25d2e5f310c224f3af83d5d1becc871cec5f2bbe60c2e
-updated: 2017-04-09T15:08:36.294096014+02:00
+hash: 7ef614d17833ade7db9d5b21a65c3f7c183ebfe3ceaeacad6a05b5d304524fc1
+updated: 2017-05-25T02:14:14.63861865+02:00
 imports:
 - name: cloud.google.com/go
-  version: 2e6a95edb1071d750f6d7db777bf66cd2997af6c
+  version: ff3a4a928549efd9c569f4d812b885ae7736d402
   subpackages:
   - compute/metadata
-  - internal
+  - internal/version
   - translate
   - translate/internal/translate/v2
 - name: git.lukas.moe/sn0w/radio-b
@@ -15,40 +15,39 @@ imports:
 - name: github.com/andybalholm/cascadia
   version: 349dd0209470eabd9514242c688c403c0926d266
 - name: github.com/bwmarrin/discordgo
-  version: fea42d937a35acdee93224e226cf25ead1221bd2
+  version: 6aec04d69d3f7f85caaf850c25ffc0c03e016702
 - name: github.com/cenkalti/backoff
-  version: 3db60c813733fce657c114634171689bbf1f8dee
+  version: 5d150e7eec023ce7a124856b37c68e54b4050ac7
 - name: github.com/certifi/gocertifi
-  version: 03be5e6bb9874570ea7fb0961225d193cbc374c5
+  version: a9c833d2837d3b16888d55d5aafa9ffe9afb22b0
 - name: github.com/dustin/go-humanize
   version: 259d2a102b871d17f30e3cd9881a642961a1e486
 - name: github.com/getsentry/raven-go
-  version: b68337dbf03e7fbb53d9fd9b63fd09b28e8f13f7
+  version: 4fa2ac0d29f801e79a063c0da82d37b5ff2873b2
 - name: github.com/golang/freetype
-  version: 255de57f4e681ed92b2d55a483a27194dfa2b3dc
+  version: bcfeb16b74e8aea9e2fe043406f2ef74b1cb0759
   subpackages:
   - raster
   - truetype
 - name: github.com/golang/protobuf
-  version: c9c7427a2a70d2eb3bafa0ab2dc163e45f143317
+  version: 7a211bcf3bce0e3f1d74f9894916e6f116ae83b4
   subpackages:
   - proto
-- name: github.com/googleapis/gax-go
-  version: 8c5154c0fe5bf18cf649634d4c6df50897a32751
+  - ptypes/any
 - name: github.com/gorethink/gorethink
-  version: 610fcc04c971a9fa42f1b6625c7c52b5bb472c51
+  version: 166dbe2477ffb44f53f584c5c24d8499e0c12303
 - name: github.com/gorilla/websocket
   version: a91eba7f97777409bc2c443f5534d41dd20c5720
 - name: github.com/hailocab/go-hostpool
   version: e80d13ce29ede4452c43dea11e79b9bc8a15b478
 - name: github.com/Jeffail/gabs
-  version: 2a3aa15961d5fee6047b8151b67ac2f08ba2c48c
+  version: c9fb5b700cddb62013b2ee9dfc9ce011caea55e0
 - name: github.com/marcmak/calc
   version: 5bbbfc3b3149741fda5147a18568a62f6cd3fec1
   subpackages:
   - calc
 - name: github.com/olebedev/when
-  version: ac30b9a292575a8e46eac00ff0969379db9e338a
+  version: 175108fec17fb14cc3d4f0ec49e55fee9eaeadd8
   subpackages:
   - rules
   - rules/common
@@ -57,27 +56,27 @@ imports:
 - name: github.com/pkg/errors
   version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/PuerkitoBio/goquery
-  version: e1271ee34c6a305e38566ecd27ae374944907ee9
+  version: 2dc93891ab3bcc1dbc2cbf9bc6376c37f6e6f289
 - name: github.com/Sirupsen/logrus
-  version: 1deb2db2a6fff8a35532079061b903c3a25eed52
+  version: 5e5dc898656f695e2a086b8e12559febbfc01562
 - name: github.com/ttacon/chalk
-  version: 76b3c8b611dea8f83e49e9ce81fc2b189e0ef3d2
+  version: 22c06c80ed312dcb6e1cf394f9634aa2c4676e22
 - name: github.com/ugjka/cleverbot-go
   version: cea1c5a41b22c6d457c7dcee7ab095392ecb36fd
 - name: golang.org/x/crypto
-  version: 728b753d0135da6801d45a38e6f43ff55779c5c2
+  version: 7e9105388ebff089b3f99f0ef676ea55a6da3a7e
   subpackages:
   - nacl/secretbox
   - pbkdf2
   - poly1305
   - salsa20/salsa
 - name: golang.org/x/image
-  version: 84a65118940ed74c8e841be84d3e502c29eff703
+  version: 426cfd8eeb6e08ab1932954e09e3c2cb2bc6e36d
   subpackages:
   - font
   - math/fixed
 - name: golang.org/x/net
-  version: a6577fac2d73be281a500b310739095313165611
+  version: 5b58a9c3e1690d33a592e5b791638e25eb9b3f70
   subpackages:
   - context
   - context/ctxhttp
@@ -90,25 +89,27 @@ imports:
   - lex/httplex
   - trace
 - name: golang.org/x/oauth2
-  version: 1611bb46e67abc64a71ecc5c3ae67f1cbbc2b921
+  version: f047394b6d14284165300fd82dad67edb3a4d7f6
   subpackages:
   - google
   - internal
   - jws
   - jwt
 - name: golang.org/x/sys
-  version: 99f16d856c9836c42d24e7ab64ea72916925fa97
+  version: a55a76086885b80f79961eacb876ebd8caf3868d
   subpackages:
   - unix
 - name: golang.org/x/text
-  version: f28f36722d5ef2f9655ad3de1f248e3e52ad5ebd
+  version: 19e51611da83d6be54ddafce4a4af510cb3e9ea4
   subpackages:
   - internal/tag
   - language
+  - secure/bidirule
   - transform
+  - unicode/bidi
   - unicode/norm
 - name: google.golang.org/api
-  version: 1202890e803f07684581b575fda809bf335a533f
+  version: d9d64fe74969b80fb4a435ae9280c9ff061a6097
   subpackages:
   - gensupport
   - googleapi
@@ -118,7 +119,7 @@ imports:
   - option
   - transport
 - name: google.golang.org/appengine
-  version: b79c28f0197795b4050bfcd7c4c2209136c594b1
+  version: a2f4131514e563cedfdb6e7d267df9ad48591e93
   subpackages:
   - internal
   - internal/app_identity
@@ -131,12 +132,17 @@ imports:
   - internal/urlfetch
   - socket
   - urlfetch
+- name: google.golang.org/genproto
+  version: d80a6e20e776b0b17a324d0ba1ab50a39c8e8944
+  subpackages:
+  - googleapis/rpc/status
 - name: google.golang.org/grpc
-  version: 0713829b980f4ddd276689a36235c5fcc82a21bf
+  version: 3a46d9d51931de5beee75086205224a540233baa
   subpackages:
   - codes
   - credentials
   - credentials/oauth
+  - grpclb/grpc_lb_v1
   - grpclog
   - internal
   - keepalive
@@ -144,12 +150,13 @@ imports:
   - naming
   - peer
   - stats
+  - status
   - tap
   - transport
 - name: gopkg.in/fatih/pool.v2
   version: 6e328e67893eb46323ad06f0e92cb9536babbabc
 - name: gopkg.in/gorethink/gorethink.v3
-  version: 610fcc04c971a9fa42f1b6625c7c52b5bb472c51
+  version: 7ab832f7b65573104a555d84a27992ae9ea1f659
   subpackages:
   - encoding
   - ql2
