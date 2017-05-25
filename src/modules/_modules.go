@@ -29,7 +29,6 @@ var (
         &plugins.ListenDotMoe{},
         //#endif
 
-        &plugins.About{},
         //&plugins.Announcement{},
         &plugins.Avatar{},
         &plugins.Calc{},
