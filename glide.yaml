@@ -9,11 +9,9 @@ import:
 - package: golang.org/x/image
   subpackages:
   - font
-
 - package: cloud.google.com/go
   subpackages:
   - translate
-
 - package: github.com/Jeffail/gabs
 - package: github.com/dustin/go-humanize
 - package: github.com/getsentry/raven-go
@@ -28,5 +26,5 @@ import:
 - package: github.com/pelletier/go-toml
 - package: github.com/bwmarrin/discordgo
   version: develop
-
 - package: git.lukas.moe/sn0w/radio-b
+- package: github.com/yuin/gopher-lua

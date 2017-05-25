@@ -1,5 +1,5 @@
-hash: b93eb296fbc92ffd77b741ae0e7b7c8d899d39483ec8a5215b28e0deb519a86f
-updated: 2017-05-25T16:49:36.763998742+02:00
+hash: 33fcda58b85ec21a6f27933c4e0fc41562d688b78fae5d1803f97eddc9f90acd
+updated: 2017-05-25T18:10:22.68913326+02:00
 imports:
 - name: cloud.google.com/go
   version: ff3a4a928549efd9c569f4d812b885ae7736d402
@@ -67,6 +67,12 @@ imports:
   version: 22c06c80ed312dcb6e1cf394f9634aa2c4676e22
 - name: github.com/ugjka/cleverbot-go
   version: cea1c5a41b22c6d457c7dcee7ab095392ecb36fd
+- name: github.com/yuin/gopher-lua
+  version: b402f3114ec730d8bddb074a6c137309f561aa78
+  subpackages:
+  - ast
+  - parse
+  - pm
 - name: golang.org/x/crypto
   version: 7e9105388ebff089b3f99f0ef676ea55a6da3a7e
   subpackages:
