@@ -1,4 +1,4 @@
-package api
+package dsl_api
 
 import (
     "github.com/yuin/gopher-lua"
@@ -22,7 +22,7 @@ func RegisterReply(L *lua.LState) int {
     reply := L.CheckString(3)
 
     // Construct a plugin for this script using ProtoScript
-    script := (&bridge.ProtoScript{}).Attach(
+    script := (&dsl_bridge.ProtoScript{}).Attach(
         func() string {
             return name
         },
@@ -35,9 +35,7 @@ func RegisterReply(L *lua.LState) int {
     )
 
     // Push plugin to bridge
-    for _, v := range listenerSlice {
-        bridge.PushScript(v, script)
-    }
+    dsl_bridge.PushScript(script)
 
     L.Push(lua.LBool(true))
     return 1
@@ -58,7 +56,7 @@ func RegisterComplexReply(L *lua.LState) int {
     reply := L.CheckFunction(3)
 
     // Construct a plugin for this script using ProtoScript
-    script := (&bridge.ProtoScript{}).Attach(
+    script := (&dsl_bridge.ProtoScript{}).Attach(
         func() string {
             return name
         },
@@ -66,24 +64,25 @@ func RegisterComplexReply(L *lua.LState) int {
             return listenerSlice
         },
         func(author *discordgo.User, caller string, content string) string {
+            //authorTable := lua.LTable{}
+            //v := reflect.ValueOf(author)
+
             // Construct VM call and execute
             err := L.CallByParam(lua.P{
                 Fn: reply,
-            })
+            }, lua.LString(caller), lua.LString(content))
             helpers.Relax(err)
 
             // Receive return value from stack
-            ret := L.CheckString(-1)
+            ret := L.Get(-1)
             L.Pop(1)
 
-            return ret
+            return ret.String()
         },
     )
 
     // Push plugin to bridge
-    for _, v := range listenerSlice {
-        bridge.PushScript(v, script)
-    }
+    dsl_bridge.PushScript(script)
 
     L.Push(lua.LBool(true))
     return 1

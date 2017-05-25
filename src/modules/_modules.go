@@ -5,18 +5,18 @@ import (
     "code.lukas.moe/x/karen/src/modules/plugins"
     //#endif
 
-    //#ifndef EXCLUDE_TRIGGERS
-    "code.lukas.moe/x/karen/src/modules/triggers"
+    //#ifndef EXCLUDE_SCRIPTING
+    "code.lukas.moe/x/karen/src/dsl/bridge"
     //#endif
 )
 
 var (
     //#ifndef EXCLUDE_PLUGINS
-    pluginCache map[string]*Plugin
+    pluginCache map[string]Plugin
     //#endif
 
-    //#ifndef EXCLUDE_TRIGGERS
-    triggerCache map[string]*TriggerPlugin
+    //#ifndef EXCLUDE_SCRIPTING
+    scriptCache map[string]dsl_bridge.Script
     //#endif
 
     //#ifndef EXCLUDE_PLUGINS
@@ -62,26 +62,6 @@ var (
         &plugins.Weather{},
         &plugins.WhoIs{},
         &plugins.XKCD{},
-    }
-    //#endif
-
-    //#ifndef EXCLUDE_TRIGGERS
-    TriggerPluginList = []TriggerPlugin{
-        &triggers.CSS{},
-        &triggers.Donate{},
-        &triggers.Git{},
-        &triggers.EightBall{},
-        &triggers.Hi{},
-        &triggers.HypeTrain{},
-        &triggers.Invite{},
-        &triggers.IPTables{},
-        &triggers.Lenny{},
-        &triggers.Nep{},
-        &triggers.Kawaii{},
-        &triggers.ReZero{},
-        &triggers.Shrug{},
-        &triggers.TableFlip{},
-        &triggers.Triggered{},
     }
     //#endif
 )

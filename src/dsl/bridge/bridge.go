@@ -1,24 +1,24 @@
-package bridge
+package dsl_bridge
 
-import "sync"
+import (
+    "sync"
+)
 
 var (
-    scripts     = map[string]Script{}
+    scripts     = []Script{}
     scriptMutex = sync.RWMutex{}
 )
 
-func PushScript(k string, v Script) {
+func PushScript(v Script) {
     scriptMutex.Lock()
-    scripts[k] = v
-    scriptMutex.Unlock()
+    defer scriptMutex.Unlock()
+
+    scripts = append(scripts, v)
 }
 
-func DropScript(k string) {
-    scriptMutex.Lock()
-    delete(scripts, k)
-    scriptMutex.Unlock()
-}
+func GetScripts() (*[]Script) {
+    scriptMutex.RLock()
+    defer scriptMutex.RUnlock()
 
-func GetScripts() (map[string]Script) {
-    return scripts
+    return &scripts
 }

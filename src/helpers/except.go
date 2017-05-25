@@ -10,12 +10,14 @@ import (
     "reflect"
     "runtime"
     "strconv"
+    "github.com/davecgh/go-spew/spew"
 )
 
 // RecoverDiscord recover()s and sends a message to discord
 func RecoverDiscord(msg *discordgo.Message) {
     err := recover()
     if err != nil {
+        spew.Dump(err)
         SendError(msg, err)
     }
 }

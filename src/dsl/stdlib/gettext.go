@@ -1,4 +1,4 @@
-package stdlib
+package dsl_stdlib
 
 import (
     "github.com/yuin/gopher-lua"

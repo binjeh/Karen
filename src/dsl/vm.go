@@ -68,8 +68,8 @@ func Load() {
 }
 
 func registerGlobals(vm *lua.LState) {
-    vm.SetGlobal("__KAREN_REGISTER_REPLY__", vm.NewFunction(api.RegisterReply))
-    vm.SetGlobal("__KAREN_REGISTER_COMPLEX__", vm.NewFunction(api.RegisterComplexReply))
-    vm.SetGlobal("__KAREN_GETTEXT__", vm.NewFunction(stdlib.GetText))
-    vm.SetGlobal("__KAREN_GETTEXT_F__", vm.NewFunction(stdlib.GetTextF))
+    vm.SetGlobal("__KAREN_REGISTER_REPLY__", vm.NewFunction(dsl_api.RegisterReply))
+    vm.SetGlobal("__KAREN_REGISTER_COMPLEX__", vm.NewFunction(dsl_api.RegisterComplexReply))
+    vm.SetGlobal("__KAREN_GETTEXT__", vm.NewFunction(dsl_stdlib.GetText))
+    vm.SetGlobal("__KAREN_GETTEXT_F__", vm.NewFunction(dsl_stdlib.GetTextF))
 }

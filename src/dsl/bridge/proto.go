@@ -1,4 +1,4 @@
-package bridge
+package dsl_bridge
 
 import "github.com/bwmarrin/discordgo"
 
