@@ -75,19 +75,6 @@ I want to create a bot that:
  - Will **never** use more resources than absolutely needed
  - Never crashes (or to be precise: be able to recover from almost any `panic()`)
 
-To archieve these goals, the basic rules of coding Karen are:
- - Plugins are compiled into the bot instead of lazy-loading
- - All commands are stateless
- - If a plugin cannot work without states (like `music.go`) it has to implement the state-handling itself
- - Write as much async code as possible
- - Channels > Callbacks
- - Write optimized helper functions instead of duplicated boilerplate code
- - `panic()` on **any** error that is not user-related and `recover()` later
- - Mind your CPU! A coroutine should die as soon as possible
- - If you wait for something in an endless loop let it `sleep()` as long as possible between iterations.
- - A function's cyclomatic complexity should be as low as possible
- - A function should have as few responsibilities as possible
-
 ### Achievements
 
 - Never exceeded 2% CPU usage at the time of writing.
