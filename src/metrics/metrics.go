@@ -39,11 +39,16 @@ var (
     Uptime = expvar.NewInt("uptime")
 )
 
-// Init starts a http server on 127.0.0.1:1337
 func Init() {
-    logger.INFO.L("Listening on TCP/1337")
+    ip := config.Get("core.metrics.ip").(string)
+    port := config.Get("core.metrics.port").(string)
+
+    logger.INFO.L("Listening on " + ip + " [TCP/" + port + "]")
     Uptime.Set(time.Now().Unix())
-    go http.ListenAndServe(config.Get("metrics_ip").(string)+":1337", nil)
+    go http.ListenAndServe(
+        ip+":"+port,
+        nil,
+    )
 }
 
 // OnReady listens for said discord event

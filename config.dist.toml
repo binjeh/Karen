@@ -1,0 +1,42 @@
+[core]
+    debugMode = false
+
+    [core.profile]
+        name = "Karen"
+        avatar = ""
+
+    [core.discord]
+        id = "DISCORD_APP_ID"
+        perms = 104320064
+        token = "DISCORD_BOT_TOKEN"
+
+    [core.db]
+        name = "karen"
+        ip = "127.0.0.1"
+        port = 27001
+
+    [core.metrics]
+        ip = "0.0.0.0"
+        port = 1337
+
+    [core.sentry]
+        dsn = "https://YOU_SENTRY_TOKEN_1:YOUR_SENTRY_TOKEN_2@sentry.io/YOUR_SENTRY_PROJECT"
+
+[modules]
+    [modules.cleverbot]
+        key = "..."
+
+    [modules.google.translator]
+        key = "..."
+
+    [modules.listen_moe]
+        key = "YOUR_LISTEN.MOE_TOKEN"
+
+    [modules.osu]
+        key = "YOUR_OSU_API_TOKEN"
+
+[beta]
+    whitelist = [
+        "...",
+        "..."
+    ]

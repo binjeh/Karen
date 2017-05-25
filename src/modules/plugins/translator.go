@@ -29,7 +29,7 @@ func (t *Translator) Init(session *discordgo.Session) {
 
     client, err := translate.NewClient(
         t.ctx,
-        option.WithAPIKey(config.Get("google.translate").(string)),
+        option.WithAPIKey(config.Get("modules.google.translator.key").(string)),
     )
     helpers.Relax(err)
     t.client = client

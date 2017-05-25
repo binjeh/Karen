@@ -1,5 +1,5 @@
-hash: 7ef614d17833ade7db9d5b21a65c3f7c183ebfe3ceaeacad6a05b5d304524fc1
-updated: 2017-05-25T02:14:14.63861865+02:00
+hash: 74f74e979bbea8a110139d9a922f57a1929dc24e9afcf7cc4fa2104f289cb42b
+updated: 2017-05-25T15:50:05.36089467+02:00
 imports:
 - name: cloud.google.com/go
   version: ff3a4a928549efd9c569f4d812b885ae7736d402
@@ -42,6 +42,8 @@ imports:
   version: e80d13ce29ede4452c43dea11e79b9bc8a15b478
 - name: github.com/Jeffail/gabs
   version: c9fb5b700cddb62013b2ee9dfc9ce011caea55e0
+- name: github.com/laurent22/toml-go
+  version: fa06a499644c65faa23ac72a41a2f38aa3020ba8
 - name: github.com/marcmak/calc
   version: 5bbbfc3b3149741fda5147a18568a62f6cd3fec1
   subpackages:
@@ -53,6 +55,8 @@ imports:
   - rules/common
   - rules/en
   - rules/ru
+- name: github.com/pelletier/go-toml
+  version: 13d49d4606eb801b8f01ae542b4afc4c6ee3d84a
 - name: github.com/pkg/errors
   version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/PuerkitoBio/goquery
@@ -76,7 +80,7 @@ imports:
   - font
   - math/fixed
 - name: golang.org/x/net
-  version: 5b58a9c3e1690d33a592e5b791638e25eb9b3f70
+  version: 7dcfb8076726a3fdd9353b6b8a1f1b6be6811bd6
   subpackages:
   - context
   - context/ctxhttp

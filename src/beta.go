@@ -3,21 +3,14 @@ package main
 import (
     "code.lukas.moe/x/karen/src/logger"
     "github.com/bwmarrin/discordgo"
-    "strings"
     "time"
 )
 
 // Automatically leaves guilds that are not registered beta testers
-func autoLeaver(session *discordgo.Session, betaGuildsContainer []interface{}) {
-    // Converts []interface to [][]string
-    betaGuilds := [][]string{}
-    for _, c := range betaGuildsContainer {
-        betaGuilds = append(betaGuilds, strings.Split(c.(string), "|"))
-    }
-
+func autoLeaver(session *discordgo.Session, betaGuilds []interface{}) {
     // Print enabled guilds
     for _, betaGuild := range betaGuilds {
-        logger.INFO.L("[BETA] Enabled "+betaGuild[0]+" ("+betaGuild[1]+") by "+betaGuild[2])
+        logger.INFO.L("[BETA] Enabled " + betaGuild.(string))
     }
 
     // Endless loop that checks for unpermitted usage
@@ -26,14 +19,14 @@ func autoLeaver(session *discordgo.Session, betaGuildsContainer []interface{}) {
             match := false
 
             for _, betaGuild := range betaGuilds {
-                if guild.ID == betaGuild[0] {
+                if guild.ID == betaGuild.(string) {
                     match = true
                     break
                 }
             }
 
             if !match {
-                logger.WARNING.L("Leaving guild "+guild.ID+" ("+guild.Name+") because it didn't apply for the beta")
+                logger.WARNING.L("Leaving guild " + guild.ID + " (" + guild.Name + ") because it didn't apply for the beta")
                 session.GuildLeave(guild.ID)
             }
         }

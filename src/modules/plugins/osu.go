@@ -52,7 +52,7 @@ func (o *Osu) Action(command string, content string, msg *discordgo.Message, ses
     jsonc, err := helpers.GetJSON(
         fmt.Sprintf(
             "https://osu.ppy.sh/api/get_user?k=%s&u=%s&type=u&m=%s",
-            config.Get("osu").(string),
+            config.Get("modules.osu.key").(string),
             user,
             mode,
         ),

@@ -6,6 +6,6 @@ import (
 
 func m0_create_db() {
     CreateDBIfNotExists(
-        config.Get("rethink.db").(string),
+        config.Get("core.db.name").(string),
     )
 }

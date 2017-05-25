@@ -41,6 +41,6 @@ func Send(session *discordgo.Session, channel string, message string) {
 // CleverbotRefreshSession refreshes the cleverbot session for said channel
 func RefreshSession(channel string) {
     cleverbotSessions[channel] = cleverbot.New(
-        config.Get("cleverbot.key").(string),
+        config.Get("modules.cleverbot.key").(string),
     )
 }

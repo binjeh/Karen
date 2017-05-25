@@ -369,7 +369,7 @@ func (l *ListenDotMoe) tracklistWorker() {
             continue
         }
 
-        c.WriteJSON(map[string]string{"token": config.Get("listen_moe").(string)})
+        c.WriteJSON(map[string]string{"token": config.Get("modules.listen_moe.key").(string)})
         helpers.Relax(err)
 
         for {

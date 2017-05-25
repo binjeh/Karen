@@ -32,7 +32,7 @@ func main() {
     rand.Seed(time.Now().UTC().UnixNano())
 
     // Check if the bot is being debugged
-    if config.Get("debug").(bool) {
+    if config.GetDefault("core.debugMode", false).(bool) {
         helpers.DEBUG_MODE = true
         Logger.DEBUG_MODE = true
     }
@@ -42,7 +42,7 @@ func main() {
 
     // Call home
     Logger.BOOT.L("[SENTRY] Calling home...")
-    err := raven.SetDSN(config.Get("sentry").(string))
+    err := raven.SetDSN(config.Get("core.sentry.dsn").(string))
     if err != nil {
         panic(err)
     }
@@ -51,8 +51,8 @@ func main() {
     // Connect to DB
     Logger.BOOT.L("Opening database connection...")
     helpers.ConnectDB(
-        config.Get("rethink.url").(string),
-        config.Get("rethink.db").(string),
+        config.Get("core.db.ip").(string) + ":" + config.Get("core.db.port").(string),
+        config.Get("core.db.name").(string),
     )
 
     // Close DB when main dies
@@ -63,7 +63,7 @@ func main() {
 
     // Connect and add event handlers
     Logger.BOOT.L("Connecting to discord...")
-    discord, err := discordgo.New("Bot " + config.Get("discord.token").(string))
+    discord, err := discordgo.New("Bot " + config.Get("core.discord.token").(string))
     if err != nil {
         panic(err)
     }

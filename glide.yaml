@@ -38,3 +38,5 @@ import:
 - package: golang.org/x/image
   subpackages:
   - font
+- package: github.com/pelletier/go-toml
+  version: ^0.5.0

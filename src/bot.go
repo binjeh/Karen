@@ -21,9 +21,9 @@ import (
 func BotOnReady(session *discordgo.Session, event *discordgo.Ready) {
     Logger.INFO.L("Connected to discord!")
     Logger.VERBOSE.L("Invite link: "+ fmt.Sprintf(
-        "https://discordapp.com/oauth2/authorize?client_id=%s&scope=bot&permissions=%s",
-        config.Get("discord.id").(string),
-        config.Get("discord.perms").(string),
+        "https://discordapp.com/oauth2/authorize?client_id=%s&scope=bot&permissions=%d",
+        config.Get("core.discord.id").(string),
+        config.Get("core.discord.perms").(int64),
     ))
 
     // Cache the session
@@ -47,8 +47,8 @@ func BotOnReady(session *discordgo.Session, event *discordgo.Ready) {
     go func() {
         time.Sleep(3 * time.Second)
 
-        configName := config.Get("bot.name").(string)
-        configAvatar := config.Get("bot.avatar").(string)
+        configName := config.Get("core.profile.name").(string)
+        configAvatar := config.Get("core.profile.avatar").(string)
 
         // Change avatar if desired
         if configAvatar != "" && configAvatar != session.State.User.Avatar {

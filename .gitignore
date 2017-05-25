@@ -2,6 +2,7 @@
 /karen
 /karen.*
 /config.json
+/config.toml
 /src/assets/
 /src/modules/modules.go
 /src/modules/utils.go
