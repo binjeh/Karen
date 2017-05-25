@@ -4,11 +4,14 @@
   <a href="<https://travis-ci.org/sn0w/karen">
     <img alt="build status" src="https://travis-ci.org/sn0w/karen.svg?branch=master" />
   </a>
-  <a href="/">
-    <img src="https://img.shields.io/github/tag/sn0w/karen.svg?style=flat-square" alt="GitHub tag"/>
+  <a href="https://www.codacy.com/app/lukas-breuer/karen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sn0w/karen&amp;utm_campaign=Badge_Grade">
+    <img src="https://api.codacy.com/project/badge/Grade/ec90cbf66f5c4ecbab15d5dfe73c0ddd"/>
   </a>
-  <a href="https://goreportcard.com/report/github.com/sn0w/Karen">
-    <img src="https://goreportcard.com/badge/github.com/sn0w/Karen?style=flat-square" alt="Go Report Card"/>
+  <a href="https://codebeat.co/projects/github-com-sn0w-karen-master">
+    <img alt="codebeat badge" src="https://codebeat.co/badges/2d89b948-da1b-40e4-8ecd-f3b7dc394591" />
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/github/tag/sn0w/karen.svg?style=flat-square" alt="GitHub tag"/>
   </a>
   <a href="https://gowalker.org/github.com/sn0w/Karen">
     <img src="http://gowalker.org/api/v1/badge" alt="Go Walker" />
@@ -101,12 +104,6 @@ the homepage for usage help.
 ### Disclaimer
 This bot is still in a early stage.<br>
 Please expect (rare) crashes and minor performance problems until the bot is mature enough.
-
-### About the bad GoReportCard score
-This project will probably never reach more than a D on GoReportCard because I hugely disagree on gofmt's decision to use tabs instead of spaces. I know that this discussion is as old as programming itself, but this is my opinion on this. I prefer spaces. Always. I might create a fork of gofmt that allows spaces at some point.
-
-The primary reason for having GoReportCard at all are the go_vet, gocyclo, ineffassign and misspell tests.<br>
-You are forced to keep the score as-is or improve it when making contributions to the project.
 
 ### How does this work?
 I've drawn a colorful picture just for you!
