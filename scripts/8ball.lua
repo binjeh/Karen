@@ -5,9 +5,9 @@ require("karen").registerComplex(
     { "8ball", "8b" },
     function(author, caller, content)
         if string.len(content) < 3 then
-            return utils.__("triggers.8ball.ask_a_question")
+            return utils.__("scripts.8ball.ask_a_question")
         end
 
-        return ":8ball: " + utils.__("triggers.8ball")
+        return ":8ball: " + utils.__("scripts.8ball")
     end
 )

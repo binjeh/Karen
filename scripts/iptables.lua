@@ -4,5 +4,5 @@ require("karen").registerReply(
         "ipt",
         "iptables"
     },
-    require("utils").__("triggers.iptables")
+    require("utils").__("scripts.iptables")
 )

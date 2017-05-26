@@ -1,3 +1,7 @@
+--
+-- Convenience wrappers around the global register-api
+--
+
 local karen = {}
 
 function karen.registerReply(name, listeners, replyId)

@@ -4,5 +4,5 @@ require("karen").registerReply(
         "triggered",
         "trigger",
     },
-    require("utils").__("triggers.triggered")
+    require("utils").__("scripts.triggered")
 )

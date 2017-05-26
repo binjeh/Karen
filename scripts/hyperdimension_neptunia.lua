@@ -14,5 +14,5 @@ require("karen").registerReply(
         "nepgear",
         "neptune"
     },
-    utils.__("triggers.nep.text") .. "\n" .. utils.__("triggers.nep.link")
+    utils.__("scripts.nep.text") .. "\n" .. utils.__("scripts.nep.link")
 )

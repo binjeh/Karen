@@ -6,5 +6,5 @@ require("karen").registerReply(
         "github",
         "repo"
     },
-    ":earth_africa: " .. require("utils").__("triggers.git")
+    ":earth_africa: " .. require("utils").__("scripts.git")
 )

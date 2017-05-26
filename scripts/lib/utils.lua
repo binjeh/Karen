@@ -1,3 +1,7 @@
+--
+-- Convenience wrappers around the global utility functions
+--
+
 local utils = {}
 
 function utils.getText(id)

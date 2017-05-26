@@ -7,5 +7,5 @@ require("karen").registerReply(
         "rezero",
         "rz"
     },
-    require("utils").__("triggers.re_zero.link")
+    require("utils").__("scripts.re_zero.link")
 )

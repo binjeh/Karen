@@ -14,5 +14,5 @@ require("karen").registerReply(
         "ohai",
         "ohayou"
     },
-    ":wave: " .. require("utils").__("triggers.hi.link")
+    ":wave: " .. require("utils").__("scripts.hi.link")
 )

@@ -1,5 +1,5 @@
 require("karen").registerReply(
     "kawaii",
     { "kawaii" },
-    require("utils").__("triggers.kawaii.link")
+    require("utils").__("scripts.kawaii.link")
 )

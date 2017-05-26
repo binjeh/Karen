@@ -10,5 +10,5 @@ local utils = require("utils")
 require("karen").registerReply(
     "hype",
     { "hype", "hypu" },
-    utils.__("triggers.hypetrain.text") .. "\n" .. utils.__("triggers.hypetrain.link")
+    utils.__("scripts.hypetrain.text") .. "\n" .. utils.__("scripts.hypetrain.link")
 )
