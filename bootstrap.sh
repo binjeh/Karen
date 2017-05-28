@@ -15,6 +15,6 @@ require go
 require curl
 require glide
 
-go get -u golang.org/x/tools/cmd/goimports
-go get -u github.com/lestrrat/go-bindata/...
-go get -u git.lukas.moe/sn0w/ropus
+go get -v -u golang.org/x/tools/cmd/goimports
+go get -v -u github.com/lestrrat/go-bindata/...
+go get -v -u git.lukas.moe/sn0w/ropus
