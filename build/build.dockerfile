@@ -1,9 +1,8 @@
-FROM golang:alpine
+FROM golang:1.8.3-stretch
 
-RUN apk add --no-cache ca-certificates curl
-RUN update-ca-certificates
-
-RUN apk add --no-cache --virtual .build-deps git gnupg alpine-sdk bash
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get install -y ca-certificates curl git gnupg bash build-essential
 
 RUN curl https://glide.sh/get | sh
 

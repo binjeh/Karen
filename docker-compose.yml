@@ -1,0 +1,30 @@
+version: "3"
+
+# docker network create --subnet=172.254.254.0/24 userdef
+networks:
+  default:
+    external:
+      name: userdef
+
+services:
+  karen:
+    image: sn0w/karen-runtime
+    links:
+      - rethinkdb
+    volumes:
+      - /srv/karen:/karen
+      - /srv/karen-data:/srv/karen-data
+    ports:
+      - 127.0.0.1:7070:8080
+      - 127.0.0.1:28015:28015
+      - 127.0.0.1:29015:29015
+    labels:
+      - traefik.enable=true
+      - traefik.port=1337
+      - traefik.protocol=http
+      - traefik.frontend.rule=Host:data.karen.vc
+
+  rethinkdb:
+    image: rethinkdb
+    volumes:
+      - /srv/rethinkdb:/data

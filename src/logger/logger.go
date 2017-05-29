@@ -5,6 +5,7 @@ import (
     "time"
     "runtime"
     "strings"
+    "code.lukas.moe/x/karen/src/version"
 )
 
 var (
@@ -50,4 +51,49 @@ func (c LogLevel) cout(msg string) {
         codePoint,
         msg,
     )
+}
+
+func PrintLogo() {
+    //
+    // Added in honor of 551b2e1ef67b2321b83bdeb9f35b8bc5ec4149a9.
+    // A time where the code was "rusty", old and in early stages.
+    // We'll never forget you Karen V1.5 ;-;
+    //
+
+    logo := []string{
+        "",
+        "0xFADED proudly presents...",
+        " ▄    ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄ ",
+        "▐░▌  ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░▌      ▐░▌",
+        "▐░▌ ▐░▌ ▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀▀▀ ▐░▌░▌     ▐░▌",
+        "▐░▌▐░▌  ▐░▌       ▐░▌▐░▌       ▐░▌▐░▌          ▐░▌▐░▌    ▐░▌",
+        "▐░▌░▌   ▐░█▄▄▄▄▄▄▄█░▌▐░█▄▄▄▄▄▄▄█░▌▐░█▄▄▄▄▄▄▄▄▄ ▐░▌ ▐░▌   ▐░▌",
+        "▐░░▌    ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌  ▐░▌  ▐░▌",
+        "▐░▌░▌   ▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀█░█▀▀ ▐░█▀▀▀▀▀▀▀▀▀ ▐░▌   ▐░▌ ▐░▌",
+        "▐░▌▐░▌  ▐░▌       ▐░▌▐░▌     ▐░▌  ▐░▌          ▐░▌    ▐░▌▐░▌",
+        "▐░▌ ▐░▌ ▐░▌       ▐░▌▐░▌      ▐░▌ ▐░█▄▄▄▄▄▄▄▄▄ ▐░▌     ▐░▐░▌",
+        "▐░▌  ▐░▌▐░▌       ▐░▌▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░▌      ▐░░▌",
+        " ▀    ▀  ▀         ▀  ▀         ▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀        ▀▀ ",
+    }
+
+    for _, line := range logo {
+        fmt.Println(line)
+    }
+
+    DumpInfoV()
+    fmt.Println()
+}
+
+func DumpInfo() {
+    VERBOSE.L("VERSION: " + version.BOT_VERSION)
+    VERBOSE.L("BUILD TIME: " + version.BUILD_TIME)
+    VERBOSE.L("BUILD USER: " + version.BUILD_USER)
+    VERBOSE.L("BUILD HOST: " + version.BUILD_HOST)
+}
+
+func DumpInfoV() {
+    fmt.Println("VERSION: " + version.BOT_VERSION)
+    fmt.Println("BUILD TIME: " + version.BUILD_TIME)
+    fmt.Println("BUILD USER: " + version.BUILD_USER)
+    fmt.Println("BUILD HOST: " + version.BUILD_HOST)
 }

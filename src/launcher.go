@@ -5,7 +5,6 @@ import (
     Logger "code.lukas.moe/x/karen/src/logger"
     "code.lukas.moe/x/karen/src/metrics"
     "code.lukas.moe/x/karen/src/migrations"
-    "code.lukas.moe/x/karen/src/version"
     "github.com/bwmarrin/discordgo"
     "github.com/getsentry/raven-go"
     "math/rand"
@@ -17,13 +16,12 @@ import (
 
 // Entrypoint
 func main() {
+    Logger.PrintLogo()
+
     Logger.BOOT.L("Booting Karen...")
 
     // Read i18n
     helpers.LoadTranslations()
-
-    // Show version
-    version.DumpInfo()
 
     // Start metric server
     metrics.Init()
@@ -38,7 +36,7 @@ func main() {
     }
 
     // Print UA
-    Logger.BOOT.L("USERAGENT: '"+helpers.DEFAULT_UA+"'")
+    Logger.BOOT.L("USERAGENT: '" + helpers.DEFAULT_UA + "'")
 
     // Call home
     Logger.BOOT.L("[SENTRY] Calling home...")
@@ -51,7 +49,7 @@ func main() {
     // Connect to DB
     Logger.BOOT.L("Opening database connection...")
     helpers.ConnectDB(
-        config.Get("core.db.ip").(string) + ":" + config.Get("core.db.port").(string),
+        config.Get("core.db.ip").(string)+":"+config.Get("core.db.port").(string),
         config.Get("core.db.name").(string),
     )
 

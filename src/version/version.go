@@ -1,7 +1,5 @@
 package version
 
-import "code.lukas.moe/x/karen/src/logger"
-
 // Version related vars
 // Set by compiler
 var (
@@ -17,11 +15,3 @@ var (
     // BUILD_HOST example: nepgear
     BUILD_HOST string = "UNSET"
 )
-
-// DumpInfo dumps all above vars
-func DumpInfo() {
-    logger.VERBOSE.L("BOT VERSION: "+BOT_VERSION)
-    logger.VERBOSE.L("BUILD TIME: "+BUILD_TIME)
-    logger.VERBOSE.L("BUILD USER: "+BUILD_USER)
-    logger.VERBOSE.L("BUILD HOST: "+BUILD_HOST)
-}
