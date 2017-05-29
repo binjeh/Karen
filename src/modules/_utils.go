@@ -10,56 +10,68 @@ import (
     "code.lukas.moe/x/karen/src/metrics"
     "code.lukas.moe/x/karen/src/ratelimits"
     "github.com/bwmarrin/discordgo"
+    "code.lukas.moe/x/karen/src/dsl"
+    "code.lukas.moe/x/karen/src/dsl/bridge"
+    "github.com/davecgh/go-spew/spew"
 )
 
 // command - The command that triggered this execution
 // content - The content without command
 // msg     - The message object
 // session - The discord session
-func CallBotPlugin(command string, content string, msg *discordgo.Message) {
+func CallPlugin(command string, content string, msg *discordgo.Message) bool {
     //#ifdef EXCLUDE_PLUGINS
     //#warning modules#CallBotPlugin() will be a no-op in this build
     //#else
-    // Defer a recovery in case anything panics
     defer helpers.RecoverDiscord(msg)
 
-    // Consume a key for this action
-    ratelimits.Container.Drain(1, msg.Author.ID)
-
-    // Track metrics
-    metrics.CommandsExecuted.Add(1)
-
-    // Call the module
     if ref, ok := pluginCache[command]; ok {
-        (*ref).Action(command, content, msg, cache.GetSession())
+        // Consume a key for this action
+        ratelimits.Container.Drain(1, msg.Author.ID)
+
+        // Track metrics
+        metrics.CommandsExecuted.Add(1)
+
+        // Call the module
+        ref.Action(command, content, msg, cache.GetSession())
+
+        return true
     }
+
+    return false
     //#endif
 }
 
-// msg     - The message that triggered the execution
-// session - The discord session
-func CallTriggerPlugin(trigger string, content string, msg *discordgo.Message) {
-    //#ifdef EXCLUDE_TRIGGERS
-    //#warning modules#CallTriggerPlugin() will be a no-op in this build
+func CallScript(caller string, content string, msg *discordgo.Message) bool {
+    //#ifdef EXCLUDE_SCRIPTING
+    //#warning modules#CallScript() will be a no-op in this build
     //#else
     defer helpers.RecoverDiscord(msg)
 
-    // Consume a key for this action
-    ratelimits.Container.Drain(1, msg.Author.ID)
+    if ref, ok := scriptCache[caller]; ok {
+        ratelimits.Container.Drain(1, msg.Author.ID)
 
-    // Redirect trigger
-    if ref, ok := triggerCache[trigger]; ok {
+        metrics.CommandsExecuted.Add(1)
+
         cache.GetSession().ChannelMessageSend(
             msg.ChannelID,
-            (*ref).Response(trigger, content),
+            ref.Action(
+                msg.Author,
+                caller,
+                content,
+            ),
         )
+
+        return true
     }
+
+    return false
     //#endif
 }
 
 // Init warms the caches and initializes the plugins
 func Init(session *discordgo.Session) {
-    //#if defined(EXCLUDE_PLUGINS) && defined(EXCLUDE_TRIGGERS)
+    //#if defined(EXCLUDE_PLUGINS) && defined(EXCLUDE_SCRIPTING)
     //#warning modules#Init() will only print a line of text in this build
     //#else
     checkDuplicateCommands()
@@ -67,47 +79,49 @@ func Init(session *discordgo.Session) {
     logTemplate := ""
     //#endif
 
+    //#ifndef EXCLUDE_SCRIPTING
+    dsl.Load()
+    //#endif
+
     //#ifndef EXCLUDE_PLUGINS
     pluginCount := len(PluginList)
-    pluginCache = make(map[string]*Plugin)
+    pluginCache = make(map[string]Plugin)
 
     logTemplate = "[PLUG] %s reacts to [ %s]"
 
     for i := 0; i < pluginCount; i++ {
-        ref := &PluginList[i]
+        ref := PluginList[i]
 
-        for _, cmd := range (*ref).Commands() {
+        for _, cmd := range ref.Commands() {
             pluginCache[cmd] = ref
             listeners += cmd + " "
         }
 
         logger.INFO.L(fmt.Sprintf(
             logTemplate,
-            helpers.Typeof(*ref),
+            helpers.Typeof(ref),
             listeners,
         ))
         listeners = ""
 
-        (*ref).Init(session)
+        ref.Init(session)
     }
     //#endif
 
-    //#ifndef EXCLUDE_TRIGGERS
-    triggerCount := len(TriggerPluginList)
-    triggerCache = make(map[string]*TriggerPlugin)
-    logTemplate = "[TRIG] %s gets triggered by [ %s]"
+    //#ifndef EXCLUDE_SCRIPTING
+    scriptCount := len(*dsl_bridge.GetScripts())
+    scriptCache = make(map[string]dsl_bridge.Script)
+    logTemplate = `[SCRI] Script "%s" reacts to [ %s]`
 
-    for i := 0; i < triggerCount; i++ {
-        ref := &TriggerPluginList[i]
-
-        for _, trigger := range (*ref).Triggers() {
-            triggerCache[trigger] = ref
-            listeners += trigger + " "
+    for _, s := range *dsl_bridge.GetScripts() {
+        for _, listener := range s.Listeners() {
+            scriptCache[listener] = s
+            listeners += listener + " "
         }
 
         logger.INFO.L(fmt.Sprintf(
             logTemplate,
-            helpers.Typeof(*ref),
+            s.Name(),
             listeners,
         ))
         listeners = ""
@@ -115,26 +129,26 @@ func Init(session *discordgo.Session) {
     //#endif
 
     var lenPlugins string
-    var lenTriggers string
+    var lenScripts string
 
     //#ifndef EXCLUDE_PLUGINS
-    lenPlugins = strconv.Itoa(len(PluginList)) + " plugins"
+    lenPlugins = strconv.Itoa(pluginCount) + " plugins"
     //#else
     lenPlugins = "no plugins (-DEXCLUDE_PLUGINS)"
     //#endif
 
-    //#ifndef EXCLUDE_TRIGGERS
-    lenTriggers = strconv.Itoa(len(TriggerPluginList)) + " triggers"
+    //#ifndef EXCLUDE_SCRIPTING
+    lenScripts = strconv.Itoa(scriptCount) + " scripts"
     //#else
-    lenTriggers = "no triggers (-DEXCLUDE_TRIGGERS)"
+    lenScripts = "no scripts (-DEXCLUDE_SCRIPTING)"
     //#endif
 
     logger.INFO.L(
-        "Initializer finished. Loaded "+lenPlugins+" and "+lenTriggers,
+        "Initializer finished. Loaded " + lenPlugins + " and " + lenScripts,
     )
 }
 
-//#if defined(EXCLUDE_PLUGINS) && defined(EXCLUDE_TRIGGERS)
+//#if defined(EXCLUDE_PLUGINS)
 //#warning modules#checkDuplicateCommands() will be stripped from this build
 //#else
 func checkDuplicateCommands() {
@@ -146,22 +160,7 @@ func checkDuplicateCommands() {
             t := helpers.Typeof(plug)
 
             if occupant, ok := cmds[cmd]; ok {
-                logger.ERROR.L("Failed to load "+t+" because '"+cmd+"' was already registered by "+occupant)
-                os.Exit(1)
-            }
-
-            cmds[cmd] = t
-        }
-    }
-    //#endif
-
-    //#ifndef EXCLUDE_TRIGGERS
-    for _, trig := range TriggerPluginList {
-        for _, cmd := range trig.Triggers() {
-            t := helpers.Typeof(trig)
-
-            if occupant, ok := cmds[cmd]; ok {
-                logger.ERROR.L("Failed to load "+t+" because '"+cmd+"' was already registered by "+occupant)
+                logger.ERROR.L("Failed to load " + t + " because '" + cmd + "' was already registered by " + occupant)
                 os.Exit(1)
             }
 

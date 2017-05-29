@@ -1,0 +1,11 @@
+require("karen").registerReply(
+    "re:zero",
+    {
+        "rem",
+        "ram",
+        "re:zero",
+        "rezero",
+        "rz"
+    },
+    require("utils").__("scripts.re_zero.link")
+)

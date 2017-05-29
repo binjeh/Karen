@@ -20,7 +20,7 @@ import (
 // BotOnReady gets called after the gateway connected
 func BotOnReady(session *discordgo.Session, event *discordgo.Ready) {
     Logger.INFO.L("Connected to discord!")
-    Logger.VERBOSE.L("Invite link: "+ fmt.Sprintf(
+    Logger.VERBOSE.L("Invite link: " + fmt.Sprintf(
         "https://discordapp.com/oauth2/authorize?client_id=%s&scope=bot&permissions=%d",
         config.Get("core.discord.id").(string),
         config.Get("core.discord.perms").(int64),
@@ -230,11 +230,19 @@ func BotOnMessageCreate(session *discordgo.Session, message *discordgo.MessageCr
     // Separate arguments from the command
     content := strings.TrimSpace(strings.Replace(message.Content, prefix+cmd, "", -1))
 
-    // Check if a module matches said command
-    modules.CallBotPlugin(cmd, content, message.Message)
+    match := false
 
-    // Check if a trigger matches
-    modules.CallTriggerPlugin(cmd, content, message.Message)
+    // Check if a module matches said command
+    match = modules.CallPlugin(cmd, content, message.Message)
+    if match {
+        return
+    }
+
+    // Check if a script matches
+    match = modules.CallScript(cmd, content, message.Message)
+    if match {
+        return
+    }
 }
 
 // BotOnReactionAdd gets called after a reaction is added
