@@ -7,9 +7,6 @@ import (
     "code.lukas.moe/x/karen/src/helpers"
     "strings"
     "code.lukas.moe/x/karen/src/logger"
-    "code.lukas.moe/x/karen/src/dsl/api"
-    "code.lukas.moe/x/karen/src/dsl/stdlib"
-    "layeh.com/gopher-luar"
 )
 
 func Load() {
@@ -18,7 +15,7 @@ func Load() {
     })
 
     vm.OpenLibs()
-    registerGlobals(vm)
+    applyLibMapping(vm)
 
     ex, err := helpers.FileExists("./scripts")
     if !ex || err != nil {
@@ -64,14 +61,4 @@ func Load() {
 
         return nil
     })
-}
-
-func registerGlobals(vm *lua.LState) {
-    // API
-    vm.SetGlobal("__KAREN_REGISTER_REPLY__", luar.New(vm, dsl_api.RegisterReply))
-    vm.SetGlobal("__KAREN_REGISTER_COMPLEX__", luar.New(vm, dsl_api.RegisterComplexReply))
-
-    // STDLIB
-    vm.SetGlobal("__KAREN_GETTEXT__", luar.New(vm, dsl_stdlib.GetText))
-    vm.SetGlobal("__KAREN_GETTEXT_F__", luar.New(vm, dsl_stdlib.GetTextF))
 }

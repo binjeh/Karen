@@ -13,11 +13,11 @@ function utils.getTextF(id, params)
 end
 
 function utils.__(id)
-    return __KAREN_GETTEXT__(id)
+    return ____KAREN_UTILS_GETTEXT____(id)
 end
 
 function utils._f(id, params)
-    return __KAREN_GETTEXT_F__(id, params)
+    return ____KAREN_UTILS_GETTEXT_F____(id, params)
 end
 
 return utils
