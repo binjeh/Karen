@@ -28,3 +28,4 @@ import:
   version: develop
 - package: git.lukas.moe/sn0w/radio-b
 - package: github.com/yuin/gopher-lua
+- package: layeh.com/gopher-luar

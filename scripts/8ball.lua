@@ -8,6 +8,6 @@ require("karen").registerComplex(
             return utils.__("scripts.8ball.ask_a_question")
         end
 
-        return ":8ball: " + utils.__("scripts.8ball")
+        return ":8ball: " .. utils.__("scripts.8ball")
     end
 )
