@@ -14,12 +14,11 @@ before_install:
   - go get -u -v github.com/Masterminds/glide
   - cd $GOPATH/src/github.com/Masterminds/glide && git checkout 84607742b10f492430762d038e954236bbaf23f7 && go install && cd -
   - sudo apt-get -qq update
-  - sudo apt-get install -y gpp
+  - sudo apt-get install -y gpp cmake
 
 install:
   - ./bootstrap.sh
-  - ./configure
 
 script:
-  - make assets
+  - cmake .
   - make compile
