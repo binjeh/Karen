@@ -24,12 +24,12 @@ if(HOST)
     execute_process(COMMAND hostname OUTPUT_VARIABLE KAREN_DYN_BUILD_HOST ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
 endif()
 
-ADD_CUSTOM_TARGET(glide_install
+ADD_CUSTOM_TARGET(glide-install
     COMMAND test -d vendor || glide install
 )
 
-ADD_CUSTOM_TARGET(compile_release
-    DEPENDS glide_install assets configure
+ADD_CUSTOM_TARGET(compile-release
+    DEPENDS glide-install assets configure
     COMMAND go build -v -o karen
             --ldflags=\"
                 -X code.lukas.moe/x/karen/src/version.BOT_VERSION='${KAREN_DYN_VERSION}'
@@ -40,8 +40,8 @@ ADD_CUSTOM_TARGET(compile_release
             ./src
 )
 
-ADD_CUSTOM_TARGET(compile_debug
-    DEPENDS glide_install assets configure
+ADD_CUSTOM_TARGET(compile-debug
+    DEPENDS glide-install assets configure
     COMMAND go build -v -o karen
             --ldflags=\"
                 -X code.lukas.moe/x/karen/src/version.BOT_VERSION='${KAREN_DYN_VERSION}'
@@ -53,5 +53,15 @@ ADD_CUSTOM_TARGET(compile_debug
 )
 
 ADD_CUSTOM_TARGET(compile
-    DEPENDS compile_release
+    DEPENDS compile-release
+)
+
+ADD_CUSTOM_TARGET(run
+    DEPENDS compile
+    COMMAND ./karen
+)
+
+ADD_CUSTOM_TARGET(run-debug
+    DEPENDS compile-debug
+    COMMAND ./karen
 )
