@@ -1,7 +1,7 @@
-set(EXCLUDE_MUSIC 0 CACHE BOOL "Compile the musicbot?")
-set(EXCLUDE_RADIO 0 CACHE BOOL "Compile radio streaming?")
-set(EXCLUDE_PLUGINS 0 CACHE BOOL "Compile plugins?")
-set(EXCLUDE_SCRIPTING 0 CACHE BOOL "Compile scripting engine?")
+set(EXCLUDE_MUSIC 0 CACHE STRING "Exclude the musicbot? (0/1)")
+set(EXCLUDE_RADIO 0 CACHE STRING "Exclude radio streaming? (0/1)")
+set(EXCLUDE_PLUGINS 0 CACHE STRING "Exclude plugins? (0/1)")
+set(EXCLUDE_SCRIPTING 0 CACHE STRING "Exclude scripting engine? (0/1)")
 
 ADD_CUSTOM_TARGET(configure
     COMMAND ./ppw.sh \"
