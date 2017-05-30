@@ -1,14 +1,19 @@
-sudo: true
+dist: trusty
+sudo: required
+
+language: go
+go: 1.x
+go_import_path: code.lukas.moe/x/karen
+
+addons:
+  apt:
+    packages:
+      - gpp
 
 env:
   - GOOS=linux GOARCH=amd64 GOTARGET=karen.o
   - GOOS=windows GOARCH=amd64 GOTARGET=karen.exe
   - GOOS=darwin GOARCH=amd64 GOTARGET=karen.xo
-
-language: go
-go: 1.x
-
-go_import_path: code.lukas.moe/x/karen
 
 before_install:
   - go get -u -v github.com/Masterminds/glide
