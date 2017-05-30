@@ -51,8 +51,9 @@ Short answer: No you can't.
 Long answer:<br>
 No you can't because `go build` sucks.
 
-I use a sophisticated and completely handcrafted build system that uses modular makefiles at it's core.<br>
-Thus this is most likely the only go-project that supports c-style macros in comments and conditional compilation.<br>
+We use CMake, GNU Make and some shell magic instead.
+
+Thus this is most likely the only go-project on earth that supports c-style macros in comments and conditional compilation.<br>
 Are we awesome yet?
 
 ### Can you help me self-hosting Karen?

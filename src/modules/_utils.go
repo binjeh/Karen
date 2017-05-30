@@ -20,8 +20,9 @@ import (
 // msg     - The message object
 // session - The discord session
 func CallPlugin(command string, content string, msg *discordgo.Message) bool {
-    //#ifdef EXCLUDE_PLUGINS
+    //#ifeq EXCLUDE_PLUGINS 1
     //#warning modules#CallBotPlugin() will be a no-op in this build
+    return false
     //#else
     defer helpers.RecoverDiscord(msg)
 
@@ -43,8 +44,9 @@ func CallPlugin(command string, content string, msg *discordgo.Message) bool {
 }
 
 func CallScript(caller string, content string, msg *discordgo.Message) bool {
-    //#ifdef EXCLUDE_SCRIPTING
+    //#ifeq EXCLUDE_SCRIPTING 1
     //#warning modules#CallScript() will be a no-op in this build
+    return false
     //#else
     defer helpers.RecoverDiscord(msg)
 
@@ -71,7 +73,7 @@ func CallScript(caller string, content string, msg *discordgo.Message) bool {
 
 // Init warms the caches and initializes the plugins
 func Init(session *discordgo.Session) {
-    //#if defined(EXCLUDE_PLUGINS) && defined(EXCLUDE_SCRIPTING)
+    //#if EXCLUDE_PLUGINS==1 && EXCLUDE_SCRIPTING==1
     //#warning modules#Init() will only print a line of text in this build
     //#else
     checkDuplicateCommands()
@@ -79,11 +81,11 @@ func Init(session *discordgo.Session) {
     logTemplate := ""
     //#endif
 
-    //#ifndef EXCLUDE_SCRIPTING
+    //#ifeq EXCLUDE_SCRIPTING 0
     dsl.Load()
     //#endif
 
-    //#ifndef EXCLUDE_PLUGINS
+    //#ifeq EXCLUDE_PLUGINS 0
     pluginCount := len(PluginList)
     pluginCache = make(map[string]Plugin)
 
@@ -108,7 +110,7 @@ func Init(session *discordgo.Session) {
     }
     //#endif
 
-    //#ifndef EXCLUDE_SCRIPTING
+    //#ifeq EXCLUDE_SCRIPTING 0
     scriptCount := len(*dsl_bridge.GetScripts())
     scriptCache = make(map[string]dsl_bridge.Script)
     logTemplate = `[SCRI] Script "%s" reacts to [ %s]`
@@ -131,16 +133,16 @@ func Init(session *discordgo.Session) {
     var lenPlugins string
     var lenScripts string
 
-    //#ifndef EXCLUDE_PLUGINS
+    //#ifeq EXCLUDE_PLUGINS 0
     lenPlugins = strconv.Itoa(pluginCount) + " plugins"
     //#else
-    lenPlugins = "no plugins (-DEXCLUDE_PLUGINS)"
+    lenPlugins = "no plugins (-DEXCLUDE_PLUGINS=1)"
     //#endif
 
-    //#ifndef EXCLUDE_SCRIPTING
+    //#ifeq EXCLUDE_SCRIPTING 0
     lenScripts = strconv.Itoa(scriptCount) + " scripts"
     //#else
-    lenScripts = "no scripts (-DEXCLUDE_SCRIPTING)"
+    lenScripts = "no scripts (-DEXCLUDE_SCRIPTING=1)"
     //#endif
 
     logger.INFO.L(
@@ -148,13 +150,12 @@ func Init(session *discordgo.Session) {
     )
 }
 
-//#if defined(EXCLUDE_PLUGINS)
+//#ifeq EXCLUDE_PLUGINS 1
 //#warning modules#checkDuplicateCommands() will be stripped from this build
 //#else
 func checkDuplicateCommands() {
     cmds := make(map[string]string)
 
-    //#ifndef EXCLUDE_PLUGINS
     for _, plug := range PluginList {
         for _, cmd := range plug.Commands() {
             t := helpers.Typeof(plug)
@@ -167,7 +168,6 @@ func checkDuplicateCommands() {
             cmds[cmd] = t
         }
     }
-    //#endif
 }
 
 //#endif

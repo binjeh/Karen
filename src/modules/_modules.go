@@ -1,31 +1,31 @@
 package modules
 
 import (
-    //#ifndef EXCLUDE_PLUGINS
+    //#ifeq EXCLUDE_PLUGINS 0
     "code.lukas.moe/x/karen/src/modules/plugins"
     //#endif
 
-    //#ifndef EXCLUDE_SCRIPTING
+    //#ifeq EXCLUDE_SCRIPTING 0
     "code.lukas.moe/x/karen/src/dsl/bridge"
     //#endif
 )
 
 var (
-    //#ifndef EXCLUDE_PLUGINS
+    //#ifeq EXCLUDE_PLUGINS 0
     pluginCache map[string]Plugin
     //#endif
 
-    //#ifndef EXCLUDE_SCRIPTING
+    //#ifeq EXCLUDE_SCRIPTING 0
     scriptCache map[string]dsl_bridge.Script
     //#endif
 
-    //#ifndef EXCLUDE_PLUGINS
+    //#ifeq EXCLUDE_PLUGINS 0
     PluginList = []Plugin{
-        //#ifndef EXCLUDE_MUSIC
+        //#ifeq EXCLUDE_MUSIC 0
         &plugins.Music{},
         //#endif
 
-        //#ifndef EXCLUDE_RADIO
+        //#ifeq EXCLUDE_RADIO 0
         &plugins.ListenDotMoe{},
         //#endif
 
