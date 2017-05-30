@@ -12,8 +12,6 @@ addons:
 
 env:
   - GOOS=linux GOARCH=amd64 GOTARGET=karen.o
-  - GOOS=windows GOARCH=amd64 GOTARGET=karen.exe
-  - GOOS=darwin GOARCH=amd64 GOTARGET=karen.xo
 
 before_install:
   - go get -u -v github.com/Masterminds/glide
