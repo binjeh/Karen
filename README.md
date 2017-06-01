@@ -1,8 +1,8 @@
 <p align="center">
   <img alt="karen" width="96" src="http://i.imgur.com/VfgrwQz.jpg">
   <br>
-  <a href="<https://travis-ci.org/sn0w/karen">
-    <img alt="build status" src="https://travis-ci.org/sn0w/karen.svg?branch=master" />
+  <a href="<https://travis-ci.org/SubliminalHQ/karen">
+    <img alt="build status" src="https://travis-ci.org/SubliminalHQ/karen.svg?branch=master" />
   </a>
   <a href="https://www.codacy.com/app/lukas-breuer/karen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sn0w/karen&amp;utm_campaign=Badge_Grade">
     <img src="https://api.codacy.com/project/badge/Grade/ec90cbf66f5c4ecbab15d5dfe73c0ddd"/>
