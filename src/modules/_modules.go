@@ -43,14 +43,6 @@ var (
 
     //#ifeq EXCLUDE_PLUGINS 0
     PluginList = []Plugin{
-        //#ifeq EXCLUDE_MUSIC 0
-        &plugins.Music{},
-        //#endif
-
-        //#ifeq EXCLUDE_RADIO 0
-        &plugins.ListenDotMoe{},
-        //#endif
-
         //&plugins.Announcement{},
         &plugins.Avatar{},
         &plugins.Calc{},
