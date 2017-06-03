@@ -55,7 +55,7 @@
       "<@%s> It's at <http://karen.vc/commands> :smiley:"
     ]
   },
-  "triggers": {
+  "scripts": {
     "8ball": {
       "__": [
         "it is certain.",

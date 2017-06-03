@@ -1,5 +1,5 @@
-hash: b93eb296fbc92ffd77b741ae0e7b7c8d899d39483ec8a5215b28e0deb519a86f
-updated: 2017-05-25T16:49:36.763998742+02:00
+hash: caaa5b98645c45a5bc0085840eb10c0af24b9924d6cf54ca0a008af66ee27384
+updated: 2017-05-29T23:18:16.080712378+02:00
 imports:
 - name: cloud.google.com/go
   version: ff3a4a928549efd9c569f4d812b885ae7736d402
@@ -20,8 +20,14 @@ imports:
   version: 5d150e7eec023ce7a124856b37c68e54b4050ac7
 - name: github.com/certifi/gocertifi
   version: a9c833d2837d3b16888d55d5aafa9ffe9afb22b0
+- name: github.com/davecgh/go-spew
+  version: 346938d642f2ec3594ed81d874461961cd0faa76
+  subpackages:
+  - spew
 - name: github.com/dustin/go-humanize
   version: 259d2a102b871d17f30e3cd9881a642961a1e486
+- name: github.com/fatih/structs
+  version: 74a29b9fac7397d933f47e33eba94d2d83a464a2
 - name: github.com/getsentry/raven-go
   version: 4fa2ac0d29f801e79a063c0da82d37b5ff2873b2
 - name: github.com/golang/freetype
@@ -67,6 +73,12 @@ imports:
   version: 22c06c80ed312dcb6e1cf394f9634aa2c4676e22
 - name: github.com/ugjka/cleverbot-go
   version: cea1c5a41b22c6d457c7dcee7ab095392ecb36fd
+- name: github.com/yuin/gopher-lua
+  version: b402f3114ec730d8bddb074a6c137309f561aa78
+  subpackages:
+  - ast
+  - parse
+  - pm
 - name: golang.org/x/crypto
   version: 7e9105388ebff089b3f99f0ef676ea55a6da3a7e
   subpackages:
@@ -165,4 +177,6 @@ imports:
   - encoding
   - ql2
   - types
+- name: layeh.com/gopher-luar
+  version: 16281577dff29557258daa8ca9bc9b2e05f451f2
 testImports: []

@@ -1,35 +1,54 @@
+/*
+ *
+ * Copyright (C) 2015-2017 Lukas Breuer. All rights reserved.
+ *
+ * This file is a part of the Karen Discord-Bot Project ("Karen").
+ *
+ * Karen is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Karen is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU Affero General Public License for more details.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package modules
 
 import (
-    //#ifndef EXCLUDE_PLUGINS
+    //#ifeq EXCLUDE_PLUGINS 0
     "code.lukas.moe/x/karen/src/modules/plugins"
     //#endif
 
-    //#ifndef EXCLUDE_TRIGGERS
-    "code.lukas.moe/x/karen/src/modules/triggers"
+    //#ifeq EXCLUDE_SCRIPTING 0
+    "code.lukas.moe/x/karen/src/dsl/bridge"
     //#endif
 )
 
 var (
-    //#ifndef EXCLUDE_PLUGINS
-    pluginCache map[string]*Plugin
+    //#ifeq EXCLUDE_PLUGINS 0
+    pluginCache map[string]Plugin
     //#endif
 
-    //#ifndef EXCLUDE_TRIGGERS
-    triggerCache map[string]*TriggerPlugin
+    //#ifeq EXCLUDE_SCRIPTING 0
+    scriptCache map[string]dsl_bridge.Script
     //#endif
 
-    //#ifndef EXCLUDE_PLUGINS
+    //#ifeq EXCLUDE_PLUGINS 0
     PluginList = []Plugin{
-        //#ifndef EXCLUDE_MUSIC
+        //#ifeq EXCLUDE_MUSIC 0
         &plugins.Music{},
         //#endif
 
-        //#ifndef EXCLUDE_RADIO
+        //#ifeq EXCLUDE_RADIO 0
         &plugins.ListenDotMoe{},
         //#endif
 
-        &plugins.About{},
         //&plugins.Announcement{},
         &plugins.Avatar{},
         &plugins.Calc{},
@@ -63,26 +82,6 @@ var (
         &plugins.Weather{},
         &plugins.WhoIs{},
         &plugins.XKCD{},
-    }
-    //#endif
-
-    //#ifndef EXCLUDE_TRIGGERS
-    TriggerPluginList = []TriggerPlugin{
-        &triggers.CSS{},
-        &triggers.Donate{},
-        &triggers.Git{},
-        &triggers.EightBall{},
-        &triggers.Hi{},
-        &triggers.HypeTrain{},
-        &triggers.Invite{},
-        &triggers.IPTables{},
-        &triggers.Lenny{},
-        &triggers.Nep{},
-        &triggers.Kawaii{},
-        &triggers.ReZero{},
-        &triggers.Shrug{},
-        &triggers.TableFlip{},
-        &triggers.Triggered{},
     }
     //#endif
 )

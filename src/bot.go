@@ -1,3 +1,23 @@
+/*
+ *
+ * Copyright (C) 2015-2017 Lukas Breuer. All rights reserved.
+ *
+ * This file is a part of the Karen Discord-Bot Project ("Karen").
+ *
+ * Karen is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Karen is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU Affero General Public License for more details.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package main
 
 import (
@@ -20,7 +40,7 @@ import (
 // BotOnReady gets called after the gateway connected
 func BotOnReady(session *discordgo.Session, event *discordgo.Ready) {
     Logger.INFO.L("Connected to discord!")
-    Logger.VERBOSE.L("Invite link: "+ fmt.Sprintf(
+    Logger.VERBOSE.L("Invite link: " + fmt.Sprintf(
         "https://discordapp.com/oauth2/authorize?client_id=%s&scope=bot&permissions=%d",
         config.Get("core.discord.id").(string),
         config.Get("core.discord.perms").(int64),
@@ -230,11 +250,19 @@ func BotOnMessageCreate(session *discordgo.Session, message *discordgo.MessageCr
     // Separate arguments from the command
     content := strings.TrimSpace(strings.Replace(message.Content, prefix+cmd, "", -1))
 
-    // Check if a module matches said command
-    modules.CallBotPlugin(cmd, content, message.Message)
+    match := false
 
-    // Check if a trigger matches
-    modules.CallTriggerPlugin(cmd, content, message.Message)
+    // Check if a module matches said command
+    match = modules.CallPlugin(cmd, content, message.Message)
+    if match {
+        return
+    }
+
+    // Check if a script matches
+    match = modules.CallScript(cmd, content, message.Message)
+    if match {
+        return
+    }
 }
 
 // BotOnReactionAdd gets called after a reaction is added

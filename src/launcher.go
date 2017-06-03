@@ -1,3 +1,23 @@
+/*
+ *
+ * Copyright (C) 2015-2017 Lukas Breuer. All rights reserved.
+ *
+ * This file is a part of the Karen Discord-Bot Project ("Karen").
+ *
+ * Karen is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Karen is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU Affero General Public License for more details.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package main
 
 import (
@@ -5,7 +25,6 @@ import (
     Logger "code.lukas.moe/x/karen/src/logger"
     "code.lukas.moe/x/karen/src/metrics"
     "code.lukas.moe/x/karen/src/migrations"
-    "code.lukas.moe/x/karen/src/version"
     "github.com/bwmarrin/discordgo"
     "github.com/getsentry/raven-go"
     "math/rand"
@@ -17,13 +36,12 @@ import (
 
 // Entrypoint
 func main() {
+    Logger.PrintLogo()
+
     Logger.BOOT.L("Booting Karen...")
 
     // Read i18n
     helpers.LoadTranslations()
-
-    // Show version
-    version.DumpInfo()
 
     // Start metric server
     metrics.Init()
@@ -38,7 +56,7 @@ func main() {
     }
 
     // Print UA
-    Logger.BOOT.L("USERAGENT: '"+helpers.DEFAULT_UA+"'")
+    Logger.BOOT.L("USERAGENT: '" + helpers.DEFAULT_UA + "'")
 
     // Call home
     Logger.BOOT.L("[SENTRY] Calling home...")
@@ -51,7 +69,7 @@ func main() {
     // Connect to DB
     Logger.BOOT.L("Opening database connection...")
     helpers.ConnectDB(
-        config.Get("core.db.ip").(string) + ":" + config.Get("core.db.port").(string),
+        config.Get("core.db.ip").(string)+":"+config.Get("core.db.port").(string),
         config.Get("core.db.name").(string),
     )
 

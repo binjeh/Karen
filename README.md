@@ -1,8 +1,8 @@
 <p align="center">
   <img alt="karen" width="96" src="http://i.imgur.com/VfgrwQz.jpg">
   <br>
-  <a href="<https://travis-ci.org/sn0w/karen">
-    <img alt="build status" src="https://travis-ci.org/sn0w/karen.svg?branch=master" />
+  <a href="<https://travis-ci.org/SubliminalHQ/karen">
+    <img alt="build status" src="https://travis-ci.org/SubliminalHQ/karen.svg?branch=master" />
   </a>
   <a href="https://www.codacy.com/app/lukas-breuer/karen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sn0w/karen&amp;utm_campaign=Badge_Grade">
     <img src="https://api.codacy.com/project/badge/Grade/ec90cbf66f5c4ecbab15d5dfe73c0ddd"/>
@@ -51,8 +51,9 @@ Short answer: No you can't.
 Long answer:<br>
 No you can't because `go build` sucks.
 
-I use a sophisticated and completely handcrafted build system that uses modular makefiles at it's core.<br>
-Thus this is most likely the only go-project that supports c-style macros in comments and conditional compilation.<br>
+We use CMake, GNU Make and some shell magic instead.
+
+Thus this is most likely the only go-project on earth that supports c-style macros in comments and conditional compilation.<br>
 Are we awesome yet?
 
 ### Can you help me self-hosting Karen?

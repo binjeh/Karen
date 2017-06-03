@@ -1,25 +1,27 @@
-sudo: true
-
-env:
-  - GOOS=linux GOARCH=amd64 GOTARGET=karen.o
-  - GOOS=windows GOARCH=amd64 GOTARGET=karen.exe
-  - GOOS=darwin GOARCH=amd64 GOTARGET=karen.xo
+dist: trusty
+sudo: required
 
 language: go
 go: 1.x
-
 go_import_path: code.lukas.moe/x/karen
+
+addons:
+  apt:
+    packages:
+      - gpp
+
+env:
+  - GOOS=linux GOARCH=amd64 GOTARGET=karen.o
 
 before_install:
   - go get -u -v github.com/Masterminds/glide
   - cd $GOPATH/src/github.com/Masterminds/glide && git checkout 84607742b10f492430762d038e954236bbaf23f7 && go install && cd -
   - sudo apt-get -qq update
-  - sudo apt-get install -y gpp
+  - sudo apt-get install -y gpp cmake
 
 install:
   - ./bootstrap.sh
-  - ./configure
 
 script:
-  - make assets
+  - cmake .
   - make compile

@@ -1,3 +1,23 @@
+/*
+ *
+ * Copyright (C) 2015-2017 Lukas Breuer. All rights reserved.
+ *
+ * This file is a part of the Karen Discord-Bot Project ("Karen").
+ *
+ * Karen is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Karen is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU Affero General Public License for more details.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package logger
 
 import (
@@ -5,6 +25,7 @@ import (
     "time"
     "runtime"
     "strings"
+    "code.lukas.moe/x/karen/src/version"
 )
 
 var (
@@ -50,4 +71,49 @@ func (c LogLevel) cout(msg string) {
         codePoint,
         msg,
     )
+}
+
+func PrintLogo() {
+    //
+    // Added in honor of 551b2e1ef67b2321b83bdeb9f35b8bc5ec4149a9.
+    // A time where the code was "rusty", old and in early stages.
+    // We'll never forget you Karen V1.5 ;-;
+    //
+
+    logo := []string{
+        "",
+        "0xFADED proudly presents...",
+        " ▄    ▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄▄▄▄  ▄▄        ▄ ",
+        "▐░▌  ▐░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░▌      ▐░▌",
+        "▐░▌ ▐░▌ ▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀▀▀▀▀▀ ▐░▌░▌     ▐░▌",
+        "▐░▌▐░▌  ▐░▌       ▐░▌▐░▌       ▐░▌▐░▌          ▐░▌▐░▌    ▐░▌",
+        "▐░▌░▌   ▐░█▄▄▄▄▄▄▄█░▌▐░█▄▄▄▄▄▄▄█░▌▐░█▄▄▄▄▄▄▄▄▄ ▐░▌ ▐░▌   ▐░▌",
+        "▐░░▌    ▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░░░░░░░░░░░▌▐░▌  ▐░▌  ▐░▌",
+        "▐░▌░▌   ▐░█▀▀▀▀▀▀▀█░▌▐░█▀▀▀▀█░█▀▀ ▐░█▀▀▀▀▀▀▀▀▀ ▐░▌   ▐░▌ ▐░▌",
+        "▐░▌▐░▌  ▐░▌       ▐░▌▐░▌     ▐░▌  ▐░▌          ▐░▌    ▐░▌▐░▌",
+        "▐░▌ ▐░▌ ▐░▌       ▐░▌▐░▌      ▐░▌ ▐░█▄▄▄▄▄▄▄▄▄ ▐░▌     ▐░▐░▌",
+        "▐░▌  ▐░▌▐░▌       ▐░▌▐░▌       ▐░▌▐░░░░░░░░░░░▌▐░▌      ▐░░▌",
+        " ▀    ▀  ▀         ▀  ▀         ▀  ▀▀▀▀▀▀▀▀▀▀▀  ▀        ▀▀ ",
+    }
+
+    for _, line := range logo {
+        fmt.Println(line)
+    }
+
+    DumpInfoV()
+    fmt.Println()
+}
+
+func DumpInfo() {
+    VERBOSE.L("VERSION: " + version.BOT_VERSION)
+    VERBOSE.L("BUILD TIME: " + version.BUILD_TIME)
+    VERBOSE.L("BUILD USER: " + version.BUILD_USER)
+    VERBOSE.L("BUILD HOST: " + version.BUILD_HOST)
+}
+
+func DumpInfoV() {
+    fmt.Println("VERSION: " + version.BOT_VERSION)
+    fmt.Println("BUILD TIME: " + version.BUILD_TIME)
+    fmt.Println("BUILD USER: " + version.BUILD_USER)
+    fmt.Println("BUILD HOST: " + version.BUILD_HOST)
 }
