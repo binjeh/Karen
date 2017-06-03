@@ -30,6 +30,6 @@ func (p *Enlarge) Action(command string, content string, msg *discordgo.Message,
         helpers.Relax(err)
         return
     }
-    _,err := session.ChannelMessageSend(msg.ChannelID, "https://cdn.discordapp.com/emojis/" + emojiInformation[1] + "png")
+    _,err := session.ChannelMessageSend(msg.ChannelID, "https://cdn.discordapp.com/emojis/" + emojiInformation[2] + ".png")
     helpers.Relax(err)
 }
