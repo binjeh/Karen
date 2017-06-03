@@ -1,5 +1,5 @@
 hash: caaa5b98645c45a5bc0085840eb10c0af24b9924d6cf54ca0a008af66ee27384
-updated: 2017-05-29T23:18:16.080712378+02:00
+updated: 2017-06-03T23:08:50.608495187+02:00
 imports:
 - name: cloud.google.com/go
   version: ff3a4a928549efd9c569f4d812b885ae7736d402
@@ -26,8 +26,6 @@ imports:
   - spew
 - name: github.com/dustin/go-humanize
   version: 259d2a102b871d17f30e3cd9881a642961a1e486
-- name: github.com/fatih/structs
-  version: 74a29b9fac7397d933f47e33eba94d2d83a464a2
 - name: github.com/getsentry/raven-go
   version: 4fa2ac0d29f801e79a063c0da82d37b5ff2873b2
 - name: github.com/golang/freetype
