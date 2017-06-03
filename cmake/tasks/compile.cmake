@@ -51,10 +51,10 @@ ADD_CUSTOM_TARGET(compile-release
     DEPENDS glide-install assets configure
     COMMAND go build -v -o karen
             --ldflags=\"
-                -X code.lukas.moe/x/karen/src/version.BOT_VERSION='${KAREN_DYN_VERSION}'
-                -X code.lukas.moe/x/karen/src/version.BUILD_TIME='${KAREN_DYN_BUILD_TIME}'
-                -X code.lukas.moe/x/karen/src/version.BUILD_USER='${KAREN_DYN_BUILD_USER}'
-                -X code.lukas.moe/x/karen/src/version.BUILD_HOST='${KAREN_DYN_BUILD_HOST}'
+                -X code.lukas.moe/x/karen/src/version.BOT_VERSION=${KAREN_DYN_VERSION}
+                -X code.lukas.moe/x/karen/src/version.BUILD_TIME=${KAREN_DYN_BUILD_TIME}
+                -X code.lukas.moe/x/karen/src/version.BUILD_USER=${KAREN_DYN_BUILD_USER}
+                -X code.lukas.moe/x/karen/src/version.BUILD_HOST=${KAREN_DYN_BUILD_HOST}
             \"
             ./src
 )
@@ -63,10 +63,10 @@ ADD_CUSTOM_TARGET(compile-debug
     DEPENDS glide-install assets configure
     COMMAND go build -v -o karen
             --ldflags=\"
-                -X code.lukas.moe/x/karen/src/version.BOT_VERSION='${KAREN_DYN_VERSION}'
-                -X code.lukas.moe/x/karen/src/version.BUILD_TIME='${KAREN_DYN_BUILD_TIME}'
-                -X code.lukas.moe/x/karen/src/version.BUILD_USER='${KAREN_DYN_BUILD_USER}'
-                -X code.lukas.moe/x/karen/src/version.BUILD_HOST='${KAREN_DYN_BUILD_HOST}'
+                -X code.lukas.moe/x/karen/src/version.BOT_VERSION=${KAREN_DYN_VERSION}
+                -X code.lukas.moe/x/karen/src/version.BUILD_TIME=${KAREN_DYN_BUILD_TIME}
+                -X code.lukas.moe/x/karen/src/version.BUILD_USER=${KAREN_DYN_BUILD_USER}
+                -X code.lukas.moe/x/karen/src/version.BUILD_HOST=${KAREN_DYN_BUILD_HOST}
             \"
             ./src
 )
