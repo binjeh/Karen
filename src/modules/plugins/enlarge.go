@@ -5,6 +5,7 @@ import (
     "regexp"
     "code.lukas.moe/x/karen/src/helpers"
     "strings"
+    "net/url"
 )
 
 type Enlarge struct{}
@@ -27,6 +28,13 @@ func (p *Enlarge) Action(command string, content string, msg *discordgo.Message,
     emojiInformation := strings.Split(emojiID, ":")
     if len(emojis) == 0 {
         _, err := session.ChannelMessageSend(msg.ChannelID, "I wasn't able to find an emoji :frowning:")
+        helpers.Relax(err)
+        return
+    }
+    _, urlErr := url.ParseRequestURI("https://cdn.discordapp.com/emojis/" + emojiInformation[2] + ".png")
+
+    if urlErr != nil {
+        _, err := session.ChannelMessageSend(msg.ChannelID, "Error resolving the URL")
         helpers.Relax(err)
         return
     }
