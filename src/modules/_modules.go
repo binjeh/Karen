@@ -35,6 +35,7 @@ var (
         &plugins.Calc{},
         &plugins.Changelog{},
         &plugins.Choice{},
+        &plugins.Enlarge{},
         &plugins.FlipCoin{},
         &plugins.Giphy{},
         &plugins.Google{},

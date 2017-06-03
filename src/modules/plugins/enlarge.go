@@ -21,7 +21,7 @@ func (p *Enlarge) Init(session *discordgo.Session) {
 }
 
 func (p *Enlarge) Action(command string, content string, msg *discordgo.Message, session *discordgo.Session) {
-    regex := regexp.MustCompile(`.*?<:\w+:\d+>.*?`)
+    regex := regexp.MustCompile(`.*?<:(\w+):(\d+)>.*?`)
     emojis := regex.FindAllString(msg.Content, -1)
     emojiID := emojis[0]
     emojiInformation := strings.Split(emojiID, ":")
