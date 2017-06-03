@@ -1,0 +1,58 @@
+golang:
+  ext:
+    - .go
+  comment:
+    open: '/*\n'
+    close: ' */\n\n'
+    prefix: ' * '
+
+shell:
+  ext:
+    - .sh
+  after:
+    - ^#!'
+  comment:
+    open:   '#\n'
+    close:  '#\n\n'
+    prefix: '# '
+
+yaml:
+  ext:
+    - .yml
+    - .yaml
+  comment:
+    open:   '#\n'
+    close:  '#\n\n'
+    prefix: '# '
+
+lua:
+  ext:
+    - .lua
+  comment:
+    open: '--\n'
+    close: '--\n\n'
+    prefix: '-- '
+
+dockerfile:
+  ext:
+    - .dockerfile
+  comment:
+    open: '#\n'
+    close: '#\n\n'
+    prefix: '# '
+
+cmake:
+  ext:
+    - .cmake
+  comment:
+    open: '#\n'
+    close: '#\n\n'
+    prefix: '# '
+
+toml:
+  ext:
+    - .toml
+  comment:
+    open: '#\n'
+    close: '#\n\n'
+    prefix: '# '
