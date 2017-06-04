@@ -101,5 +101,5 @@ Bots built by friends or awesome strangers
 |:-:|:-:|:-:|:-:|
 |![](http://i.imgur.com/SrgZI3g.png)|Emily|Java|[MaikWezinkhof/DiscordBot](https://github.com/MaikWezinkhof/DiscordBot)
 |![](https://cdn.discordapp.com/avatars/270931284489011202/b7b1f9820c4751ffa3d0e11c97bc2f38.png?size=64)|Sora|C#|[Serenity/Sora](http://git.argus.moe/serenity/SoraBot)
-|![](http://i.imgur.com/PNcNRfM.png)|Ako-Chan|C#|[Serraniel/Ako-Discord-Bot-Loader](https://github.com/Serraniel/Ako-Discord-Bot-Loader)
+|![](https://cdn.discordapp.com/avatars/260867076774821899/2dda452db1e35f833a187df9dd4f1749.png?size=64)|Nep|C#|[Serraniel/Nep-Bot](https://github.com/Serraniel/Nep-Bot)
 |![](http://i.imgur.com/Tb0FZoZ.png)|Shinobu-Chan|Python 3|[Der-Eddy/discord_bot](https://github.com/Der-Eddy/discord_bot)
