@@ -20,14 +20,15 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cache
+package net
 
-import "github.com/bwmarrin/discordgo"
+import "github.com/Jeffail/gabs"
 
-func Guild(id string) (*discordgo.Guild, error) {
-    ch, err := GetOrRequest(id, func(id string) (interface{}, error) {
-        return GetSession().Guild(id)
-    })
+func GETJson(url string) (*gabs.Container) {
+    d, e := gabs.ParseJSON(GET(url))
+    if e != nil {
+        panic(e)
+    }
 
-    return ch.(*discordgo.Guild), err
+    return d
 }

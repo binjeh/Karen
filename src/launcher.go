@@ -23,17 +23,18 @@
 package main
 
 import (
+    "code.lukas.moe/x/karen/src/config"
     "code.lukas.moe/x/karen/src/helpers"
     Logger "code.lukas.moe/x/karen/src/logger"
     "code.lukas.moe/x/karen/src/metrics"
     "code.lukas.moe/x/karen/src/migrations"
+    "code.lukas.moe/x/karen/src/net"
     "github.com/bwmarrin/discordgo"
     "github.com/getsentry/raven-go"
     "math/rand"
     "os"
     "os/signal"
     "time"
-    "code.lukas.moe/x/karen/src/config"
 )
 
 // Entrypoint
@@ -58,7 +59,7 @@ func main() {
     }
 
     // Print UA
-    Logger.BOOT.L("USERAGENT: '" + helpers.DEFAULT_UA + "'")
+    Logger.BOOT.L("USERAGENT: '" + net.USERAGENT + "'")
 
     // Call home
     Logger.BOOT.L("[SENTRY] Calling home...")

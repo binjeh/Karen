@@ -20,25 +20,48 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package helpers
+package net
 
-import (
-    "code.lukas.moe/x/karen/src/net"
-    "github.com/Jeffail/gabs"
-)
-
-func NetGet(url string) []byte {
-    return net.GET(url)
+func GET(url string) []byte {
+    return SafeGET(url, 200)
 }
 
-func NetGetUA(url string, ua string) []byte {
-    return net.UA_GET(url, ua)
+func POST(url string, json string) []byte {
+    return SafePOST(url, json, 200)
 }
 
-func NetPost(url string, data string) []byte {
-    return net.POST(url, data)
+func PUT(url string) []byte {
+    return SafePUT(url, 200)
 }
 
-func GetJSON(url string) *gabs.Container {
-    return net.GETJson(url)
+func DELETE(url string) []byte {
+    return SafeDELETE(url, 200)
+}
+
+func SafeGET(url string, expectedStatus int) []byte {
+    return executeRequest(
+        newRequest("GET", url),
+        expectedStatus,
+    )
+}
+
+func SafePOST(url string, json string, expectedStatus int) []byte {
+    return executeRequest(
+        newRequestWithBody("POST", url, json),
+        expectedStatus,
+    )
+}
+
+func SafePUT(url string, expectedStatus int) []byte {
+    return executeRequest(
+        newRequest("PUT", url),
+        expectedStatus,
+    )
+}
+
+func SafeDELETE(url string, expectedStatus int) []byte {
+    return executeRequest(
+        newRequest("DELETE", url),
+        expectedStatus,
+    )
 }
