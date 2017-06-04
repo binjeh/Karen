@@ -23,11 +23,11 @@
 package helpers
 
 import (
-    "errors"
-    "fmt"
     "code.lukas.moe/x/karen/src/cache"
     "code.lukas.moe/x/karen/src/emojis"
     "code.lukas.moe/x/karen/src/models"
+    "errors"
+    "fmt"
     "github.com/bwmarrin/discordgo"
     "strconv"
     "time"

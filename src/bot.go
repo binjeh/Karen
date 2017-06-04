@@ -24,6 +24,8 @@ package main
 
 import (
     "code.lukas.moe/x/karen/src/cache"
+    "code.lukas.moe/x/karen/src/cleverbot"
+    "code.lukas.moe/x/karen/src/config"
     "code.lukas.moe/x/karen/src/helpers"
     Logger "code.lukas.moe/x/karen/src/logger"
     "code.lukas.moe/x/karen/src/metrics"
@@ -35,8 +37,6 @@ import (
     "regexp"
     "strings"
     "time"
-    "code.lukas.moe/x/karen/src/config"
-    "code.lukas.moe/x/karen/src/cleverbot"
 )
 
 // BotOnReady gets called after the gateway connected

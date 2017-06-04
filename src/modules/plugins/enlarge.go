@@ -23,10 +23,10 @@
 package plugins
 
 import (
-    "github.com/bwmarrin/discordgo"
-    "regexp"
     "code.lukas.moe/x/karen/src/helpers"
+    "github.com/bwmarrin/discordgo"
     "net/url"
+    "regexp"
 )
 
 type Enlarge struct{}

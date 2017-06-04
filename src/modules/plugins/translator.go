@@ -24,13 +24,13 @@ package plugins
 
 import (
     "cloud.google.com/go/translate"
-    "context"
+    "code.lukas.moe/x/karen/src/config"
     "code.lukas.moe/x/karen/src/helpers"
+    "context"
     "github.com/bwmarrin/discordgo"
     "golang.org/x/text/language"
     "google.golang.org/api/option"
     "strings"
-    "code.lukas.moe/x/karen/src/config"
 )
 
 type Translator struct {

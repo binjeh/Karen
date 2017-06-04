@@ -26,6 +26,7 @@ import (
     "code.lukas.moe/x/karen/src/cache"
     "code.lukas.moe/x/karen/src/helpers"
     "code.lukas.moe/x/karen/src/logger"
+    "fmt"
     "github.com/bwmarrin/discordgo"
     rethink "github.com/gorethink/gorethink"
     "github.com/olebedev/when"
@@ -33,7 +34,6 @@ import (
     "github.com/olebedev/when/rules/en"
     "strings"
     "time"
-    "fmt"
 )
 
 // Reminders command

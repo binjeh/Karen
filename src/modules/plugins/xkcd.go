@@ -23,8 +23,8 @@
 package plugins
 
 import (
-    "fmt"
     "code.lukas.moe/x/karen/src/helpers"
+    "fmt"
     "github.com/PuerkitoBio/goquery"
     "github.com/bwmarrin/discordgo"
     "math/rand"

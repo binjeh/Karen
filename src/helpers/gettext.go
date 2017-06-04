@@ -23,11 +23,11 @@
 package helpers
 
 import (
+    "code.lukas.moe/x/karen/src/assets"
     "fmt"
     "github.com/Jeffail/gabs"
     "math/rand"
     "strings"
-    "code.lukas.moe/x/karen/src/assets"
 )
 
 var translations *gabs.Container

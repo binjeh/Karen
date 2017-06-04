@@ -23,12 +23,12 @@
 package plugins
 
 import (
-    "fmt"
+    "code.lukas.moe/x/karen/src/config"
     "code.lukas.moe/x/karen/src/helpers"
+    "fmt"
     "github.com/bwmarrin/discordgo"
     "regexp"
     "strings"
-    "code.lukas.moe/x/karen/src/config"
 )
 
 type Osu struct{}

@@ -23,10 +23,10 @@
 package plugins
 
 import (
+    "code.lukas.moe/x/karen/src/helpers"
+    "fmt"
     "github.com/bwmarrin/discordgo"
     "strings"
-    "fmt"
-    "code.lukas.moe/x/karen/src/helpers"
     "time"
 )
 

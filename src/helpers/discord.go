@@ -23,8 +23,8 @@
 package helpers
 
 import (
-    "fmt"
     "code.lukas.moe/x/karen/src/cache"
+    "fmt"
     "github.com/bwmarrin/discordgo"
     "strconv"
     "strings"

@@ -25,10 +25,10 @@ package dsl
 import (
     "code.lukas.moe/x/karen/src/dsl/api"
     "code.lukas.moe/x/karen/src/dsl/stdlib"
+    "code.lukas.moe/x/karen/src/logger"
     "github.com/yuin/gopher-lua"
     "layeh.com/gopher-luar"
     "strings"
-    "code.lukas.moe/x/karen/src/logger"
 )
 
 var libMapping = map[string]interface{}{

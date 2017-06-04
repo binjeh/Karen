@@ -23,11 +23,11 @@
 package logger
 
 import (
+    "code.lukas.moe/x/karen/src/version"
     "fmt"
-    "time"
     "runtime"
     "strings"
-    "code.lukas.moe/x/karen/src/version"
+    "time"
 )
 
 var (

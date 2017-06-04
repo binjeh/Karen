@@ -23,9 +23,9 @@
 package cleverbot
 
 import (
+    "code.lukas.moe/x/karen/src/config"
     "github.com/bwmarrin/discordgo"
     "github.com/ugjka/cleverbot-go"
-    "code.lukas.moe/x/karen/src/config"
 )
 
 // cleverbotSessions stores all cleverbot connections

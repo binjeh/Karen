@@ -23,11 +23,11 @@
 package plugins
 
 import (
-    "github.com/bwmarrin/discordgo"
-    "strings"
     "code.lukas.moe/x/karen/src/helpers"
     "code.lukas.moe/x/karen/src/models"
     "fmt"
+    "github.com/bwmarrin/discordgo"
+    "strings"
 )
 
 // SelfRoles command

@@ -25,14 +25,14 @@
 package helpers
 
 import (
-    "fmt"
     "code.lukas.moe/x/karen/src/cache"
+    "fmt"
     "github.com/bwmarrin/discordgo"
+    "github.com/davecgh/go-spew/spew"
     "github.com/getsentry/raven-go"
     "reflect"
     "runtime"
     "strconv"
-    "github.com/davecgh/go-spew/spew"
 )
 
 // RecoverDiscord recover()s and sends a message to discord

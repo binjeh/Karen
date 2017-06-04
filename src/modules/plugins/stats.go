@@ -23,9 +23,9 @@
 package plugins
 
 import (
-    "fmt"
     "code.lukas.moe/x/karen/src/metrics"
     "code.lukas.moe/x/karen/src/version"
+    "fmt"
     "github.com/bwmarrin/discordgo"
     "github.com/dustin/go-humanize"
     "runtime"

@@ -23,22 +23,22 @@
 package plugins
 
 import (
+    "code.lukas.moe/x/karen/src/assets"
+    "code.lukas.moe/x/karen/src/cache"
+    "code.lukas.moe/x/karen/src/helpers"
     "github.com/bwmarrin/discordgo"
-    "regexp"
+    "github.com/golang/freetype"
+    "golang.org/x/image/font"
     "image"
+    "image/color"
     "image/color/palette"
+    "image/draw"
     "image/gif"
     "os"
-    "time"
-    "code.lukas.moe/x/karen/src/helpers"
+    "regexp"
     "strconv"
-    "image/color"
-    "image/draw"
-    "github.com/golang/freetype"
-    "code.lukas.moe/x/karen/src/assets"
-    "golang.org/x/image/font"
     "strings"
-    "code.lukas.moe/x/karen/src/cache"
+    "time"
 )
 
 const (

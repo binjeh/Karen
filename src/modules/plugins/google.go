@@ -23,10 +23,10 @@
 package plugins
 
 import (
+    "code.lukas.moe/x/karen/src/helpers"
     "fmt"
     "github.com/bwmarrin/discordgo"
     "net/url"
-    "code.lukas.moe/x/karen/src/helpers"
 )
 
 type Google struct{}

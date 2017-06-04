@@ -23,10 +23,10 @@
 package plugins
 
 import (
-    "strings"
+    "code.lukas.moe/x/karen/src/helpers"
     Logger "code.lukas.moe/x/karen/src/logger"
     "github.com/bwmarrin/discordgo"
-    "code.lukas.moe/x/karen/src/helpers"
+    "strings"
     "time"
 )
 

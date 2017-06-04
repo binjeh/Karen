@@ -23,10 +23,9 @@
 package plugins
 
 import (
-    "strings"
-
     "code.lukas.moe/x/karen/src/helpers"
     "github.com/bwmarrin/discordgo"
+    "strings"
 )
 
 // Toggle command

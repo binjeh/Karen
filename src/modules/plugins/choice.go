@@ -23,10 +23,10 @@
 package plugins
 
 import (
+    "code.lukas.moe/x/karen/src/helpers"
     "github.com/bwmarrin/discordgo"
     "math/rand"
     "strings"
-    "code.lukas.moe/x/karen/src/helpers"
 )
 
 type Choice struct{}

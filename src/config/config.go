@@ -23,8 +23,8 @@
 package config
 
 import (
-    "sync"
     "github.com/pelletier/go-toml"
+    "sync"
 )
 
 //noinspection GoNameStartsWithPackageName

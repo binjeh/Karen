@@ -23,18 +23,17 @@
 package modules
 
 import (
-    "strconv"
-    "os"
-    "fmt"
     "code.lukas.moe/x/karen/src/cache"
+    "code.lukas.moe/x/karen/src/dsl"
+    "code.lukas.moe/x/karen/src/dsl/bridge"
     "code.lukas.moe/x/karen/src/helpers"
     "code.lukas.moe/x/karen/src/logger"
     "code.lukas.moe/x/karen/src/metrics"
     "code.lukas.moe/x/karen/src/ratelimits"
+    "fmt"
     "github.com/bwmarrin/discordgo"
-    "code.lukas.moe/x/karen/src/dsl"
-    "code.lukas.moe/x/karen/src/dsl/bridge"
-    "github.com/davecgh/go-spew/spew"
+    "os"
+    "strconv"
 )
 
 // command - The command that triggered this execution

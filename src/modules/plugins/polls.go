@@ -23,12 +23,12 @@
 package plugins
 
 import (
-    "fmt"
     "code.lukas.moe/x/karen/src/emojis"
     "code.lukas.moe/x/karen/src/helpers"
     Logger "code.lukas.moe/x/karen/src/logger"
     "code.lukas.moe/x/karen/src/metrics"
     "code.lukas.moe/x/karen/src/models"
+    "fmt"
     "github.com/bwmarrin/discordgo"
     "strconv"
     "strings"

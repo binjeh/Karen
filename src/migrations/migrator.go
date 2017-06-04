@@ -44,7 +44,7 @@ func Run() {
             reflect.ValueOf(migration).Pointer(),
         ).Name()
 
-        logger.BOOT.L("Running "+migrationName)
+        logger.BOOT.L("Running " + migrationName)
         migration()
     }
 

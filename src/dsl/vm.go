@@ -23,12 +23,12 @@
 package dsl
 
 import (
-    "github.com/yuin/gopher-lua"
-    "path/filepath"
-    "os"
     "code.lukas.moe/x/karen/src/helpers"
-    "strings"
     "code.lukas.moe/x/karen/src/logger"
+    "github.com/yuin/gopher-lua"
+    "os"
+    "path/filepath"
+    "strings"
 )
 
 func Load() {

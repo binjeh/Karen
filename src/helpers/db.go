@@ -41,7 +41,7 @@ var (
 
 // ConnectDB connects to rethink and stores the session
 func ConnectDB(url string, db string) {
-    Logger.INFO.L("Connecting to "+url)
+    Logger.INFO.L("Connecting to " + url)
 
     rethink.SetTags("rethink", "json")
 

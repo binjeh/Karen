@@ -23,13 +23,13 @@
 package metrics
 
 import (
-    "expvar"
+    "code.lukas.moe/x/karen/src/config"
     "code.lukas.moe/x/karen/src/logger"
+    "expvar"
     "github.com/bwmarrin/discordgo"
     "net/http"
     "runtime"
     "time"
-    "code.lukas.moe/x/karen/src/config"
 )
 
 var (

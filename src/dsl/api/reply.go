@@ -23,8 +23,8 @@
 package dsl_api
 
 import (
-    "github.com/bwmarrin/discordgo"
     "code.lukas.moe/x/karen/src/dsl/bridge"
+    "github.com/bwmarrin/discordgo"
 )
 
 type ComplexReplyCallback func(author *discordgo.User, caller string, content string) string
