@@ -20,6 +20,11 @@
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
 --
 
+--
+-- Full credit to @Daniele122898 and his original implementation for Sora
+-- See http://git.argus.moe/serenity/SoraBot for more information
+--
+
 require("karen").registerReply(
     "re:zero",
     {

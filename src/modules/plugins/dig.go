@@ -20,15 +20,19 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * Full credit to @Seklfreak and his original implementation for Robyul2
+ * See https://github.com/Seklfreak/Robyul2 for more information
+ */
 package plugins
 
 import (
+    "code.lukas.moe/x/karen/src/helpers"
+    "fmt"
     "github.com/bwmarrin/discordgo"
     "github.com/miekg/dns"
-    "fmt"
-    "code.lukas.moe/x/karen/src/helpers"
-    "strings"
     "net"
+    "strings"
 )
 
 type Dig struct{}

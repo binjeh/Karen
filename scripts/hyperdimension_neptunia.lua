@@ -20,12 +20,10 @@
 -- along with this program. If not, see <http://www.gnu.org/licenses/>.
 --
 
---[[
 --
--- Full credit to Der-Eddy and his original python implementation for Shinobu-Chan.
--- @link https://github.com/Der-Eddy/discord_bot
+-- Full credit to @Der-Eddy and his original implementation for Shinobu-Chan
+-- See https://github.com/Der-Eddy/discord_bot for more information
 --
---]]
 
 local utils = require("utils")
 
