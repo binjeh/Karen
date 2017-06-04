@@ -1,5 +1,5 @@
-hash: caaa5b98645c45a5bc0085840eb10c0af24b9924d6cf54ca0a008af66ee27384
-updated: 2017-06-04T14:40:25.444745753+02:00
+hash: f38cb1c742996dde7c768794cdfa4cb658ce1c6f3b98729559af1ca11ec005ca
+updated: 2017-06-05T00:22:19.590029418+02:00
 imports:
 - name: cloud.google.com/go
   version: d59fc17b56f5a7a34cbbc3ccfbc9880e0ee0457e
@@ -50,6 +50,8 @@ imports:
   version: 5bbbfc3b3149741fda5147a18568a62f6cd3fec1
   subpackages:
   - calc
+- name: github.com/miekg/dns
+  version: e78414ef75607394ad7d917824f07f381df2eafa
 - name: github.com/olebedev/when
   version: 175108fec17fb14cc3d4f0ec49e55fee9eaeadd8
   subpackages:

@@ -48,6 +48,7 @@ var (
         &plugins.Calc{},
         &plugins.Changelog{},
         &plugins.Choice{},
+        &plugins.Dig{},
         &plugins.Enlarge{},
         &plugins.FlipCoin{},
         &plugins.Giphy{},
