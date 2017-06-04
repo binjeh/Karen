@@ -34,10 +34,10 @@ const (
 
 var (
     mutex = &sync.Mutex{}
-    tree  *toml.TomlTree
+    tree  *toml.Tree
 )
 
-func getTree() *toml.TomlTree {
+func getTree() *toml.Tree {
     mutex.Lock()
     defer mutex.Unlock()
 

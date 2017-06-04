@@ -1,8 +1,8 @@
 hash: caaa5b98645c45a5bc0085840eb10c0af24b9924d6cf54ca0a008af66ee27384
-updated: 2017-06-03T23:08:50.608495187+02:00
+updated: 2017-06-04T14:40:25.444745753+02:00
 imports:
 - name: cloud.google.com/go
-  version: ff3a4a928549efd9c569f4d812b885ae7736d402
+  version: d59fc17b56f5a7a34cbbc3ccfbc9880e0ee0457e
   subpackages:
   - compute/metadata
   - internal/version
@@ -15,7 +15,7 @@ imports:
 - name: github.com/andybalholm/cascadia
   version: 349dd0209470eabd9514242c688c403c0926d266
 - name: github.com/bwmarrin/discordgo
-  version: 6aec04d69d3f7f85caaf850c25ffc0c03e016702
+  version: a71f5e3e61f1776d694c8b94be52676c76818550
 - name: github.com/cenkalti/backoff
   version: 5d150e7eec023ce7a124856b37c68e54b4050ac7
 - name: github.com/certifi/gocertifi
@@ -34,7 +34,7 @@ imports:
   - raster
   - truetype
 - name: github.com/golang/protobuf
-  version: 7a211bcf3bce0e3f1d74f9894916e6f116ae83b4
+  version: 5a0f697c9ed9d68fef0116532c6e05cfeae00e55
   subpackages:
   - proto
   - ptypes/any
@@ -60,7 +60,7 @@ imports:
 - name: github.com/pelletier/go-buffruneio
   version: c37440a7cf42ac63b919c752ca73a85067e05992
 - name: github.com/pelletier/go-toml
-  version: 13d49d4606eb801b8f01ae542b4afc4c6ee3d84a
+  version: fe7536c3dee2596cdd23ee9976a17c22bdaae286
 - name: github.com/pkg/errors
   version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/PuerkitoBio/goquery
@@ -78,7 +78,7 @@ imports:
   - parse
   - pm
 - name: golang.org/x/crypto
-  version: 7e9105388ebff089b3f99f0ef676ea55a6da3a7e
+  version: e1a4589e7d3ea14a3352255d04b6f1a418845e5e
   subpackages:
   - nacl/secretbox
   - pbkdf2
@@ -90,7 +90,7 @@ imports:
   - font
   - math/fixed
 - name: golang.org/x/net
-  version: 7dcfb8076726a3fdd9353b6b8a1f1b6be6811bd6
+  version: e4fa1c5465ad6111f206fc92186b8c83d64adbe1
   subpackages:
   - context
   - context/ctxhttp
@@ -110,11 +110,11 @@ imports:
   - jws
   - jwt
 - name: golang.org/x/sys
-  version: a55a76086885b80f79961eacb876ebd8caf3868d
+  version: b90f89a1e7a9c1f6b918820b3daa7f08488c8594
   subpackages:
   - unix
 - name: golang.org/x/text
-  version: 19e51611da83d6be54ddafce4a4af510cb3e9ea4
+  version: ccbd3f7822129ff389f8ca4858a9b9d4d910531c
   subpackages:
   - internal/tag
   - language
@@ -123,7 +123,7 @@ imports:
   - unicode/bidi
   - unicode/norm
 - name: google.golang.org/api
-  version: d9d64fe74969b80fb4a435ae9280c9ff061a6097
+  version: 8e09a3d939255ba9bfb76049b7cc413740986c03
   subpackages:
   - gensupport
   - googleapi
@@ -147,11 +147,11 @@ imports:
   - socket
   - urlfetch
 - name: google.golang.org/genproto
-  version: d80a6e20e776b0b17a324d0ba1ab50a39c8e8944
+  version: aa2eb687b4d3e17154372564ad8d6bf11c3cf21f
   subpackages:
   - googleapis/rpc/status
 - name: google.golang.org/grpc
-  version: 3a46d9d51931de5beee75086205224a540233baa
+  version: 6fecf2831adf75ce3b8b756d2d174db8a2044dbb
   subpackages:
   - codes
   - credentials
