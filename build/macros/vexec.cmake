@@ -49,7 +49,7 @@ function(VEXEC)
     find_program(PATH__${PROGRAM_NAME} ${PROGRAM_NAME})
     
     if(NOT PATH__${PROGRAM_NAME})
-        message(FATAL_ERROR "[VEXEC] You must provide an output variable!")
+        message(FATAL_ERROR "[VEXEC] The command ${PROGRAM_NAME} is not installed on this machine!")
     else()
         # Create an alias to the program's path
         set(PROGRAM ${PATH__${PROGRAM_NAME}})
@@ -65,7 +65,7 @@ function(VEXEC)
                 OUTPUT_STRIP_TRAILING_WHITESPACE
                 TIMEOUT 10
             )
-            message(STATUS "[KAREN] [NVEXEC] ${PROGRAM} -> ${mvexec_tmp}")
+            message(STATUS "[KAREN] [VEXEC] ${PROGRAM} -> ${mvexec_tmp}")
         else()
             execute_process(
                 COMMAND ${PROGRAM} ${PARSED_ARGS_COMMAND}
@@ -74,7 +74,7 @@ function(VEXEC)
                 OUTPUT_STRIP_TRAILING_WHITESPACE
                 TIMEOUT 10
             )
-            message(STATUS "[KAREN] [VEXEC ] ${PROGRAM} ${PARSED_ARGS_COMMAND} -> ${mvexec_tmp}")
+            message(STATUS "[KAREN] [VEXEC] ${PROGRAM} ${PARSED_ARGS_COMMAND} -> ${mvexec_tmp}")
         endif()
     endif()
 
