@@ -4,9 +4,9 @@
 > Also please remove all lines starting with ">"
 >
 
-> Write a short description of your issue/feature request here
+
 ### Description
-Lorem ipsum dolor sit amet...
+> Write a short description of your issue/feature request here
 
 ### Current behavior
 > If this is a completely new feature just write "none".
@@ -15,32 +15,23 @@ Lorem ipsum dolor sit amet...
 > your issue in here.
 >
 
-Lorem ipsum dolor sit amet...
-
 ### Expected behavior
-
-Lorem ipsum dolor sit amet...
+> Describe what your requested feature will do
+> or what you expected the broken feature to do.
 
 ### What is the motivation / use case for changing the behavior?
-
-Lorem ipsum dolor sit amet...
+> If this is a bug-report just write "bug"
 
 ### Tell us something about you
-
 > REPLACE THESE VALUES WITH YOUR ACTUAL DATA
->
 > If this is a feature-request, remove this paragraph completely
 
 I'm a Donator/Subscriber: yes / no
-
 Discord Name: MyCoolName#0000
-
 Discord Guild: My cool guild name here
-
 Guild Size: 42 Members
 
 ### Other Information
-
 > This space is for you.
 > Provide anything that you think might help resolving the bug or implementing the feature.
 > If you don't have anything to say write "none"
