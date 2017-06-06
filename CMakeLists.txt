@@ -21,9 +21,19 @@
 #
 
 cmake_minimum_required(VERSION 3.0)
+message(STATUS "[KAREN] (Re-)Initializing...")
 
+# Dependency managers
+include(build/tasks/bundler.cmake)
+include(build/tasks/glide.cmake)
+
+# Compilation
 include(build/tasks/assets.cmake)
 include(build/tasks/configure.cmake)
 include(build/tasks/compile.cmake)
+
+# Deployment
 include(build/tasks/docker.cmake)
+
+# Misc
 include(build/tasks/licensing.cmake)

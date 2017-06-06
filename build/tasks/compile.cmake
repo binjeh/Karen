@@ -20,35 +20,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Define dynamically-compiled variables
-set(KAREN_DYN_VERSION ?)
-set(KAREN_DYN_BUILD_TIME ?)
-set(KAREN_DYN_BUILD_USER ?)
-set(KAREN_DYN_BUILD_HOST ?)
+include(build/macros/vexec.cmake)
 
-find_program(GIT git)
-if(GIT)
-    execute_process(COMMAND git describe --tags OUTPUT_VARIABLE KAREN_DYN_VERSION ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
-endif()
-
-find_program(DATE date)
-if(DATE)
-    execute_process(COMMAND date +%T-%D OUTPUT_VARIABLE KAREN_DYN_BUILD_TIME ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
-endif()
-
-find_program(WHO whoami)
-if(WHO)
-    execute_process(COMMAND whoami OUTPUT_VARIABLE KAREN_DYN_BUILD_USER ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
-endif()
-
-find_program(HOST hostname)
-if(HOST)
-    execute_process(COMMAND hostname OUTPUT_VARIABLE KAREN_DYN_BUILD_HOST ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
-endif()
-
-ADD_CUSTOM_TARGET(glide-install
-    COMMAND test -d vendor || glide install
-)
+vexec(OUTPUT KAREN_DYN_VERSION    COMMAND git describe --tags)
+vexec(OUTPUT KAREN_DYN_BUILD_TIME COMMAND date "+%T-%D")
+vexec(OUTPUT KAREN_DYN_BUILD_USER COMMAND whoami "")
+vexec(OUTPUT KAREN_DYN_BUILD_HOST COMMAND hostname "")
 
 ADD_CUSTOM_TARGET(compile-release
     DEPENDS glide-install assets configure

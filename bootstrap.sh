@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 # Karen - A highly efficient, multipurpose Discord bot written in Golang
 #
@@ -20,7 +21,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-#!/usr/bin/env bash
 
 set -e
 

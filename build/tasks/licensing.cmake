@@ -21,6 +21,7 @@
 #
 
 ADD_CUSTOM_TARGET(license_add
+    DEPENDS bundle
     COMMAND copyright-header
         -w 80
         -a .
@@ -30,6 +31,7 @@ ADD_CUSTOM_TARGET(license_add
 )
 
 ADD_CUSTOM_TARGET(license_rm
+    DEPENDS bundle
     COMMAND copyright-header
         -r .
         -o .

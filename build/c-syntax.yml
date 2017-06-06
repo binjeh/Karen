@@ -32,7 +32,7 @@ shell:
   ext:
     - .sh
   after:
-    - ^#!'
+    - ^#!
   comment:
     open:   '#\n'
     close:  '#\n\n'
