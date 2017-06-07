@@ -79,5 +79,5 @@ function(VEXEC)
     endif()
 
     # Set the return value
-    set(${OUTPUT_VAR} ${mvexec_tmp} PARENT_SCOPE)
+    set(${PARSED_ARGS_OUTPUT} ${mvexec_tmp} PARENT_SCOPE)
 endfunction()
