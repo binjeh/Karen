@@ -1,8 +1,8 @@
 hash: f38cb1c742996dde7c768794cdfa4cb658ce1c6f3b98729559af1ca11ec005ca
-updated: 2017-06-05T00:22:19.590029418+02:00
+updated: 2017-06-08T00:00:54.50865281+02:00
 imports:
 - name: cloud.google.com/go
-  version: d59fc17b56f5a7a34cbbc3ccfbc9880e0ee0457e
+  version: 43076e306de6f136e329d91f174bdb8bff7c6af4
   subpackages:
   - compute/metadata
   - internal/version
@@ -27,7 +27,7 @@ imports:
 - name: github.com/dustin/go-humanize
   version: 259d2a102b871d17f30e3cd9881a642961a1e486
 - name: github.com/getsentry/raven-go
-  version: 4fa2ac0d29f801e79a063c0da82d37b5ff2873b2
+  version: b9f2aa2550bb0e89ab351d6fd59decd608b84ac1
 - name: github.com/golang/freetype
   version: bcfeb16b74e8aea9e2fe043406f2ef74b1cb0759
   subpackages:
@@ -45,7 +45,7 @@ imports:
 - name: github.com/hailocab/go-hostpool
   version: e80d13ce29ede4452c43dea11e79b9bc8a15b478
 - name: github.com/Jeffail/gabs
-  version: c9fb5b700cddb62013b2ee9dfc9ce011caea55e0
+  version: 9cef256b595a9e616eb6aec1da446529b7705613
 - name: github.com/marcmak/calc
   version: 5bbbfc3b3149741fda5147a18568a62f6cd3fec1
   subpackages:
@@ -68,7 +68,7 @@ imports:
 - name: github.com/PuerkitoBio/goquery
   version: 2dc93891ab3bcc1dbc2cbf9bc6376c37f6e6f289
 - name: github.com/Sirupsen/logrus
-  version: 5e5dc898656f695e2a086b8e12559febbfc01562
+  version: 68cec9f21fbf3ea8d8f98c044bc6ce05f17b267a
 - name: github.com/ttacon/chalk
   version: 22c06c80ed312dcb6e1cf394f9634aa2c4676e22
 - name: github.com/ugjka/cleverbot-go
@@ -80,7 +80,7 @@ imports:
   - parse
   - pm
 - name: golang.org/x/crypto
-  version: e1a4589e7d3ea14a3352255d04b6f1a418845e5e
+  version: e7ba82683099cae71475961448ab8f903ea77c26
   subpackages:
   - nacl/secretbox
   - pbkdf2
@@ -92,7 +92,7 @@ imports:
   - font
   - math/fixed
 - name: golang.org/x/net
-  version: e4fa1c5465ad6111f206fc92186b8c83d64adbe1
+  version: 59a0b19b5533c7977ddeb86b017bf507ed407b12
   subpackages:
   - context
   - context/ctxhttp
@@ -112,11 +112,11 @@ imports:
   - jws
   - jwt
 - name: golang.org/x/sys
-  version: b90f89a1e7a9c1f6b918820b3daa7f08488c8594
+  version: b9e8d468b01f806830d387bd9a1fe96dc68129d1
   subpackages:
   - unix
 - name: golang.org/x/text
-  version: ccbd3f7822129ff389f8ca4858a9b9d4d910531c
+  version: ab6d1c143672de99b9dfde433b7f6affb278cc74
   subpackages:
   - internal/tag
   - language
@@ -125,7 +125,7 @@ imports:
   - unicode/bidi
   - unicode/norm
 - name: google.golang.org/api
-  version: 8e09a3d939255ba9bfb76049b7cc413740986c03
+  version: 6c19dbe22b093b1af49977109ab4c13274e7fcd8
   subpackages:
   - gensupport
   - googleapi
@@ -153,7 +153,7 @@ imports:
   subpackages:
   - googleapis/rpc/status
 - name: google.golang.org/grpc
-  version: 6fecf2831adf75ce3b8b756d2d174db8a2044dbb
+  version: d2a85bf7ad299df70daee28117f707025bddac22
   subpackages:
   - codes
   - credentials
