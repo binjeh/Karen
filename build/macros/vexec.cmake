@@ -47,7 +47,7 @@ function(VEXEC)
     list(GET PARSED_ARGS_COMMAND 0 PROGRAM_NAME)
     list(REMOVE_AT PARSED_ARGS_COMMAND 0)
     find_program(PATH__${PROGRAM_NAME} ${PROGRAM_NAME})
-    
+
     if(NOT PATH__${PROGRAM_NAME})
         message(FATAL_ERROR "[VEXEC] The command ${PROGRAM_NAME} is not installed on this machine!")
     else()
@@ -65,7 +65,7 @@ function(VEXEC)
                 OUTPUT_STRIP_TRAILING_WHITESPACE
                 TIMEOUT 10
             )
-            message(STATUS "[KAREN] [VEXEC] ${PROGRAM} -> ${mvexec_tmp}")
+            message(STATUS "[KAREN] [VEXEC] [+${PROGRAM_NAME}] ${PARSED_ARGS_OUTPUT} = ${mvexec_tmp}")
         else()
             execute_process(
                 COMMAND ${PROGRAM} ${PARSED_ARGS_COMMAND}
@@ -74,7 +74,7 @@ function(VEXEC)
                 OUTPUT_STRIP_TRAILING_WHITESPACE
                 TIMEOUT 10
             )
-            message(STATUS "[KAREN] [VEXEC] ${PROGRAM} ${PARSED_ARGS_COMMAND} -> ${mvexec_tmp}")
+            message(STATUS "[KAREN] [VEXEC] [+${PROGRAM_NAME}] ${PARSED_ARGS_OUTPUT} = ${mvexec_tmp}")
         endif()
     endif()
 
