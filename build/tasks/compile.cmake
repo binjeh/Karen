@@ -28,7 +28,7 @@ vexec(OUTPUT KAREN_DYN_BUILD_USER COMMAND whoami "")
 vexec(OUTPUT KAREN_DYN_BUILD_HOST COMMAND hostname "")
 
 ADD_CUSTOM_TARGET(compile-release
-    DEPENDS glide-install assets configure
+    DEPENDS glide-install-opt assets configure
     COMMAND go build -v -o karen
             --ldflags=\"
                 -X code.lukas.moe/x/karen/src/version.BOT_VERSION=${KAREN_DYN_VERSION}
@@ -40,7 +40,7 @@ ADD_CUSTOM_TARGET(compile-release
 )
 
 ADD_CUSTOM_TARGET(compile-debug
-    DEPENDS glide-install assets configure
+    DEPENDS glide-install-opt assets configure
     COMMAND go build -v -o karen
             --ldflags=\"
                 -X code.lukas.moe/x/karen/src/version.BOT_VERSION=${KAREN_DYN_VERSION}

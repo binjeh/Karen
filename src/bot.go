@@ -60,9 +60,6 @@ func BotOnReady(session *discordgo.Session, event *discordgo.Ready) {
     // Run async game-changer
     go changeGameInterval(session)
 
-    // Run auto-leaver for non-beta guilds
-    go autoLeaver(session, config.Get("beta.whitelist").([]interface{}))
-
     // Run ratelimiter
     ratelimits.Container.Init()
 

@@ -56,9 +56,3 @@
 
     [modules.osu]
         key = "YOUR_OSU_API_TOKEN"
-
-[beta]
-    whitelist = [
-        "...",
-        "..."
-    ]
