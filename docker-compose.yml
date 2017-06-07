@@ -34,8 +34,8 @@ services:
     links:
       - rethinkdb
     volumes:
-      - /srv/karen:/karen
-      - /srv/karen-data:/srv/karen-data
+      - ./:/karen
+      - ./data:/srv/karen-data
     labels:
       - traefik.enable=true
       - traefik.port=1337
