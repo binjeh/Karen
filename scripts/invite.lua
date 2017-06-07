@@ -26,5 +26,5 @@ require("karen").registerReply(
         "invite",
         "inv"
     },
-    "Woah thanks :heart_eyes:\nI'm still beta but you can apply for early-access here: <https://karen.vc/invite>"
+    "Woah thanks :heart_eyes:\nI'm still beta but you can apply for early-access here: <https://goo.gl/forms/9J9GYMg8c9IM6a5Z2>"
 )

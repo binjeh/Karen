@@ -51,8 +51,8 @@
       "refreshed": ":cyclone: Refreshed!"
     },
     "help": [
-      "<@%s> Check out <http://karen.vc/commands>",
-      "<@%s> It's at <http://karen.vc/commands> :smiley:"
+      "<@%s> Check out <https://github.com/SubliminalHQ/karen/wiki/Commands>",
+      "<@%s> It's at <https://github.com/SubliminalHQ/karen/wiki/Commands> :smiley:"
     ]
   },
   "scripts": {
@@ -80,7 +80,7 @@
       "ask_a_question": "I cannot respond if you don't ask a question :thinking:"
     },
     "css": "http://i.imgur.com/TgPKFTz.gif",
-    "git": "https://git.lukas.moe/sn0w/Karen",
+    "git": "https://github.com/SubliminalHQ/karen",
     "hi": {
       "link": [
         "https://cdn.discordapp.com/attachments/102817255661772800/219512763607678976/large_1.gif",
