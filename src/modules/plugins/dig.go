@@ -24,6 +24,7 @@
  * Full credit to @Seklfreak and his original implementation for Robyul2
  * See https://github.com/Seklfreak/Robyul2 for more information
  */
+
 package plugins
 
 import (
@@ -40,6 +41,7 @@ type Dig struct{}
 func (d *Dig) Commands() []string {
     return []string{
         "dig",
+        "drill",
     }
 }
 
@@ -55,6 +57,7 @@ func (d *Dig) Action(command string, content string, msg *discordgo.Message, ses
         session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("bot.arguments.invalid"))
         return
     }
+
     dnsIp := "8.8.8.8"
     if len(args) >= 3 {
         dnsIp = strings.Replace(args[2], "@", "", 1)
@@ -64,9 +67,11 @@ func (d *Dig) Action(command string, content string, msg *discordgo.Message, ses
     if k, ok := dns.StringToType[strings.ToUpper(args[1])]; ok {
         lookupType = k
     }
+
     if k, ok := dns.StringToClass[strings.ToUpper(args[1])]; ok {
         lookupType = k
     }
+
     if lookupType == 0 {
         lookupType = dns.TypeA
     }
@@ -88,6 +93,7 @@ func (d *Dig) Action(command string, content string, msg *discordgo.Message, ses
     for _, question := range in.Question {
         questionText += question.String() + "\n"
     }
+
     if questionText == "" {
         questionText = "N/A"
     }
@@ -96,6 +102,7 @@ func (d *Dig) Action(command string, content string, msg *discordgo.Message, ses
     for _, answer := range in.Answer {
         answerText += "`" + answer.String() + "`\n"
     }
+
     if answerText == "" {
         answerText = "N/A"
     }
