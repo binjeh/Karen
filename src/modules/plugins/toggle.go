@@ -26,6 +26,8 @@ import (
     "code.lukas.moe/x/karen/src/helpers"
     "github.com/bwmarrin/discordgo"
     "strings"
+    "code.lukas.moe/x/karen/src/i18n"
+    "code.lukas.moe/x/karen/src/db"
 )
 
 // Toggle command
@@ -44,23 +46,23 @@ func (e *Toggle) Init(s *discordgo.Session) {}
 // Action func
 func (e *Toggle) Action(command, content string, msg *discordgo.Message, session *discordgo.Session) {
     if !helpers.IsAdmin(msg) {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.toggle.unauthorized", msg.Author.ID))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("plugins.toggle.unauthorized", msg.Author.ID))
     }
     split := strings.Fields(content)
     if len(split) < 1 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.toggle.empty_content"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.toggle.empty_content"))
         return
     }
     module := split[0]
     channel, err := session.Channel(msg.ChannelID)
     if err != nil {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.toggle.failure"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.toggle.failure"))
         return
     }
     switch module {
     case "joins":
         action := "disabled"
-        settings := helpers.GuildSettingsGetCached(channel.GuildID)
+        settings := db.GuildSettingsGetCached(channel.GuildID)
         if settings.JoinNotificationsEnabled {
             settings.JoinNotificationsEnabled = false
             settings.JoinNotificationsChannel = ""
@@ -69,15 +71,15 @@ func (e *Toggle) Action(command, content string, msg *discordgo.Message, session
             settings.JoinNotificationsEnabled = true
             settings.JoinNotificationsChannel = msg.ChannelID
         }
-        err := helpers.GuildSettingsSet(channel.GuildID, settings)
+        err := db.GuildSettingsSet(channel.GuildID, settings)
         if err != nil {
-            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.toggle.failure"))
+            session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.toggle.failure"))
             return
         }
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.toggle.joins."+action))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.toggle.joins."+action))
     case "leaves":
         action := "disabled"
-        settings := helpers.GuildSettingsGetCached(channel.GuildID)
+        settings := db.GuildSettingsGetCached(channel.GuildID)
         if settings.LeaveNotificationsEnabled {
             settings.LeaveNotificationsEnabled = false
             settings.LeaveNotificationsChannel = ""
@@ -86,15 +88,15 @@ func (e *Toggle) Action(command, content string, msg *discordgo.Message, session
             settings.LeaveNotificationsEnabled = true
             settings.LeaveNotificationsChannel = msg.ChannelID
         }
-        err := helpers.GuildSettingsSet(channel.GuildID, settings)
+        err := db.GuildSettingsSet(channel.GuildID, settings)
         if err != nil {
-            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.toggle.failure"))
+            session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.toggle.failure"))
             return
         }
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.toggle.leaves."+action))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.toggle.leaves."+action))
     case "announcements":
         action := "disabled"
-        settings := helpers.GuildSettingsGetCached(channel.GuildID)
+        settings := db.GuildSettingsGetCached(channel.GuildID)
         if settings.AnnouncementsEnabled {
             settings.AnnouncementsEnabled = false
             settings.AnnouncementsChannel = ""
@@ -103,13 +105,13 @@ func (e *Toggle) Action(command, content string, msg *discordgo.Message, session
             settings.AnnouncementsEnabled = true
             settings.AnnouncementsChannel = msg.ChannelID
         }
-        err := helpers.GuildSettingsSet(channel.GuildID, settings)
+        err := db.GuildSettingsSet(channel.GuildID, settings)
         if err != nil {
-            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.toggle.failure"))
+            session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.toggle.failure"))
             return
         }
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.toggle.announcements."+action))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.toggle.announcements."+action))
     default:
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.toggle.not_match", module))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("plugins.toggle.not_match", module))
     }
 }

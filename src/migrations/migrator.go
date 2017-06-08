@@ -23,13 +23,13 @@
 package migrations
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
     "code.lukas.moe/x/karen/src/logger"
+    "code.lukas.moe/x/karen/src/types"
     "reflect"
     "runtime"
 )
 
-var migrations = []helpers.Callback{
+var migrations = []types.Callback{
     m0_create_db,
     m1_create_table_guild_config,
     m2_create_table_reminders,

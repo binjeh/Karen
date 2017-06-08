@@ -24,6 +24,7 @@ package helpers
 
 import (
     "code.lukas.moe/x/karen/src/cache"
+    "code.lukas.moe/x/karen/src/db"
     "code.lukas.moe/x/karen/src/emojis"
     "code.lukas.moe/x/karen/src/models"
     "errors"
@@ -35,7 +36,7 @@ import (
 
 // NewPoll creates a pool for the guild
 func NewPoll(title, guild, pollID, channelID, author string, fields ...models.PollField) bool {
-    settings := GuildSettingsGetCached(guild)
+    settings := db.GuildSettingsGetCached(guild)
     settings.Polls = append(settings.Polls, models.Poll{
         ID:        pollID,
         ChannelID: channelID,
@@ -45,7 +46,7 @@ func NewPoll(title, guild, pollID, channelID, author string, fields ...models.Po
         CreatedAt: time.Now(),
         CreatedBy: author,
     })
-    return GuildSettingsSet(guild, settings) == nil
+    return db.GuildSettingsSet(guild, settings) == nil
 }
 
 //NewPollFieldGenerator returns a new PollField
@@ -63,7 +64,7 @@ func NewPollFieldGenerator() func(title string) models.PollField {
 
 // RemovePoll removes a pool from the guild
 func RemovePoll(guild, pollID string, msg *discordgo.Message) bool {
-    settings := GuildSettingsGetCached(guild)
+    settings := db.GuildSettingsGetCached(guild)
     polls := []models.Poll{}
     removed := false
     for _, p := range settings.Polls {
@@ -81,12 +82,12 @@ func RemovePoll(guild, pollID string, msg *discordgo.Message) bool {
     if !removed {
         return false
     }
-    return GuildSettingsSet(guild, settings) == nil
+    return db.GuildSettingsSet(guild, settings) == nil
 }
 
 // GetPoll returns a Poll
 func GetPoll(guild, pollID string) (models.Poll, error) {
-    settings := GuildSettingsGetCached(guild)
+    settings := db.GuildSettingsGetCached(guild)
     for _, p := range settings.Polls {
         if p.ID == pollID {
             return p, nil
@@ -97,7 +98,7 @@ func GetPoll(guild, pollID string) (models.Poll, error) {
 
 // UpdatePollMsg updates the poll msg
 func UpdatePollMsg(guild, pollID string) bool {
-    settings := GuildSettingsGetCached(guild)
+    settings := db.GuildSettingsGetCached(guild)
     for _, p := range settings.Polls {
         if p.ID == pollID {
             session := cache.GetSession()
@@ -137,7 +138,7 @@ func GetEmbedMsgFromPoll(p models.Poll) *discordgo.MessageEmbed {
 
 // AddPollField adds a poll field
 func AddPollField(guild, pollID, title string, msg *discordgo.Message) bool {
-    settings := GuildSettingsGetCached(guild)
+    settings := db.GuildSettingsGetCached(guild)
     for i, p := range settings.Polls {
         // If its the poll we're looking for
         if p.ID == pollID {
@@ -154,7 +155,7 @@ func AddPollField(guild, pollID, title string, msg *discordgo.Message) bool {
                 })
                 session := cache.GetSession()
                 session.MessageReactionAdd(msg.ChannelID, pollID, emojis.From(strconv.Itoa(ID)))
-                return GuildSettingsSet(guild, settings) == nil
+                return db.GuildSettingsSet(guild, settings) == nil
             }
         }
     }
@@ -163,7 +164,7 @@ func AddPollField(guild, pollID, title string, msg *discordgo.Message) bool {
 
 // RemovePollField removes the poll field with ID = fieldID
 func RemovePollField(guild, pollID string, fieldID int, msg *discordgo.Message) bool {
-    settings := GuildSettingsGetCached(guild)
+    settings := db.GuildSettingsGetCached(guild)
     removed := false
     for i, p := range settings.Polls {
         // If its the poll we're looking for
@@ -189,12 +190,12 @@ func RemovePollField(guild, pollID string, fieldID int, msg *discordgo.Message) 
     if !removed {
         return false
     }
-    return GuildSettingsSet(guild, settings) == nil
+    return db.GuildSettingsSet(guild, settings) == nil
 }
 
 // OpenPoll changes the state of a poll to open
 func OpenPoll(guild, pollID string, msg *discordgo.Message) bool {
-    settings := GuildSettingsGetCached(guild)
+    settings := db.GuildSettingsGetCached(guild)
     opened := false
     for i, p := range settings.Polls {
         // If its the poll we're looking for
@@ -213,12 +214,12 @@ func OpenPoll(guild, pollID string, msg *discordgo.Message) bool {
     if !opened {
         return false
     }
-    return GuildSettingsSet(guild, settings) == nil
+    return db.GuildSettingsSet(guild, settings) == nil
 }
 
 // ClosePoll changes the state of a poll to closed
 func ClosePoll(guild, pollID string, msg *discordgo.Message) bool {
-    settings := GuildSettingsGetCached(guild)
+    settings := db.GuildSettingsGetCached(guild)
     closed := false
     for i, p := range settings.Polls {
         // If its the poll we're looking for
@@ -237,12 +238,12 @@ func ClosePoll(guild, pollID string, msg *discordgo.Message) bool {
     if !closed {
         return false
     }
-    return GuildSettingsSet(guild, settings) == nil
+    return db.GuildSettingsSet(guild, settings) == nil
 }
 
 // VotePollIfItsOne func
 func VotePollIfItsOne(guild string, r *discordgo.MessageReaction) bool {
-    settings := GuildSettingsGetCached(guild)
+    settings := db.GuildSettingsGetCached(guild)
     voted := false
     // See if msg is a poll
     for i, p := range settings.Polls {
@@ -296,12 +297,12 @@ func VotePollIfItsOne(guild string, r *discordgo.MessageReaction) bool {
     if !voted {
         return false
     }
-    return GuildSettingsSet(guild, settings) == nil
+    return db.GuildSettingsSet(guild, settings) == nil
 }
 
 // GetListEmbedMsg returns an embed msg with the first 5 polls
 func GetListEmbedMsg(guild string) *discordgo.MessageEmbed {
-    settings := GuildSettingsGetCached(guild)
+    settings := db.GuildSettingsGetCached(guild)
     notShowing := 0
     lPolls := len(settings.Polls)
     if lPolls > 5 {
@@ -354,7 +355,7 @@ func GetListEmbedMsg(guild string) *discordgo.MessageEmbed {
 
 // PollTotalVotes returns the total votes for a poll
 func PollTotalVotes(guild, pollID string) int64 {
-    settings := GuildSettingsGetCached(guild)
+    settings := db.GuildSettingsGetCached(guild)
     for _, p := range settings.Polls {
         if p.ID == pollID {
             return p.TotalVotes
@@ -365,7 +366,7 @@ func PollTotalVotes(guild, pollID string) int64 {
 
 // PollTotalParticipants returns the total participants for a poll
 func PollTotalParticipants(guild, pollID string) int64 {
-    settings := GuildSettingsGetCached(guild)
+    settings := db.GuildSettingsGetCached(guild)
     for _, p := range settings.Polls {
         if p.ID == pollID {
             return p.TotalParticipants
@@ -376,5 +377,5 @@ func PollTotalParticipants(guild, pollID string) int64 {
 
 // PollCount returns the number of polls currently has
 func PollCount(guild string) int64 {
-    return int64(len(GuildSettingsGetCached(guild).Polls))
+    return int64(len(db.GuildSettingsGetCached(guild).Polls))
 }

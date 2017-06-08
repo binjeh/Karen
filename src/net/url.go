@@ -20,42 +20,17 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package helpers
+package net
 
-// HumanizeNumber takes an int and turns it into a word
-func HumanizeNumber(num int) string {
-    switch num {
-    case 1:
-        return "one"
+import "net/url"
 
-    case 2:
-        return "two"
+// UrlEncode encodes str with url#parse()
+func UrlEncode(str string) (string, error) {
+    u, err := url.Parse(str)
 
-    case 3:
-        return "three"
-
-    case 4:
-        return "four"
-
-    case 5:
-        return "five"
-
-    case 6:
-        return "six"
-
-    case 7:
-        return "seven"
-
-    case 8:
-        return "eight"
-
-    case 9:
-        return "nine"
-
-    case 0:
-        return "zero"
-
-    default:
-        return ""
+    if err != nil {
+        return "", err
     }
+
+    return u.String(), nil
 }

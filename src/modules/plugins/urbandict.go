@@ -23,7 +23,8 @@
 package plugins
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/except"
+    "code.lukas.moe/x/karen/src/net"
     "github.com/bwmarrin/discordgo"
     "net/url"
     "strconv"
@@ -52,10 +53,10 @@ func (u *UrbanDict) Action(command string, content string, msg *discordgo.Messag
 
     endpoint := "http://api.urbandictionary.com/v0/define?term=" + url.QueryEscape(content)
 
-    json := helpers.GetJSON(endpoint)
+    json := net.GETJson(endpoint)
 
     res, e := json.Path("list").Children()
-    helpers.Relax(e)
+    except.Handle(e)
 
     if len(res) == 0 {
         session.ChannelMessageSend(msg.ChannelID, "No results :neutral_face:")
@@ -63,10 +64,10 @@ func (u *UrbanDict) Action(command string, content string, msg *discordgo.Messag
     }
 
     object, e := res[0].ChildrenMap()
-    helpers.Relax(e)
+    except.Handle(e)
 
     children, e := json.Path("tags").Children()
-    helpers.Relax(e)
+    except.Handle(e)
 
     tags := ""
     for _, child := range children {

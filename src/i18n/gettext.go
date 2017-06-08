@@ -20,10 +20,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package helpers
+package i18n
 
 import (
     "code.lukas.moe/x/karen/src/assets"
+    "code.lukas.moe/x/karen/src/except"
     "fmt"
     "github.com/Jeffail/gabs"
     "math/rand"
@@ -34,10 +35,10 @@ var translations *gabs.Container
 
 func LoadTranslations() {
     jsonFile, err := assets.Asset("assets/i18n.json")
-    Relax(err)
+    except.Handle(err)
 
     json, err := gabs.ParseJSON(jsonFile)
-    Relax(err)
+    except.Handle(err)
 
     translations = json
 }

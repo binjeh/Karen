@@ -23,8 +23,8 @@
 package plugins
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
     "code.lukas.moe/x/karen/src/logger"
+    "code.lukas.moe/x/karen/src/net"
     "code.lukas.moe/x/karen/src/version"
     "github.com/bwmarrin/discordgo"
     "strings"
@@ -59,7 +59,7 @@ func (c *Changelog) Init(session *discordgo.Session) {
         }
     }()
 
-    release := helpers.GetJSON(
+    release := net.GETJson(
         "https://git.lukas.moe/api/v3/projects/77/repository/tags/" + version.BOT_VERSION + "?private_token=9qvdMtLdxoC5amAmajN_",
     )
 

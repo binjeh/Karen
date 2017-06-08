@@ -24,7 +24,8 @@ package plugins
 
 import (
     "code.lukas.moe/x/karen/src/config"
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/except"
+    "code.lukas.moe/x/karen/src/net"
     "fmt"
     "github.com/bwmarrin/discordgo"
     "regexp"
@@ -71,7 +72,7 @@ func (o *Osu) Action(command string, content string, msg *discordgo.Message, ses
         break
     }
 
-    jsonc, err := helpers.GetJSON(
+    jsonc, err := net.GETJson(
         fmt.Sprintf(
             "https://osu.ppy.sh/api/get_user?k=%s&u=%s&type=u&m=%s",
             config.Get("modules.osu.key").(string),
@@ -79,7 +80,7 @@ func (o *Osu) Action(command string, content string, msg *discordgo.Message, ses
             mode,
         ),
     ).Children()
-    helpers.Relax(err)
+    except.Handle(err)
 
     if len(jsonc) == 0 {
         session.ChannelMessageSend(msg.ChannelID, "User not found :frowning:")
@@ -87,7 +88,7 @@ func (o *Osu) Action(command string, content string, msg *discordgo.Message, ses
     }
 
     json := jsonc[0]
-    html := string(helpers.NetGet("https://osu.ppy.sh/u/" + user))
+    html := string(net.GET("https://osu.ppy.sh/u/" + user))
     avatar := regexp.MustCompile(
         `"//a\.ppy\.sh/` + json.Path("user_id").Data().(string) + `_\d+\.\w{2,5}"`,
     ).FindString(html)

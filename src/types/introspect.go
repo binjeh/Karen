@@ -20,20 +20,17 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package helpers
+package types
 
-import "os"
+import "reflect"
 
-func FileExists(path string) (bool, error) {
-    _, err := os.Stat(path)
+// Typeof resolves the type of $v as a string
+func TypeOf(v interface{}) string {
+    t := reflect.TypeOf(v)
 
-    if err == nil {
-        return true, nil
+    if t.Kind() == reflect.Ptr {
+        return "*" + t.Elem().Name()
     }
 
-    if os.IsNotExist(err) {
-        return false, nil
-    }
-
-    return true, err
+    return t.Name()
 }

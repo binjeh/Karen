@@ -26,6 +26,7 @@ import (
     "code.lukas.moe/x/karen/src/helpers"
     "github.com/bwmarrin/discordgo"
     "strings"
+    "code.lukas.moe/x/karen/src/db"
 )
 
 // Announcement such as updates, downtimes...
@@ -67,7 +68,7 @@ func (a *Announcement) Action(command string, content string, msg *discordgo.Mes
     }
     // Iterate through all joined guilds
     for _, guild := range session.State.Guilds {
-        settings := helpers.GuildSettingsGetCached(guild.ID)
+        settings := db.GuildSettingsGetCached(guild.ID)
         // Check if we have an announcement channel set for this guild
         if settings.AnnouncementsEnabled {
             // Get the announcement channel id

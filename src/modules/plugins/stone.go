@@ -23,9 +23,9 @@
 package plugins
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
     "fmt"
     "github.com/bwmarrin/discordgo"
+    "code.lukas.moe/x/karen/src/i18n"
 )
 
 type Stone struct{}
@@ -44,12 +44,12 @@ func (s *Stone) Action(command string, content string, msg *discordgo.Message, s
     mentionCount := len(msg.Mentions)
 
     if mentionCount == 0 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("bot.mentions.too-few"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("bot.mentions.too-few"))
         return
     }
 
     if mentionCount > 1 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("bot.mentions.too-many"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("bot.mentions.too-many"))
         return
     }
 

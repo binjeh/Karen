@@ -20,7 +20,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package helpers
+package db
 
 import (
     "code.lukas.moe/x/karen/src/cache"
@@ -33,19 +33,18 @@ import (
 )
 
 var (
-    dbSession *rethink.Session
+    session *rethink.Session
 
     guildSettingsCache map[string]models.Config
     cacheMutex         sync.RWMutex
 )
 
-// ConnectDB connects to rethink and stores the session
-func ConnectDB(url string, db string) {
+func Connect(url string, db string) {
     Logger.INFO.L("Connecting to " + url)
 
     rethink.SetTags("rethink", "json")
 
-    session, err := rethink.Connect(rethink.ConnectOpts{
+    sess, err := rethink.Connect(rethink.ConnectOpts{
         Address:  url,
         Database: db,
     })
@@ -55,7 +54,7 @@ func ConnectDB(url string, db string) {
         panic(err)
     }
 
-    dbSession = session
+    session = sess
 
     cacheMutex.Lock()
     guildSettingsCache = make(map[string]models.Config)
@@ -64,10 +63,8 @@ func ConnectDB(url string, db string) {
     Logger.INFO.L("Connected!")
 }
 
-// GetDB is a simple getter for the rethink session.
-// Might receive some singleton-like lazy-creation later
-func GetDB() *rethink.Session {
-    return dbSession
+func GetSession() *rethink.Session {
+    return session
 }
 
 // GuildSettingsSet writes all $config into the db
@@ -75,7 +72,7 @@ func GuildSettingsSet(guild string, config models.Config) error {
     // Check if an config object exists
     var settings models.Config
 
-    cursor, err := rethink.Table("guild_configs").Filter(map[string]interface{}{"guild": guild}).Run(GetDB())
+    cursor, err := rethink.Table("guild_configs").Filter(map[string]interface{}{"guild": guild}).Run(GetSession())
     defer cursor.Close()
 
     if err != nil {
@@ -87,14 +84,14 @@ func GuildSettingsSet(guild string, config models.Config) error {
     switch err {
     // Insert
     case rethink.ErrEmptyResult:
-        _, err = rethink.Table("guild_configs").Insert(config).RunWrite(GetDB())
+        _, err = rethink.Table("guild_configs").Insert(config).RunWrite(GetSession())
         break
 
         // Update
     case nil:
         _, err = rethink.Table("guild_configs").Filter(
             map[string]interface{}{"guild": guild},
-        ).Update(config).RunWrite(GetDB())
+        ).Update(config).RunWrite(GetSession())
         break
 
     default:
@@ -115,7 +112,7 @@ func GuildSettingsGet(guild string) (models.Config, error) {
     var cursor *rethink.Cursor
     var err error
 
-    cursor, err = rethink.Table("guild_configs").Filter(map[string]interface{}{"guild": guild}).Run(GetDB())
+    cursor, err = rethink.Table("guild_configs").Filter(map[string]interface{}{"guild": guild}).Run(GetSession())
     defer cursor.Close()
 
     if err != nil {

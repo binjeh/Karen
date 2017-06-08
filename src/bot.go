@@ -26,7 +26,10 @@ import (
     "code.lukas.moe/x/karen/src/cache"
     "code.lukas.moe/x/karen/src/cleverbot"
     "code.lukas.moe/x/karen/src/config"
+    "code.lukas.moe/x/karen/src/db"
+    "code.lukas.moe/x/karen/src/except"
     "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/i18n"
     Logger "code.lukas.moe/x/karen/src/logger"
     "code.lukas.moe/x/karen/src/metrics"
     "code.lukas.moe/x/karen/src/modules"
@@ -55,7 +58,7 @@ func BotOnReady(session *discordgo.Session, event *discordgo.Ready) {
     modules.Init(session)
 
     // Run async worker for guild changes
-    go helpers.GuildSettingsUpdater()
+    go db.GuildSettingsUpdater()
 
     // Run async game-changer
     go changeGameInterval(session)
@@ -104,7 +107,7 @@ func BotOnMessageCreate(session *discordgo.Session, message *discordgo.MessageCr
 
     // Check if the user is allowed to request commands
     if !ratelimits.Container.HasKeys(message.Author.ID) {
-        session.ChannelMessageSend(message.ChannelID, helpers.GetTextF("bot.ratelimit.hit", message.Author.ID))
+        session.ChannelMessageSend(message.ChannelID, i18n.GetTextF("bot.ratelimit.hit", message.Author.ID))
 
         ratelimits.Container.Set(message.Author.ID, -1)
         return
@@ -154,17 +157,17 @@ func BotOnMessageCreate(session *discordgo.Session, message *discordgo.MessageCr
 
         case regexp.MustCompile("(?i)^PREFIX.*").Match(bmsg):
             metrics.CommandsExecuted.Add(1)
-            prefix := helpers.GetPrefixForServer(channel.GuildID)
+            prefix := db.GetPrefixForServer(channel.GuildID)
             if prefix == "" {
                 cache.GetSession().ChannelMessageSend(
                     channel.ID,
-                    helpers.GetText("bot.prefix.not-set"),
+                    i18n.GetText("bot.prefix.not-set"),
                 )
             }
 
             cache.GetSession().ChannelMessageSend(
                 channel.ID,
-                helpers.GetTextF("bot.prefix.is", prefix),
+                i18n.GetTextF("bot.prefix.is", prefix),
             )
             return
 
@@ -173,7 +176,7 @@ func BotOnMessageCreate(session *discordgo.Session, message *discordgo.MessageCr
             helpers.RequireAdmin(message.Message, func() {
                 // Refresh cleverbot session
                 cleverbot.RefreshSession(channel.ID)
-                cache.GetSession().ChannelMessageSend(channel.ID, helpers.GetText("bot.cleverbot.refreshed"))
+                cache.GetSession().ChannelMessageSend(channel.ID, i18n.GetText("bot.cleverbot.refreshed"))
             })
             return
 
@@ -187,15 +190,15 @@ func BotOnMessageCreate(session *discordgo.Session, message *discordgo.MessageCr
                 )[0]
 
                 // Set new prefix
-                err := helpers.SetPrefixForServer(
+                err := db.SetPrefixForServer(
                     channel.GuildID,
                     prefix,
                 )
 
                 if err != nil {
-                    helpers.SendError(message.Message, err)
+                    except.SendError(message.Message, err)
                 } else {
-                    cache.GetSession().ChannelMessageSend(channel.ID, helpers.GetTextF("bot.prefix.saved", prefix))
+                    cache.GetSession().ChannelMessageSend(channel.ID, i18n.GetTextF("bot.prefix.saved", prefix))
                 }
             })
             return
@@ -222,7 +225,7 @@ func BotOnMessageCreate(session *discordgo.Session, message *discordgo.MessageCr
     }
 
     // Only continue if a prefix is set
-    prefix := helpers.GetPrefixForServer(channel.GuildID)
+    prefix := db.GetPrefixForServer(channel.GuildID)
     if prefix == "" {
         return
     }
@@ -289,11 +292,11 @@ func BotOnReactionAdd(session *discordgo.Session, reaction *discordgo.MessageRea
 
 // BotOnGuildMemberJoin gets called after a new member joins the guild
 func BotOnGuildMemberJoin(session *discordgo.Session, member *discordgo.GuildMemberAdd) {
-    settings := helpers.GuildSettingsGetCached(member.GuildID)
+    settings := db.GuildSettingsGetCached(member.GuildID)
     // If this is enabled the JoinNotificationsChannel should be set too
     if settings.JoinNotificationsEnabled {
         if settings.JoinNotificationText == "" {
-            welcome := helpers.GetTextF("plugins.toggle.joins.notifications", member.User.ID)
+            welcome := i18n.GetTextF("plugins.toggle.joins.notifications", member.User.ID)
             session.ChannelMessageSend(settings.JoinNotificationsChannel, welcome)
             return
         }
@@ -304,11 +307,11 @@ func BotOnGuildMemberJoin(session *discordgo.Session, member *discordgo.GuildMem
 
 // BotOnGuildMemberRemove gets called after a member leaves the guild
 func BotOnGuildMemberRemove(session *discordgo.Session, member *discordgo.GuildMemberRemove) {
-    settings := helpers.GuildSettingsGetCached(member.GuildID)
+    settings := db.GuildSettingsGetCached(member.GuildID)
     // If this is enabled the LeaveNotificationsChannel should be set too
     if settings.LeaveNotificationsEnabled {
         if settings.LeaveNotificationText == "" {
-            farewell := helpers.GetTextF("plugins.toggle.leaves.notifications", member.User.ID)
+            farewell := i18n.GetTextF("plugins.toggle.leaves.notifications", member.User.ID)
             session.ChannelMessageSend(settings.LeaveNotificationsChannel, farewell)
             return
         }
@@ -320,14 +323,14 @@ func BotOnGuildMemberRemove(session *discordgo.Session, member *discordgo.GuildM
 func sendHelp(message *discordgo.MessageCreate) {
     cache.GetSession().ChannelMessageSend(
         message.ChannelID,
-        helpers.GetTextF("bot.help", message.Author.ID),
+        i18n.GetTextF("bot.help", message.Author.ID),
     )
 }
 
 // Changes the game interval every 10 seconds after called
 func changeGameInterval(session *discordgo.Session) {
     for {
-        err := session.UpdateStatus(0, helpers.GetText("games"))
+        err := session.UpdateStatus(0, i18n.GetText("games"))
         if err != nil {
             raven.CaptureError(err, map[string]string{})
         }

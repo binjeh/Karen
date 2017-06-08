@@ -23,7 +23,8 @@
 package plugins
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/except"
+    "code.lukas.moe/x/karen/src/net"
     "fmt"
     "github.com/PuerkitoBio/goquery"
     "github.com/bwmarrin/discordgo"
@@ -55,7 +56,7 @@ func (x *XKCD) Action(command string, content string, msg *discordgo.Message, se
     } else if strings.Contains(content, "rand") {
         // Get latest number
         doc, err := goquery.NewDocument("https://xkcd.com")
-        helpers.Relax(err)
+        except.Handle(err)
 
         var num string
         for _, attr := range doc.Find("ul.comicNav").Children().Get(1).FirstChild.Attr {
@@ -78,7 +79,7 @@ func (x *XKCD) Action(command string, content string, msg *discordgo.Message, se
         link = "https://xkcd.com/info.0.json"
     }
 
-    json := helpers.GetJSON(link)
+    json := net.GETJson(link)
     session.ChannelMessageSend(
         msg.ChannelID,
         fmt.Sprintf(

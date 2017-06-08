@@ -22,10 +22,12 @@
 
 // Except.go: Contains functions to make handling panics less PITA
 
-package helpers
+package except
 
 import (
     "code.lukas.moe/x/karen/src/cache"
+    "code.lukas.moe/x/karen/src/debug"
+    "code.lukas.moe/x/karen/src/types"
     "fmt"
     "github.com/bwmarrin/discordgo"
     "github.com/davecgh/go-spew/spew"
@@ -54,7 +56,7 @@ func Recover() {
 
 // SoftRelax is a softer form of Relax()
 // Calls a callback instead of panicking
-func SoftRelax(err error, cb Callback) {
+func SoftHandle(err error, cb types.Callback) {
     if err != nil {
         cb()
     }
@@ -62,7 +64,7 @@ func SoftRelax(err error, cb Callback) {
 
 // Relax is a helper to reduce if-checks if panicking is allowed
 // If $err is nil this is a no-op. Panics otherwise.
-func Relax(err error) {
+func Handle(err error) {
     if err != nil {
         panic(err)
     }
@@ -71,20 +73,20 @@ func Relax(err error) {
 // RelaxAssertEqual panics if a is not b
 func RelaxAssertEqual(a interface{}, b interface{}, err error) {
     if !reflect.DeepEqual(a, b) {
-        Relax(err)
+        Handle(err)
     }
 }
 
 // RelaxAssertUnequal panics if a is b
 func RelaxAssertUnequal(a interface{}, b interface{}, err error) {
     if reflect.DeepEqual(a, b) {
-        Relax(err)
+        Handle(err)
     }
 }
 
 // SendError Takes an error and sends it to discord and sentry.io
 func SendError(msg *discordgo.Message, err interface{}) {
-    if DEBUG_MODE == true {
+    if debug.ENABLED {
         buf := make([]byte, 1<<16)
         stackSize := runtime.Stack(buf, false)
 

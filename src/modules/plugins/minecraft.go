@@ -23,7 +23,7 @@
 package plugins
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/net"
     "github.com/bwmarrin/discordgo"
     "regexp"
 )
@@ -61,7 +61,7 @@ func (m *Minecraft) Action(command string, content string, msg *discordgo.Messag
 
     // Request to catch server errors and 404's
     url := "https://minotar.net/body/" + content + "/300.png"
-    helpers.NetGet(url)
+    net.GET(url)
 
     // If NetGet didn't panic send the url
     session.ChannelMessageSend(msg.ChannelID, "Here you go :smiley: \n "+url)

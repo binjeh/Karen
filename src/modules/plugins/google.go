@@ -23,7 +23,7 @@
 package plugins
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/i18n"
     "fmt"
     "github.com/bwmarrin/discordgo"
     "net/url"
@@ -44,7 +44,7 @@ func (g *Google) Init(session *discordgo.Session) {
 
 func (g *Google) Action(command string, content string, msg *discordgo.Message, session *discordgo.Session) {
     if len(content) < 2 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.google.no-term"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.google.no-term"))
         return
     }
 

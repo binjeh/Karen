@@ -26,10 +26,11 @@ import (
     "code.lukas.moe/x/karen/src/cache"
     "code.lukas.moe/x/karen/src/dsl"
     "code.lukas.moe/x/karen/src/dsl/bridge"
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/except"
     "code.lukas.moe/x/karen/src/logger"
     "code.lukas.moe/x/karen/src/metrics"
     "code.lukas.moe/x/karen/src/ratelimits"
+    "code.lukas.moe/x/karen/src/types"
     "fmt"
     "github.com/bwmarrin/discordgo"
     "os"
@@ -45,7 +46,7 @@ func CallPlugin(command string, content string, msg *discordgo.Message) bool {
     //#warning modules#CallBotPlugin() will be a no-op in this build
     return false
     //#else
-    defer helpers.RecoverDiscord(msg)
+    defer except.RecoverDiscord(msg)
 
     if ref, ok := pluginCache[command]; ok {
         // Consume a key for this action
@@ -69,7 +70,7 @@ func CallScript(caller string, content string, msg *discordgo.Message) bool {
     //#warning modules#CallScript() will be a no-op in this build
     return false
     //#else
-    defer helpers.RecoverDiscord(msg)
+    defer except.RecoverDiscord(msg)
 
     if ref, ok := scriptCache[caller]; ok {
         ratelimits.Container.Drain(1, msg.Author.ID)
@@ -122,7 +123,7 @@ func Init(session *discordgo.Session) {
 
         logger.INFO.L(fmt.Sprintf(
             logTemplate,
-            helpers.Typeof(ref),
+            types.TypeOf(ref),
             listeners,
         ))
         listeners = ""
@@ -179,7 +180,7 @@ func checkDuplicateCommands() {
 
     for _, plug := range PluginList {
         for _, cmd := range plug.Commands() {
-            t := helpers.Typeof(plug)
+            t := types.TypeOf(plug)
 
             if occupant, ok := cmds[cmd]; ok {
                 logger.ERROR.L("Failed to load " + t + " because '" + cmd + "' was already registered by " + occupant)

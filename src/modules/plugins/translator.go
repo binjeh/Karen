@@ -25,7 +25,8 @@ package plugins
 import (
     "cloud.google.com/go/translate"
     "code.lukas.moe/x/karen/src/config"
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/except"
+    "code.lukas.moe/x/karen/src/i18n"
     "context"
     "github.com/bwmarrin/discordgo"
     "golang.org/x/text/language"
@@ -53,7 +54,7 @@ func (t *Translator) Init(session *discordgo.Session) {
         t.ctx,
         option.WithAPIKey(config.Get("modules.google.translator.key").(string)),
     )
-    helpers.Relax(err)
+    except.Handle(err)
     t.client = client
 }
 
@@ -62,19 +63,19 @@ func (t *Translator) Action(command string, content string, msg *discordgo.Messa
     parts := strings.Split(content, " ")
 
     if len(parts) < 3 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.translator.check_format"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("plugins.translator.check_format"))
         return
     }
 
     source, err := language.Parse(parts[0])
     if err != nil {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.translator.unknown_lang", parts[0]))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("plugins.translator.unknown_lang", parts[0]))
         return
     }
 
     target, err := language.Parse(parts[1])
     if err != nil {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.translator.unknown_lang", parts[1]))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("plugins.translator.unknown_lang", parts[1]))
         return
     }
 
@@ -89,8 +90,8 @@ func (t *Translator) Action(command string, content string, msg *discordgo.Messa
     )
 
     if err != nil {
-        //session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.translator.error"))
-        helpers.SendError(msg, err)
+        //session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.translator.error"))
+        except.SendError(msg, err)
         return
     }
 

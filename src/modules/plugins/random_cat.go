@@ -23,7 +23,7 @@
 package plugins
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/net"
     "github.com/bwmarrin/discordgo"
 )
 
@@ -44,7 +44,7 @@ func (rc RandomCat) Action(command string, content string, msg *discordgo.Messag
 
     session.ChannelTyping(msg.ChannelID)
 
-    json := helpers.GetJSON(ENDPOINT)
+    json := net.GETJson(ENDPOINT)
     session.ChannelMessageSend(
         msg.ChannelID,
         "MEOW! :smiley_cat: \n "+json.Path("file").Data().(string),
