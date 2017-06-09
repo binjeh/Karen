@@ -20,7 +20,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package helpers
+package debug
 
-// Callback aliases a func
-type Callback func()
+var ENABLED = false

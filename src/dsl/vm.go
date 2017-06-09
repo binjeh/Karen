@@ -23,7 +23,6 @@
 package dsl
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
     "code.lukas.moe/x/karen/src/logger"
     "github.com/yuin/gopher-lua"
     "os"
@@ -39,8 +38,11 @@ func Load() {
     vm.OpenLibs()
     applyLibMapping(vm)
 
-    ex, err := helpers.FileExists("./scripts")
-    if !ex || err != nil {
+    _, err := os.Stat("./scripts")
+    if os.IsNotExist(err) {
+        return
+    }
+    if err != nil {
         return
     }
 

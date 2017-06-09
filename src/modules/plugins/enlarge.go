@@ -23,7 +23,7 @@
 package plugins
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/except"
     "github.com/bwmarrin/discordgo"
     "net/url"
     "regexp"
@@ -47,7 +47,7 @@ func (p *Enlarge) Action(command string, content string, msg *discordgo.Message,
 
     if len(emojis) == 0 {
         _, err := session.ChannelMessageSend(msg.ChannelID, "I wasn't able to find an emoji :frowning:")
-        helpers.Relax(err)
+        except.Handle(err)
         return
     }
 
@@ -57,10 +57,10 @@ func (p *Enlarge) Action(command string, content string, msg *discordgo.Message,
     _, urlErr := url.ParseRequestURI(uri)
     if urlErr != nil {
         _, err := session.ChannelMessageSend(msg.ChannelID, "Error resolving the URL")
-        helpers.Relax(err)
+        except.Handle(err)
         return
     }
 
     _, err := session.ChannelMessageSend(msg.ChannelID, uri)
-    helpers.Relax(err)
+    except.Handle(err)
 }

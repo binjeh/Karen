@@ -23,14 +23,15 @@
 package migrations
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/db"
+    "code.lukas.moe/x/karen/src/except"
     rethink "github.com/gorethink/gorethink"
 )
 
 // CreateTableIfNotExists (works like the mysql call)
 func CreateTableIfNotExists(tableName string) {
-    cursor, err := rethink.TableList().Run(helpers.GetDB())
-    helpers.Relax(err)
+    cursor, err := rethink.TableList().Run(db.GetSession())
+    except.Handle(err)
     defer cursor.Close()
 
     tableExists := false
@@ -44,15 +45,15 @@ func CreateTableIfNotExists(tableName string) {
     }
 
     if !tableExists {
-        _, err := rethink.TableCreate(tableName).Run(helpers.GetDB())
-        helpers.Relax(err)
+        _, err := rethink.TableCreate(tableName).Run(db.GetSession())
+        except.Handle(err)
     }
 }
 
 // CreateDBIfNotExists (works like the mysql call)
 func CreateDBIfNotExists(dbName string) {
-    cursor, err := rethink.DBList().Run(helpers.GetDB())
-    helpers.Relax(err)
+    cursor, err := rethink.DBList().Run(db.GetSession())
+    except.Handle(err)
     defer cursor.Close()
 
     dbExists := false
@@ -66,7 +67,7 @@ func CreateDBIfNotExists(dbName string) {
     }
 
     if !dbExists {
-        _, err := rethink.DBCreate(dbName).Run(helpers.GetDB())
-        helpers.Relax(err)
+        _, err := rethink.DBCreate(dbName).Run(db.GetSession())
+        except.Handle(err)
     }
 }

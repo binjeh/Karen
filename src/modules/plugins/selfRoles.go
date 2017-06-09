@@ -23,7 +23,9 @@
 package plugins
 
 import (
+    "code.lukas.moe/x/karen/src/db"
     "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/i18n"
     "code.lukas.moe/x/karen/src/models"
     "fmt"
     "github.com/bwmarrin/discordgo"
@@ -73,7 +75,7 @@ func (s *SelfRoles) role(content string, msg *discordgo.Message, session *discor
 
     split := strings.Fields(content)
     if len(split) < 2 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.missing_param"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.missing_param"))
         return
     }
 
@@ -89,7 +91,7 @@ func (s *SelfRoles) role(content string, msg *discordgo.Message, session *discor
         s.removeRole(roleName, msg, session)
         // Wrong subcommand
     default:
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.self_roles.wrong_subcommand", subcommand))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("plugins.self_roles.wrong_subcommand", subcommand))
         return
     }
 }
@@ -98,14 +100,14 @@ func (s *SelfRoles) addRole(roleName string, msg *discordgo.Message, session *di
     // Get the channel
     channel, err := session.Channel(msg.ChannelID)
     if err != nil {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_add.failure"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.role_add.failure"))
         return
     }
 
     // Get the guild
     guild, err := session.Guild(channel.GuildID)
     if err != nil {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_add.failure"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.role_add.failure"))
         return
     }
 
@@ -124,34 +126,34 @@ func (s *SelfRoles) addRole(roleName string, msg *discordgo.Message, session *di
         role, err := session.GuildRoleCreate(channel.GuildID)
         if err != nil {
             if strings.Contains(err.Error(), "403") {
-                session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.missing_perms"))
+                session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.missing_perms"))
                 return
             }
-            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_add.failure"))
+            session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.role_add.failure"))
             return
         }
 
         // Edit the role
         _, err = session.GuildRoleEdit(channel.GuildID, role.ID, roleName, role.Color, role.Hoist, 0, true)
         if err != nil {
-            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_add.failure"))
+            session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.role_add.failure"))
             return
         }
     }
 
     // Persist to db
-    settings := helpers.GuildSettingsGetCached(channel.GuildID)
+    settings := db.GuildSettingsGetCached(channel.GuildID)
     settings.Roles = append(settings.Roles, models.Role{ID: role.ID, Name: roleName})
-    err = helpers.GuildSettingsSet(channel.GuildID, settings)
+    err = db.GuildSettingsSet(channel.GuildID, settings)
     if err != nil {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_add.failure"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.role_add.failure"))
         return
     }
 
     // Make senpai notice us
     session.ChannelMessageSendEmbed(msg.ChannelID, &discordgo.MessageEmbed{
         Title:       "Added role",
-        Description: helpers.GetTextF("plugins.self_roles.role_add.success", roleName),
+        Description: i18n.GetTextF("plugins.self_roles.role_add.success", roleName),
         Color:       0x0FADED,
     })
 }
@@ -160,7 +162,7 @@ func (s *SelfRoles) removeRole(roleName string, msg *discordgo.Message, session 
     // Get the channel
     channel, err := session.Channel(msg.ChannelID)
     if err != nil {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_remove.failure"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.role_remove.failure"))
         return
     }
 
@@ -168,10 +170,10 @@ func (s *SelfRoles) removeRole(roleName string, msg *discordgo.Message, session 
     roles, err := session.GuildRoles(channel.GuildID)
     if err != nil {
         if strings.Contains(err.Error(), "403") {
-            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.missing_perms"))
+            session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.missing_perms"))
             return
         }
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_remove.failure"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.role_remove.failure"))
         return
     }
 
@@ -183,15 +185,15 @@ func (s *SelfRoles) removeRole(roleName string, msg *discordgo.Message, session 
             err = session.GuildRoleDelete(channel.GuildID, role.ID)
             if err != nil {
                 if strings.Contains(err.Error(), "403") {
-                    session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.missing_perms"))
+                    session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.missing_perms"))
                     return
                 }
-                session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_remove.failure"))
+                session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.role_remove.failure"))
                 return
             }
 
             // Delete it from db
-            settings := helpers.GuildSettingsGetCached(channel.GuildID)
+            settings := db.GuildSettingsGetCached(channel.GuildID)
             newRoles := make([]models.Role, len(settings.Roles)-1)
             for i, r := range settings.Roles {
                 if r.Name != roleName {
@@ -200,9 +202,9 @@ func (s *SelfRoles) removeRole(roleName string, msg *discordgo.Message, session 
             }
 
             settings.Roles = newRoles
-            err = helpers.GuildSettingsSet(channel.GuildID, settings)
+            err = db.GuildSettingsSet(channel.GuildID, settings)
             if err != nil {
-                session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.role_remove.failure"))
+                session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.role_remove.failure"))
                 return
             }
             break
@@ -212,7 +214,7 @@ func (s *SelfRoles) removeRole(roleName string, msg *discordgo.Message, session 
     // Notify senpai that we did it!!
     session.ChannelMessageSendEmbed(msg.ChannelID, &discordgo.MessageEmbed{
         Title:       "Removed role",
-        Description: helpers.GetTextF("plugins.self_roles.role_remove.success", roleName),
+        Description: i18n.GetTextF("plugins.self_roles.role_remove.success", roleName),
         Color:       0x0FADED,
     })
 }
@@ -220,11 +222,11 @@ func (s *SelfRoles) removeRole(roleName string, msg *discordgo.Message, session 
 func (s *SelfRoles) roles(content string, msg *discordgo.Message, session *discordgo.Session) {
     channel, err := session.Channel(msg.ChannelID)
     if err != nil {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.roles.failure"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.roles.failure"))
         return
     }
 
-    settings := helpers.GuildSettingsGetCached(channel.GuildID)
+    settings := db.GuildSettingsGetCached(channel.GuildID)
     embed := &discordgo.MessageEmbed{
         Title: "List of available self-assignable roles",
         Color: 0x0FADED,
@@ -245,7 +247,7 @@ func (s *SelfRoles) iam(content string, msg *discordgo.Message, session *discord
     split := strings.Fields(content)
 
     if len(split) < 1 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.missing_param"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.missing_param"))
         return
     }
 
@@ -254,14 +256,14 @@ func (s *SelfRoles) iam(content string, msg *discordgo.Message, session *discord
     // Get the channel
     channel, err := session.Channel(msg.ChannelID)
     if err != nil {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.self_roles.iam.failure", msg.Author.ID))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("plugins.self_roles.iam.failure", msg.Author.ID))
         return
     }
 
     // Get the role
     role, found := helpers.GuildRoleByName(channel.GuildID, roleName)
     if !found {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.self_roles.not_assignable", roleName))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("plugins.self_roles.not_assignable", roleName))
         return
     }
 
@@ -269,10 +271,10 @@ func (s *SelfRoles) iam(content string, msg *discordgo.Message, session *discord
     err = session.GuildMemberRoleAdd(channel.GuildID, msg.Author.ID, role.ID)
     if err != nil {
         if strings.Contains(err.Error(), "403") {
-            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.missing_perms"))
+            session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.missing_perms"))
             return
         }
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.self_roles.iam.failure", msg.Author.ID))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("plugins.self_roles.iam.failure", msg.Author.ID))
         return
     }
 
@@ -281,7 +283,7 @@ func (s *SelfRoles) iam(content string, msg *discordgo.Message, session *discord
         Content: fmt.Sprintf("<@%s>", msg.Author.ID),
         Embed: &discordgo.MessageEmbed{
             Title:       "Joined role",
-            Description: helpers.GetTextF("plugins.self_roles.iam.success", role.Name),
+            Description: i18n.GetTextF("plugins.self_roles.iam.success", role.Name),
             Color:       0x0FADED,
         },
     })
@@ -290,7 +292,7 @@ func (s *SelfRoles) iam(content string, msg *discordgo.Message, session *discord
 func (s *SelfRoles) iamnot(content string, msg *discordgo.Message, session *discordgo.Session) {
     split := strings.Fields(content)
     if len(split) < 1 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.missing_param"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.missing_param"))
         return
     }
 
@@ -299,14 +301,14 @@ func (s *SelfRoles) iamnot(content string, msg *discordgo.Message, session *disc
     // Get the channel
     channel, err := session.Channel(msg.ChannelID)
     if err != nil {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.self_roles.iamnot.failure", msg.Author.ID))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("plugins.self_roles.iamnot.failure", msg.Author.ID))
         return
     }
 
     // Get the role
     role, found := helpers.GuildRoleByName(channel.GuildID, roleName)
     if !found {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.wrong_subcommand"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.wrong_subcommand"))
         return
     }
 
@@ -314,10 +316,10 @@ func (s *SelfRoles) iamnot(content string, msg *discordgo.Message, session *disc
     err = session.GuildMemberRoleRemove(channel.GuildID, msg.Author.ID, role.ID)
     if err != nil {
         if strings.Contains(err.Error(), "403") {
-            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.self_roles.missing_perms"))
+            session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.self_roles.missing_perms"))
             return
         }
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("plugins.self_roles.iamnot.failure", msg.Author.ID))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("plugins.self_roles.iamnot.failure", msg.Author.ID))
         return
     }
 
@@ -326,7 +328,7 @@ func (s *SelfRoles) iamnot(content string, msg *discordgo.Message, session *disc
         Content: fmt.Sprintf("<@%s>", msg.Author.ID),
         Embed: &discordgo.MessageEmbed{
             Title:       "Left role",
-            Description: helpers.GetTextF("plugins.self_roles.iamnot.success", role.Name),
+            Description: i18n.GetTextF("plugins.self_roles.iamnot.success", role.Name),
             Color:       0x0FADED,
         },
     })

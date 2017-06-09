@@ -23,7 +23,7 @@
 package plugins
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/net"
     "fmt"
     "github.com/bwmarrin/discordgo"
     "math/rand"
@@ -52,7 +52,7 @@ func (g *Giphy) Action(command string, content string, msg *discordgo.Message, s
     session.ChannelTyping(msg.ChannelID)
 
     // Send request
-    json := helpers.GetJSON(
+    json := net.GETJson(
         fmt.Sprintf(
             "%s?q=%s&api_key=%s&rating=%s&limit=%d",
             ENDPOINT,

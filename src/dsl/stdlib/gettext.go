@@ -23,13 +23,13 @@
 package dsl_stdlib
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/i18n"
 )
 
 func GetText(str string) string {
-    return helpers.GetText(str)
+    return i18n.GetText(str)
 }
 
 func GetTextF(str string, args []interface{}) string {
-    return helpers.GetTextF(str, args...)
+    return i18n.GetTextF(str, args...)
 }

@@ -24,7 +24,9 @@ package plugins
 
 import (
     "code.lukas.moe/x/karen/src/cache"
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/db"
+    "code.lukas.moe/x/karen/src/except"
+    "code.lukas.moe/x/karen/src/i18n"
     "code.lukas.moe/x/karen/src/logger"
     "fmt"
     "github.com/bwmarrin/discordgo"
@@ -77,15 +79,15 @@ func (r *Reminders) Init(session *discordgo.Session) {
     r.parser.Add(common.All...)
 
     go func() {
-        defer helpers.Recover()
+        defer except.Recover()
 
         for {
             var reminderBucket []DB_Reminders
-            cursor, err := rethink.Table("reminders").Run(helpers.GetDB())
-            helpers.Relax(err)
+            cursor, err := rethink.Table("reminders").Run(db.GetSession())
+            except.Handle(err)
 
             err = cursor.All(&reminderBucket)
-            helpers.Relax(err)
+            except.Handle(err)
 
             for _, reminders := range reminderBucket {
                 changes := false
@@ -144,7 +146,7 @@ func (r *Reminders) Action(command string, content string, msg *discordgo.Messag
     switch command {
     case "rm", "remind":
         channel, err := cache.Channel(msg.ChannelID)
-        helpers.Relax(err)
+        except.Handle(err)
 
         parts := strings.Fields(content)
 
@@ -161,7 +163,7 @@ func (r *Reminders) Action(command string, content string, msg *discordgo.Messag
         }
 
         result, err := r.parser.Parse(content, time.Now().In(loc))
-        helpers.Relax(err)
+        except.Handle(err)
         if result == nil {
             session.ChannelMessageSend(msg.ChannelID, ":x: Please check if the format is correct")
             return
@@ -177,7 +179,7 @@ func (r *Reminders) Action(command string, content string, msg *discordgo.Messag
         r.setReminders(msg.Author.ID, reminders)
 
         if reminders.Timezone == "" {
-            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.reminders.empty_timezone"))
+            session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.reminders.empty_timezone"))
         } else {
             session.ChannelMessageSend(msg.ChannelID, "Ok I'll remind you :ok_hand:")
         }
@@ -214,7 +216,7 @@ func (r *Reminders) Action(command string, content string, msg *discordgo.Messag
         }
 
         if len(embedFields) == 0 {
-            session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.reminders.empty"))
+            session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.reminders.empty"))
             return
         }
 
@@ -233,7 +235,7 @@ func (r Reminders) getReminders(uid string) DB_Reminders {
     var reminderBucket DB_Reminders
     listCursor, err := rethink.Table("reminders").Filter(
         rethink.Row.Field("userid").Eq(uid),
-    ).Run(helpers.GetDB())
+    ).Run(db.GetSession())
     defer listCursor.Close()
     err = listCursor.One(&reminderBucket)
 
@@ -242,7 +244,7 @@ func (r Reminders) getReminders(uid string) DB_Reminders {
         _, e := rethink.Table("reminders").Insert(DB_Reminders{
             UserID:    uid,
             Reminders: make([]DB_Reminder, 0),
-        }).RunWrite(helpers.GetDB())
+        }).RunWrite(db.GetSession())
 
         // If the creation was successful read the document
         if e != nil {
@@ -258,6 +260,6 @@ func (r Reminders) getReminders(uid string) DB_Reminders {
 }
 
 func (r Reminders) setReminders(uid string, reminders DB_Reminders) {
-    _, err := rethink.Table("reminders").Update(reminders).RunWrite(helpers.GetDB())
-    helpers.Relax(err)
+    _, err := rethink.Table("reminders").Update(reminders).RunWrite(db.GetSession())
+    except.Handle(err)
 }

@@ -25,6 +25,7 @@ package plugins
 import (
     "code.lukas.moe/x/karen/src/helpers"
     "github.com/bwmarrin/discordgo"
+    "code.lukas.moe/x/karen/src/i18n"
 )
 
 // Avatar command
@@ -47,12 +48,12 @@ func (a *Avatar) Action(command string, content string, msg *discordgo.Message, 
     mentionCount := len(msg.Mentions)
 
     if mentionCount == 0 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("bot.mentions.too-few"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("bot.mentions.too-few"))
         return
     }
 
     if mentionCount > 1 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("bot.mentions.too-many"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("bot.mentions.too-many"))
         return
     }
 

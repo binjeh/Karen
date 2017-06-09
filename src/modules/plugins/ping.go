@@ -23,7 +23,7 @@
 package plugins
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/except"
     "github.com/bwmarrin/discordgo"
     "strconv"
     "time"
@@ -45,7 +45,7 @@ func (p *Ping) Action(command string, content string, msg *discordgo.Message, se
     start := time.Now()
 
     m, err := session.ChannelMessageSend(msg.ChannelID, ":ping_pong: Pong! :grin:")
-    helpers.Relax(err)
+    except.Handle(err)
 
     end := time.Now()
     session.ChannelMessageEdit(

@@ -28,7 +28,8 @@
 package plugins
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/except"
+    "code.lukas.moe/x/karen/src/i18n"
     "fmt"
     "github.com/bwmarrin/discordgo"
     "github.com/miekg/dns"
@@ -54,7 +55,7 @@ func (d *Dig) Action(command string, content string, msg *discordgo.Message, ses
     args := strings.Fields(content)
 
     if len(args) < 2 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("bot.arguments.invalid"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("bot.arguments.invalid"))
         return
     }
 
@@ -82,10 +83,10 @@ func (d *Dig) Action(command string, content string, msg *discordgo.Message, ses
     in, err := dns.Exchange(m, dnsIp+":53")
     if err != nil {
         if err, ok := err.(*net.OpError); ok {
-            session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF("bot.errors.general", err.Err.Error()))
+            session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF("bot.errors.general", err.Err.Error()))
             return
         } else {
-            helpers.Relax(err)
+            except.Handle(err)
         }
     }
 
@@ -114,5 +115,5 @@ func (d *Dig) Action(command string, content string, msg *discordgo.Message, ses
     }
 
     _, err = session.ChannelMessageSendEmbed(msg.ChannelID, resultEmbed)
-    helpers.Relax(err)
+    except.Handle(err)
 }

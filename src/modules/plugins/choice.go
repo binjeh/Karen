@@ -23,7 +23,7 @@
 package plugins
 
 import (
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/i18n"
     "github.com/bwmarrin/discordgo"
     "math/rand"
     "strings"
@@ -44,12 +44,12 @@ func (c *Choice) Init(session *discordgo.Session) {
 
 func (c *Choice) Action(command string, content string, msg *discordgo.Message, session *discordgo.Session) {
     if !strings.Contains(content, "|") {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.choice.wrong-syntax"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.choice.wrong-syntax"))
         return
     }
 
     if len(msg.Mentions) > 0 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.choice.no-mentions"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.choice.no-mentions"))
         return
     }
 
@@ -57,11 +57,11 @@ func (c *Choice) Action(command string, content string, msg *discordgo.Message, 
     choice := strings.Replace(choices[rand.Intn(len(choices))], "`", "", -1)
 
     if len(choice) == 0 {
-        session.ChannelMessageSend(msg.ChannelID, helpers.GetText("plugins.choice.weird-input"))
+        session.ChannelMessageSend(msg.ChannelID, i18n.GetText("plugins.choice.weird-input"))
         return
     }
 
-    session.ChannelMessageSend(msg.ChannelID, helpers.GetTextF(
+    session.ChannelMessageSend(msg.ChannelID, i18n.GetTextF(
         "plugins.choice.result",
         strings.TrimSpace(choice),
     ))

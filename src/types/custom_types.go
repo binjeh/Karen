@@ -20,20 +20,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package helpers
+package types
 
-import "os"
-
-func FileExists(path string) (bool, error) {
-    _, err := os.Stat(path)
-
-    if err == nil {
-        return true, nil
-    }
-
-    if os.IsNotExist(err) {
-        return false, nil
-    }
-
-    return true, err
-}
+type Callback func()

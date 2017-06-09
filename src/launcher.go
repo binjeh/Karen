@@ -24,7 +24,9 @@ package main
 
 import (
     "code.lukas.moe/x/karen/src/config"
-    "code.lukas.moe/x/karen/src/helpers"
+    "code.lukas.moe/x/karen/src/db"
+    "code.lukas.moe/x/karen/src/debug"
+    "code.lukas.moe/x/karen/src/i18n"
     Logger "code.lukas.moe/x/karen/src/logger"
     "code.lukas.moe/x/karen/src/metrics"
     "code.lukas.moe/x/karen/src/migrations"
@@ -44,7 +46,7 @@ func main() {
     Logger.BOOT.L("Booting Karen...")
 
     // Read i18n
-    helpers.LoadTranslations()
+    i18n.LoadTranslations()
 
     // Start metric server
     metrics.Init()
@@ -54,7 +56,7 @@ func main() {
 
     // Check if the bot is being debugged
     if config.GetDefault("core.debugMode", false).(bool) {
-        helpers.DEBUG_MODE = true
+        debug.ENABLED = true
         Logger.DEBUG_MODE = true
     }
 
@@ -71,13 +73,13 @@ func main() {
 
     // Connect to DB
     Logger.BOOT.L("Opening database connection...")
-    helpers.ConnectDB(
+    db.Connect(
         config.Get("core.db.ip").(string)+":"+config.Get("core.db.port").(string),
         config.Get("core.db.name").(string),
     )
 
     // Close DB when main dies
-    defer helpers.GetDB().Close()
+    defer db.GetSession().Close()
 
     // Run migrations
     migrations.Run()

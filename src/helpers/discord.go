@@ -24,6 +24,9 @@ package helpers
 
 import (
     "code.lukas.moe/x/karen/src/cache"
+    "code.lukas.moe/x/karen/src/except"
+    "code.lukas.moe/x/karen/src/i18n"
+    "code.lukas.moe/x/karen/src/types"
     "fmt"
     "github.com/bwmarrin/discordgo"
     "strconv"
@@ -77,9 +80,9 @@ func IsAdmin(msg *discordgo.Message) bool {
 }
 
 // RequireAdmin only calls $cb if the author is an admin or has MANAGE_SERVER permission
-func RequireAdmin(msg *discordgo.Message, cb Callback) {
+func RequireAdmin(msg *discordgo.Message, cb types.Callback) {
     if !IsAdmin(msg) {
-        cache.GetSession().ChannelMessageSend(msg.ChannelID, GetText("admin.no_permission"))
+        cache.GetSession().ChannelMessageSend(msg.ChannelID, i18n.GetText("admin.no_permission"))
         return
     }
 
@@ -106,7 +109,7 @@ func GetAvatarUrlWithSize(user *discordgo.User, size uint16) string {
 
 func GetTimeFromSnowflake(id string) time.Time {
     iid, err := strconv.ParseInt(id, 10, 64)
-    Relax(err)
+    except.Handle(err)
 
     return time.Unix(((iid>>22)+DISCORD_EPOCH)/1000, 0).UTC()
 }

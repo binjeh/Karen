@@ -39,6 +39,8 @@ import (
     "strconv"
     "strings"
     "time"
+    "code.lukas.moe/x/karen/src/except"
+    "code.lukas.moe/x/karen/src/i18n"
 )
 
 const (
@@ -70,7 +72,7 @@ func (s *Spoiler) Init(session *discordgo.Session) {
 }
 
 func (s *Spoiler) MessageInspector(session *discordgo.Session, e *discordgo.MessageCreate) {
-    defer helpers.RecoverDiscord(e.Message)
+    defer except.RecoverDiscord(e.Message)
 
     msg := strings.Replace(e.Content, "\n", "{{{NEWLINE}}}", -1)
     regex := regexp.MustCompile("(?i)^(.*?)(:s:|:spoil:|:spoiler:)(.*)$")
@@ -82,7 +84,7 @@ func (s *Spoiler) MessageInspector(session *discordgo.Session, e *discordgo.Mess
             e.Message.ChannelID,
             e.Message.ID,
             strings.Replace(matches[3], "{{{NEWLINE}}}", "\n", -1),
-            helpers.GetTextF("plugins.spoiler.topic", e.Author.Username, matches[1]),
+            i18n.GetTextF("plugins.spoiler.topic", e.Author.Username, matches[1]),
         )
     }
 }
@@ -93,13 +95,13 @@ func (s *Spoiler) Action(command, content string, msg *discordgo.Message, sessio
         helpers.RequireAdmin(msg, func() {
             args := strings.Fields(content)
             flagged, e := session.ChannelMessage(msg.ChannelID, args[0])
-            helpers.Relax(e)
+            except.Handle(e)
 
             s.MarkAndHide(
                 msg.ChannelID,
                 flagged.ID,
                 flagged.Content,
-                helpers.GetTextF("plugins.spoiler.flagged", flagged.Author.Username, msg.Author.Username),
+                i18n.GetTextF("plugins.spoiler.flagged", flagged.Author.Username, msg.Author.Username),
             )
         })
         break
@@ -109,7 +111,7 @@ func (s *Spoiler) Action(command, content string, msg *discordgo.Message, sessio
             msg.ChannelID,
             msg.ID,
             content,
-            helpers.GetTextF("plugins.spoiler.topicless", msg.Author.Username),
+            i18n.GetTextF("plugins.spoiler.topicless", msg.Author.Username),
         )
         break
     }
@@ -128,27 +130,27 @@ func (s *Spoiler) MarkAndHide(channelId string, messageId string, spoilerText st
     filename := helpers.BtoA(strconv.Itoa(int(time.Now().Unix()))) + ".gif"
 
     fw, e := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE, 0644)
-    helpers.Relax(e)
+    except.Handle(e)
 
     e = gif.EncodeAll(fw, &gif.GIF{
         Image: frames,
         Delay: delays,
     })
-    helpers.Relax(e)
+    except.Handle(e)
 
     e = fw.Close()
-    helpers.Relax(e)
+    except.Handle(e)
 
     fr, e := os.OpenFile(filename, os.O_RDONLY, 0644)
-    helpers.Relax(e)
+    except.Handle(e)
 
     // Cleanup and close handles when this method dies
     defer func() {
         e = fr.Close()
-        helpers.Relax(e)
+        except.Handle(e)
 
         e = os.Remove(filename)
-        helpers.Relax(e)
+        except.Handle(e)
     }()
 
     // Delete the original message
@@ -159,7 +161,7 @@ func (s *Spoiler) MarkAndHide(channelId string, messageId string, spoilerText st
     }
 
     _, e = cache.GetSession().ChannelFileSendWithMessage(channelId, attachmentText, filename, fr)
-    helpers.Relax(e)
+    except.Handle(e)
 }
 
 //noinspection GoStructInitializationWithoutFieldNames
@@ -168,10 +170,10 @@ func drawImage(text []string) (*image.Paletted) {
     bg := image.NewUniform(color.RGBA{60, 63, 68, 255})
 
     fontBytes, err := assets.Asset(GIF_FONT)
-    helpers.Relax(err)
+    except.Handle(err)
 
     ttf, err := freetype.ParseFont(fontBytes)
-    helpers.Relax(err)
+    except.Handle(err)
 
     img := image.NewPaletted(image.Rect(0, 0, GIF_WIDTH, GIF_HEIGHT), palette.Plan9)
     draw.Draw(img, img.Bounds(), bg, image.ZP, draw.Src)
@@ -188,7 +190,7 @@ func drawImage(text []string) (*image.Paletted) {
     pt := freetype.Pt(10, 10+int(c.PointToFixed(GIF_FONT_SIZE)>>6))
     for _, s := range text {
         _, err = c.DrawString(s, pt)
-        helpers.Relax(err)
+        except.Handle(err)
         pt.Y += c.PointToFixed(GIF_FONT_SIZE * GIF_LINE_SPACING)
     }
 

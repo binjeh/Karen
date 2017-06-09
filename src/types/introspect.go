@@ -20,10 +20,17 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package helpers
+package types
 
-var (
-    // DEBUG_MODE is queried by a lot of functions to alter behaviour under new circumstances.
-    // Search globally for it to see what it does.
-    DEBUG_MODE = false
-)
+import "reflect"
+
+// Typeof resolves the type of $v as a string
+func TypeOf(v interface{}) string {
+    t := reflect.TypeOf(v)
+
+    if t.Kind() == reflect.Ptr {
+        return "*" + t.Elem().Name()
+    }
+
+    return t.Name()
+}
