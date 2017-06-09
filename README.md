@@ -28,61 +28,6 @@
 </p>
 <hr/>
 
-### Invite
-Public invite link is coming after the private beta ends.
-
-Want access?<br>
-Register here: https://goo.gl/forms/9J9GYMg8c9IM6a5Z2
-
-### Can I `go get` this bot?
-Short answer: No you can't.
-
-Long answer:<br>
-No you can't because `go get` sucks.
-
-Huge projects like this need proper version locking.<br>
-gopkg.in is a nice try but not good enough.<br>
-
-I use https://glide.sh
-
-### Can I `go build` this bot?
-Short answer: No you can't.
-
-Long answer:<br>
-No you can't because `go build` sucks.
-
-We use CMake, GNU Make and some shell magic instead.
-
-Thus this is most likely the only go-project on earth that supports c-style macros in comments and conditional compilation.<br>
-Are we awesome yet?
-
-### Can you help me self-hosting Karen?
-No.<br>
-There will be neither guides nor setup help.<br>
-The code is provided for transparency and community-contributions only.
-<br>
-If you decide to fork Karen remember to comply with the [LICENSE](https://github.com/sn0w/karen/blob/master/LICENSE).
-
-### Why are you saying `high performance` all the time?
-Why do we live in a time where it's acceptable that an EMPTY Java class consumes 10mb RAM?<br>
-Why does no one care about optimizing anymore?
-
-That's why I'm building Karen.<br>
-I want to create a bot that:
-
- - Can handle an almost infinite amount of joined guilds
- - Is able to scale vertically **and** horizontally
- - Can play music for free, forever. (Not like that freemium stuff Mee6 does)
- - Will **never** use more resources than absolutely needed
- - Never crashes (or to be precise: be able to recover from almost any `panic()`)
-
-### Achievements
-
-- Never exceeded 2% CPU usage at the time of writing.
-- Never used more than 8MB of it's allocated heap.
-
-![](https://i.imgur.com/lGf08Yo.png)
-
 ### Docs
 Hancrafted guide soon (tm)
 
@@ -103,3 +48,43 @@ Bots built by friends or awesome strangers
 |![](https://cdn.discordapp.com/avatars/270931284489011202/b7b1f9820c4751ffa3d0e11c97bc2f38.png?size=64)|Sora|C#|[Serenity/Sora](http://git.argus.moe/serenity/SoraBot)
 |![](https://cdn.discordapp.com/avatars/260867076774821899/2dda452db1e35f833a187df9dd4f1749.png?size=64)|Nep|C#|[Serraniel/Nep-Bot](https://github.com/Serraniel/Nep-Bot)
 |![](http://i.imgur.com/Tb0FZoZ.png)|Shinobu-Chan|Python 3|[Der-Eddy/discord_bot](https://github.com/Der-Eddy/discord_bot)
+
+### Can I `go get` this bot?
+Short answer: No you can't. `go get` sucks.
+
+Huge projects like this need proper version locking.<br>
+gopkg.in is a nice try but not good enough.<br>
+
+We use https://glide.sh
+
+### Can I `go build` this bot?
+Short answer: No you can't. `go build` sucks.
+
+We use CMake, GNU Make and some shell magic instead.
+Thus this is most likely the only golang project on earth that supports c-style macros in comments and conditional compilation.<br>
+
+Are we awesome yet?
+
+### Can you help me self-hosting Karen?
+No.<br>
+You are allowed to host Karen and fork the project (given that you comply to the license),
+but there will be neither guides nor setup help.<br>
+
+### Why are you saying `high performance` all the time?
+Why do we live in a time where it's acceptable that an EMPTY Java class consumes 10mb RAM?<br>
+Why does no one care about optimizing anymore?
+
+Our vision is to create a bot that:
+
+ - Can handle an almost infinite amount of joined guilds (aka good sharding)
+ - Is able to scale vertically and horizontally
+ - Can play music for free, forever. (Not like that freemium stuff Mee6 does)
+ - Will never use more resources than absolutely needed
+ - Never crashes
+
+### Achievements
+
+- Never exceeded 2% CPU usage at the time of writing.
+- Never used more than 8MB of it's allocated heap.
+
+![](https://i.imgur.com/lGf08Yo.png)
