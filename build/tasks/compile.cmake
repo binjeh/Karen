@@ -20,47 +20,55 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-include(build/macros/vexec.cmake)
+include(build/macros/compile.cmake)
 
-vexec(OUTPUT KAREN_DYN_VERSION    COMMAND git describe --tags)
-vexec(OUTPUT KAREN_DYN_BUILD_TIME COMMAND date "+%T-%D")
-vexec(OUTPUT KAREN_DYN_BUILD_USER COMMAND whoami "")
-vexec(OUTPUT KAREN_DYN_BUILD_HOST COMMAND hostname "")
-
-ADD_CUSTOM_TARGET(compile-release
-    DEPENDS glide-install-opt assets configure
-    COMMAND go build -v -o karen
-            --ldflags=\"
-                -X code.lukas.moe/x/karen/src/version.BOT_VERSION=${KAREN_DYN_VERSION}
-                -X code.lukas.moe/x/karen/src/version.BUILD_TIME=${KAREN_DYN_BUILD_TIME}
-                -X code.lukas.moe/x/karen/src/version.BUILD_USER=${KAREN_DYN_BUILD_USER}
-                -X code.lukas.moe/x/karen/src/version.BUILD_HOST=${KAREN_DYN_BUILD_HOST}
-            \"
-            ./src
+ADD_CUSTOM_TARGET(karen-pre-compile
+    DEPENDS glide-install-opt configure assets
 )
 
-ADD_CUSTOM_TARGET(compile-debug
-    DEPENDS glide-install-opt assets configure
-    COMMAND go build -v -o karen
-            --ldflags=\"
-                -X code.lukas.moe/x/karen/src/version.BOT_VERSION=${KAREN_DYN_VERSION}
-                -X code.lukas.moe/x/karen/src/version.BUILD_TIME=${KAREN_DYN_BUILD_TIME}
-                -X code.lukas.moe/x/karen/src/version.BUILD_USER=${KAREN_DYN_BUILD_USER}
-                -X code.lukas.moe/x/karen/src/version.BUILD_HOST=${KAREN_DYN_BUILD_HOST}
-            \"
-            ./src
+ADD_COMPILER_TASK(
+    NAME compile
+    ALIASES c comp
+    DEPENDS karen-pre-compile
+    TARGET karen
+    FLAGS -v
 )
 
-ADD_CUSTOM_TARGET(compile
-    DEPENDS compile-release
+ADD_COMPILER_TASK(
+    NAME compile-all
+    ALIASES a
+    DEPENDS karen-pre-compile
+    TARGET karen
+    FLAGS -v -a
 )
 
-ADD_CUSTOM_TARGET(run
-    DEPENDS compile
-    COMMAND ./karen
+ADD_COMPILER_TASK(
+    NAME compile-quiet
+    ALIASES quiet q
+    DEPENDS karen-pre-compile
+    TARGET karen
 )
 
-ADD_CUSTOM_TARGET(run-debug
-    DEPENDS compile-debug
-    COMMAND ./karen
+ADD_COMPILER_TASK(
+    NAME compile-race
+    ALIASES race r
+    DEPENDS karen-pre-compile
+    TARGET karen
+    FLAGS -a -v -race
+)
+
+ADD_COMPILER_TASK(
+    NAME compile-msan
+    ALIASES msan m
+    DEPENDS karen-pre-compile
+    TARGET karen
+    FLAGS -a -v -msan
+)
+
+ADD_COMPILER_TASK(
+    NAME compile-exe
+    ALIASES exe e
+    DEPENDS karen-pre-compile
+    TARGET karen
+    FLAGS -a -v -buildmode=exe
 )
