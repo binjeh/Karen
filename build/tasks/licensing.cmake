@@ -22,7 +22,7 @@
 
 ADD_CUSTOM_TARGET(license_add
     DEPENDS bundle
-    COMMAND copyright-header
+    COMMAND bundle exec copyright-header
         -w 80
         -a .
         -o .
@@ -32,7 +32,7 @@ ADD_CUSTOM_TARGET(license_add
 
 ADD_CUSTOM_TARGET(license_rm
     DEPENDS bundle
-    COMMAND copyright-header
+    COMMAND bundle exec copyright-header
         -r .
         -o .
         -c ./build/c-syntax.yml

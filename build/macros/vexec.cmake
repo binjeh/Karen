@@ -48,15 +48,17 @@ function(VEXEC)
     list(REMOVE_AT PARSED_ARGS_COMMAND 0)
     find_program(PATH__${PROGRAM_NAME} ${PROGRAM_NAME})
 
+    # If not, print a warning. Else execute.
     if(NOT PATH__${PROGRAM_NAME})
         message(FATAL_ERROR "[VEXEC] The command ${PROGRAM_NAME} is not installed on this machine!")
     else()
         # Create an alias to the program's path
         set(PROGRAM ${PATH__${PROGRAM_NAME}})
 
-        # If there are no arguments, strip them from the command
+        # If there are no arguments, strip them from execute_process()
         list(LENGTH PARSED_ARGS_COMMAND PARSED_ARGS_COMMAND_LENGTH)
 
+        # Conditionally pass args because CMAKE does not like empty arguments
         if(PARSED_ARGS_COMMAND_LENGTH EQUAL 0)
             execute_process(
                 COMMAND ${PROGRAM}
@@ -78,6 +80,6 @@ function(VEXEC)
         endif()
     endif()
 
-    # Set the return value
+    # Set the return value by escalating to our parent's scope
     set(${PARSED_ARGS_OUTPUT} ${mvexec_tmp} PARENT_SCOPE)
 endfunction()

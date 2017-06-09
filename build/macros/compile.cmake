@@ -22,11 +22,13 @@
 
 include(build/macros/vexec.cmake)
 
+# Create variables that will be compiled into the bot later
 vexec(OUTPUT KAREN_DYN_VERSION    COMMAND git describe --tags)
 vexec(OUTPUT KAREN_DYN_BUILD_TIME COMMAND date "+%T-%D")
 vexec(OUTPUT KAREN_DYN_BUILD_USER COMMAND whoami "")
 vexec(OUTPUT KAREN_DYN_BUILD_HOST COMMAND hostname "")
 
+# Helper function to create a go compilation target
 function(ADD_COMPILER_TASK)
     # Parse arguments
     cmake_parse_arguments(
@@ -42,8 +44,10 @@ function(ADD_COMPILER_TASK)
         message(FATAL_ERROR "Call to ADD_COMPILER_TASK had incomplete arguments!")
     endif()
 
+    # Log the current invocation
     message(STATUS "[KAREN] [COMPILER] [+] NAME='${PARSED_ARGS_NAME}' ALIASES='${PARSED_ARGS_ALIASES}'")
 
+    # Conditionally pass flags because CMAKE does not like empty flag arguments
     if(NOT PARSED_ARGS_FLAGS)
         ADD_CUSTOM_TARGET(${PARSED_ARGS_NAME}
             DEPENDS ${PARSED_ARGS_DEPENDS}
@@ -73,6 +77,7 @@ function(ADD_COMPILER_TASK)
         )
     endif()
 
+    # Register aliases of this task (if needed) by creating new tasks that depend on this task
     foreach(ALIAS ${PARSED_ARGS_ALIASES})
         ADD_CUSTOM_TARGET(${ALIAS}
             DEPENDS ${PARSED_ARGS_NAME}
