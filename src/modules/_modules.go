@@ -68,7 +68,6 @@ var (
         &plugins.Spoiler{},
         &plugins.Stats{},
         &plugins.Stone{},
-        &plugins.Support{},
         &plugins.Toggle{},
         //&plugins.Translator{},
         &plugins.Timezone{},
