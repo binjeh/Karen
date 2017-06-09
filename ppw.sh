@@ -28,6 +28,7 @@ FLAGS="$1"
 CONDITIONALS=(
     "./src/modules/_modules.go"
     "./src/modules/_utils.go"
+    "./src/modules/_interfaces.go"
 )
 
 for f in "${CONDITIONALS[@]}"; do

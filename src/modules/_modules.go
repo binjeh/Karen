@@ -23,10 +23,6 @@
 package modules
 
 import (
-    //#ifeq EXCLUDE_PLUGINS 0
-    "code.lukas.moe/x/karen/src/modules/plugins"
-    //#endif
-
     //#ifeq EXCLUDE_SCRIPTING 0
     "code.lukas.moe/x/karen/src/dsl/bridge"
     //#endif
@@ -43,39 +39,39 @@ var (
 
     //#ifeq EXCLUDE_PLUGINS 0
     PluginList = []Plugin{
-        //&plugins.Announcement{},
-        &plugins.Avatar{},
-        &plugins.Calc{},
-        &plugins.Changelog{},
-        &plugins.Choice{},
-        &plugins.Dig{},
-        &plugins.Enlarge{},
-        &plugins.FlipCoin{},
-        &plugins.Giphy{},
-        &plugins.Google{},
-        &plugins.Headpat{},
-        &plugins.Leet{},
-        &plugins.Minecraft{},
-        &plugins.Osu{},
-        &plugins.Ping{},
-        //&plugins.Poll{},
-        &plugins.RandomCat{},
-        &plugins.Ratelimit{},
-        &plugins.Reminders{},
-        &plugins.Roll{},
-        &plugins.RPS{},
-        &plugins.SelfRoles{},
-        &plugins.Spoiler{},
-        &plugins.Stats{},
-        &plugins.Stone{},
-        &plugins.Toggle{},
-        //&plugins.Translator{},
-        &plugins.Timezone{},
-        &plugins.Uptime{},
-        &plugins.UrbanDict{},
-        &plugins.Weather{},
-        &plugins.WhoIs{},
-        &plugins.XKCD{},
+        //&Announcement{},
+        &Avatar{},
+        &Calc{},
+        &Changelog{},
+        &Choice{},
+        &Dig{},
+        &Enlarge{},
+        &FlipCoin{},
+        &Giphy{},
+        &Google{},
+        &Headpat{},
+        &Leet{},
+        &Minecraft{},
+        &Osu{},
+        &Ping{},
+        //&Poll{},
+        &RandomCat{},
+        &Ratelimit{},
+        &Reminders{},
+        &Roll{},
+        &RPS{},
+        &SelfRoles{},
+        &Spoiler{},
+        &Stats{},
+        &Stone{},
+        &Toggle{},
+        //&Translator{},
+        &Timezone{},
+        &Uptime{},
+        &UrbanDict{},
+        &Weather{},
+        &WhoIs{},
+        &XKCD{},
     }
     //#endif
 )
