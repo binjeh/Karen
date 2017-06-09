@@ -58,26 +58,20 @@ function(VEXEC)
         # If there are no arguments, strip them from execute_process()
         list(LENGTH PARSED_ARGS_COMMAND PARSED_ARGS_COMMAND_LENGTH)
 
-        # Conditionally pass args because CMAKE does not like empty arguments
         if(PARSED_ARGS_COMMAND_LENGTH EQUAL 0)
-            execute_process(
-                COMMAND ${PROGRAM}
-                OUTPUT_VARIABLE mvexec_tmp
-                ERROR_QUIET
-                OUTPUT_STRIP_TRAILING_WHITESPACE
-                TIMEOUT 10
-            )
-            message(STATUS "[KAREN] [VEXEC] [+${PROGRAM_NAME}] ${PARSED_ARGS_OUTPUT} = ${mvexec_tmp}")
+            set(CMDLINE ${PROGRAM})
         else()
-            execute_process(
-                COMMAND ${PROGRAM} ${PARSED_ARGS_COMMAND}
-                OUTPUT_VARIABLE mvexec_tmp
-                ERROR_QUIET
-                OUTPUT_STRIP_TRAILING_WHITESPACE
-                TIMEOUT 10
-            )
-            message(STATUS "[KAREN] [VEXEC] [+${PROGRAM_NAME}] ${PARSED_ARGS_OUTPUT} = ${mvexec_tmp}")
+            set(CMDLINE ${PROGRAM} ${PARSED_ARGS_COMMAND})
         endif()
+
+        execute_process(
+            COMMAND ${CMDLINE}
+            OUTPUT_VARIABLE mvexec_tmp
+            ERROR_QUIET
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+            TIMEOUT 10
+        )
+        message(STATUS "[KAREN] [VEXEC] [+${PROGRAM_NAME}] ${PARSED_ARGS_OUTPUT} = ${mvexec_tmp}")
     endif()
 
     # Set the return value by escalating to our parent's scope

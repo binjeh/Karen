@@ -28,7 +28,17 @@ vexec(OUTPUT KAREN_DYN_BUILD_TIME COMMAND date "+%T-%D")
 vexec(OUTPUT KAREN_DYN_BUILD_USER COMMAND whoami "")
 vexec(OUTPUT KAREN_DYN_BUILD_HOST COMMAND hostname "")
 
-# Helper function to create a go compilation target
+# Link variables as LDFLAGS
+set(LDFLAGS
+    --ldflags=\"
+        -X code.lukas.moe/x/karen/src/version.BOT_VERSION=${KAREN_DYN_VERSION}
+        -X code.lukas.moe/x/karen/src/version.BUILD_TIME=${KAREN_DYN_BUILD_TIME}
+        -X code.lukas.moe/x/karen/src/version.BUILD_USER=${KAREN_DYN_BUILD_USER}
+        -X code.lukas.moe/x/karen/src/version.BUILD_HOST=${KAREN_DYN_BUILD_HOST}
+    \"
+)
+
+# Register helper function to create a go compilation target
 function(ADD_COMPILER_TASK)
     # Parse arguments
     cmake_parse_arguments(
@@ -47,35 +57,18 @@ function(ADD_COMPILER_TASK)
     # Log the current invocation
     message(STATUS "[KAREN] [COMPILER] [+] NAME='${PARSED_ARGS_NAME}' ALIASES='${PARSED_ARGS_ALIASES}'")
 
-    # Conditionally pass flags because CMAKE does not like empty flag arguments
+    # If there are no flags, strip them from execute_process()
     if(NOT PARSED_ARGS_FLAGS)
-        ADD_CUSTOM_TARGET(${PARSED_ARGS_NAME}
-            DEPENDS ${PARSED_ARGS_DEPENDS}
-            COMMAND go build
-                    -o ${PARSED_ARGS_TARGET}
-                    --ldflags=\"
-                    -X code.lukas.moe/x/karen/src/version.BOT_VERSION=${KAREN_DYN_VERSION}
-                    -X code.lukas.moe/x/karen/src/version.BUILD_TIME=${KAREN_DYN_BUILD_TIME}
-                    -X code.lukas.moe/x/karen/src/version.BUILD_USER=${KAREN_DYN_BUILD_USER}
-                    -X code.lukas.moe/x/karen/src/version.BUILD_HOST=${KAREN_DYN_BUILD_HOST}
-                    \"
-                    ./src
-        )
+        set(CMDLINE go build -o ${PARSED_ARGS_TARGET} ${LDFLAGS} ./src)
     else()
-        ADD_CUSTOM_TARGET(${PARSED_ARGS_NAME}
-            DEPENDS ${PARSED_ARGS_DEPENDS}
-            COMMAND go build
-                    ${PARSED_ARGS_FLAGS}
-                    -o ${PARSED_ARGS_TARGET}
-                    --ldflags=\"
-                    -X code.lukas.moe/x/karen/src/version.BOT_VERSION=${KAREN_DYN_VERSION}
-                    -X code.lukas.moe/x/karen/src/version.BUILD_TIME=${KAREN_DYN_BUILD_TIME}
-                    -X code.lukas.moe/x/karen/src/version.BUILD_USER=${KAREN_DYN_BUILD_USER}
-                    -X code.lukas.moe/x/karen/src/version.BUILD_HOST=${KAREN_DYN_BUILD_HOST}
-                    \"
-                    ./src
-        )
+        set(CMDLINE go build ${PARSED_ARGS_FLAGS} -o ${PARSED_ARGS_TARGET} ${LDFLAGS} ./src)
     endif()
+
+    # Register task
+    ADD_CUSTOM_TARGET(${PARSED_ARGS_NAME}
+        DEPENDS ${PARSED_ARGS_DEPENDS}
+        COMMAND ${CMDLINE}
+    )
 
     # Register aliases of this task (if needed) by creating new tasks that depend on this task
     foreach(ALIAS ${PARSED_ARGS_ALIASES})
