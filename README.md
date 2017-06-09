@@ -38,38 +38,6 @@ the homepage for usage help.
 This bot is still in a early stage.<br>
 Please expect (rare) crashes and minor performance problems until the bot is mature enough.
 
-### Karen's Friends :tada:
-
-Bots built by friends or awesome strangers
-
-|Avatar|Name|Language|Link|
-|:-:|:-:|:-:|:-:|
-|![](http://i.imgur.com/SrgZI3g.png)|Emily|Java|[MaikWezinkhof/DiscordBot](https://github.com/MaikWezinkhof/DiscordBot)
-|![](https://cdn.discordapp.com/avatars/270931284489011202/b7b1f9820c4751ffa3d0e11c97bc2f38.png?size=64)|Sora|C#|[Serenity/Sora](http://git.argus.moe/serenity/SoraBot)
-|![](https://cdn.discordapp.com/avatars/260867076774821899/2dda452db1e35f833a187df9dd4f1749.png?size=64)|Nep|C#|[Serraniel/Nep-Bot](https://github.com/Serraniel/Nep-Bot)
-|![](http://i.imgur.com/Tb0FZoZ.png)|Shinobu-Chan|Python 3|[Der-Eddy/discord_bot](https://github.com/Der-Eddy/discord_bot)
-
-### Can I `go get` this bot?
-Short answer: No you can't. `go get` sucks.
-
-Huge projects like this need proper version locking.<br>
-gopkg.in is a nice try but not good enough.<br>
-
-We use https://glide.sh
-
-### Can I `go build` this bot?
-Short answer: No you can't. `go build` sucks.
-
-We use CMake, GNU Make and some shell magic instead.
-Thus this is most likely the only golang project on earth that supports c-style macros in comments and conditional compilation.<br>
-
-Are we awesome yet?
-
-### Can you help me self-hosting Karen?
-No.<br>
-You are allowed to host Karen and fork the project (given that you comply to the license),
-but there will be neither guides nor setup help.<br>
-
 ### Why are you saying `high performance` all the time?
 Why do we live in a time where it's acceptable that an EMPTY Java class consumes 10mb RAM?<br>
 Why does no one care about optimizing anymore?
@@ -88,3 +56,33 @@ Our vision is to create a bot that:
 - Never used more than 8MB of it's allocated heap.
 
 ![](https://i.imgur.com/lGf08Yo.png)
+
+### Can you help me self-hosting Karen?
+No.<br>
+You are allowed to host Karen and fork the project (given that you comply to the license),
+but there will be neither guides nor setup help.<br>
+
+### Why does `go get / build / ...` not work?
+Golang's ecosystem is pretty good - but not for us.
+
+Karen has a lot of features that required me (@sn0w) to read hundrets of websites just to get to the one sad conclusion:
+
+"Go has a nice set of tools but they're useless for us"
+
+The problems range from simple stuff like proper version locking of dependencies to more advanced problems like conditional compilation and c-like macros.
+Ultimately I decided to drop `go {get,build}` compatibility and moved to the CMake+Shell-Magic combo.
+
+I will explain this topic further when I have time.
+
+For now that's all.
+
+### Karen's Friends :tada:
+
+Bots built by friends or awesome strangers
+
+|Avatar|Name|Language|Link|
+|:-:|:-:|:-:|:-:|
+|![](http://i.imgur.com/SrgZI3g.png)|Emily|Java|[MaikWezinkhof/DiscordBot](https://github.com/MaikWezinkhof/DiscordBot)
+|![](https://cdn.discordapp.com/avatars/270931284489011202/b7b1f9820c4751ffa3d0e11c97bc2f38.png?size=64)|Sora|C#|[Serenity/Sora](http://git.argus.moe/serenity/SoraBot)
+|![](https://cdn.discordapp.com/avatars/260867076774821899/2dda452db1e35f833a187df9dd4f1749.png?size=64)|Nep|C#|[Serraniel/Nep-Bot](https://github.com/Serraniel/Nep-Bot)
+|![](http://i.imgur.com/Tb0FZoZ.png)|Shinobu-Chan|Python 3|[Der-Eddy/discord_bot](https://github.com/Der-Eddy/discord_bot)
