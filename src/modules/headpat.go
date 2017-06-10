@@ -60,10 +60,10 @@ func (h *Headpat) Action(command string, content string, msg *discordgo.Message,
     if mentionUsers == 1 {
         session.ChannelMessageSend(msg.ChannelID,
             i18n.GetTextF(
-                "triggers.headpat.msg",
+                "scripts.headpat.msg",
                 msg.Author.ID,
                 msg.Mentions[0].ID,
-            )+ "\n"+ i18n.GetText("triggers.headpat.link"),
+            )+ "\n"+ i18n.GetText("scripts.headpat.link"),
         )
         return
     }
