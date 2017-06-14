@@ -38,22 +38,10 @@ the homepage for usage help.
 This bot is still in a early stage.<br>
 Please expect (rare) crashes and minor performance problems until the bot is mature enough.
 
-### Why are you saying `high performance` all the time?
-Why do we live in a time where it's acceptable that an EMPTY Java class consumes 10mb RAM?<br>
-Why does no one care about optimizing anymore?
-
-Our vision is to create a bot that:
-
- - Can handle an almost infinite amount of joined guilds (aka good sharding)
- - Is able to scale vertically and horizontally
- - Can play music for free, forever. (Not like that freemium stuff Mee6 does)
- - Will never use more resources than absolutely needed
- - Never crashes
-
 ### Achievements
 
 - Never exceeded 2% CPU usage at the time of writing.
-- Never used more than 8MB of it's allocated heap.
+- Never used more than 8MB of the allocated heap (=<20MB).
 
 ![](https://i.imgur.com/lGf08Yo.png)
 
