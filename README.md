@@ -63,8 +63,7 @@ You are allowed to host Karen and fork the project (given that you comply to the
 but there will be neither guides nor setup help.<br>
 
 ### Why does `go get / build / ...` not work?
-Golang's ecosystem is pretty good - but not for us.
-
+Golang's ecosystem is pretty good - but not for us.<br>
 Karen has a lot of features that required me (@sn0w) to read hundrets of websites just to get to the one sad conclusion:
 
 "Go has a nice set of tools but they're useless for us"
@@ -72,9 +71,8 @@ Karen has a lot of features that required me (@sn0w) to read hundrets of website
 The problems range from simple stuff like proper version locking of dependencies to more advanced problems like conditional compilation and c-like macros.
 Ultimately I decided to drop `go {get,build}` compatibility and moved to the CMake+Shell-Magic combo.
 
-I will explain this topic further when I have time.
-
-For now that's all.
+For some more information about my golang-frustration take a look at my blog:<br>
+https://lukas.moe/2017/06/golang-love-hate/
 
 ### Karen's Friends :tada:
 
