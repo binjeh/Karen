@@ -27,6 +27,13 @@ import (
     "code.lukas.moe/x/karen/src/net"
     "code.lukas.moe/x/karen/src/version"
     "github.com/bwmarrin/discordgo"
+    "code.lukas.moe/x/karen/src/config"
+    "net/http"
+    "code.lukas.moe/x/karen/src/except"
+    "bytes"
+    "io"
+    "github.com/Jeffail/gabs"
+    "github.com/davecgh/go-spew/spew"
     "strings"
 )
 
@@ -56,20 +63,46 @@ func (c *Changelog) Init(session *discordgo.Session) {
                 "body":   "Sorry but i can't find a changelog for " + version.BOT_VERSION,
             }
             logger.PLUGIN.L("Network error. Applied fallback.")
+
+            spew.Dump(err)
         }
     }()
 
-    release := net.GETJson(
-        "https://git.lukas.moe/api/v3/projects/77/repository/tags/" + version.BOT_VERSION + "?private_token=9qvdMtLdxoC5amAmajN_",
-    )
+    request, err := http.NewRequest("GET", config.Get("modules.changelog.url").(string), nil)
+    except.Handle(err)
 
-    c.log = map[string]string{
-        "number": release.Path("name").Data().(string),
-        "date":   release.Path("commit.committed_date").Data().(string),
+    request.Header.Set("User-Agent", net.USERAGENT)
+    request.Header.Set("Content-Type", "application/json")
+    request.Header.Set("Accept", "application/vnd.github.v3+json")
+    request.Header.Set("Authorization", "token "+config.Get("modules.changelog.key").(string))
+
+    client := http.Client{}
+    response, err := client.Do(request)
+    except.Handle(err)
+
+    defer response.Body.Close()
+
+    buf := bytes.NewBuffer(nil)
+    _, err = io.Copy(buf, response.Body)
+    except.Handle(err)
+
+    if response.StatusCode != 200 {
+        panic("Unexpected HTTP Status")
     }
 
-    if release.ExistsP("release.description") && release.Path("release.description").Data() != nil {
-        c.log["body"] = release.Path("release.description").Data().(string)
+    releases, err := gabs.ParseJSON(buf.Bytes())
+    except.Handle(err)
+
+    // Map result
+    release := releases.Data().([]interface{})[0].(map[string]interface{})
+
+    c.log = map[string]string{
+        "number": release["tag_name"].(string),
+        "date":   release["published_at"].(string),
+    }
+
+    if body, ok := release["body"]; ok {
+        c.log["body"] = body.(string)
     } else {
         c.log["body"] = "No changelog provided :("
     }
