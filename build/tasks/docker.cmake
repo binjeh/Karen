@@ -21,11 +21,11 @@
 #
 
 ADD_CUSTOM_TARGET(container-build
-    COMMAND docker build --squash -t sn0w/karen-build -f cmake/build.dockerfile .
+    COMMAND docker build --squash -t sn0w/karen-build -f build/build.dockerfile .
 )
 
 ADD_CUSTOM_TARGET(container-runtime
-    COMMAND docker build --squash -t sn0w/karen-runtime -f cmake/runtime.dockerfile .
+    COMMAND docker build --squash -t sn0w/karen-runtime -f build/runtime.dockerfile .
 )
 
 ADD_CUSTOM_TARGET(containers
