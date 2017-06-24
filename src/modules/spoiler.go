@@ -58,7 +58,6 @@ type Spoiler struct{}
 func (s *Spoiler) Commands() []string {
     return []string{
         // User-facing spoiler commands
-        "s",
         "spoil",
         "spoiler",
 
