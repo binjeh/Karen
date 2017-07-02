@@ -2,10 +2,7 @@
 
 Third-party patches are essential for keeping Open-Source software awesome.
 We simply can't think of all circumstances and myriad configurations for
-building and running our software. We want to keep it as easy as possible to
-contribute changes that get things working in your environment or add new awesome
-features. There are a few guidelines that we need contributors to follow so that
-we can have a chance of keeping on top of things.
+building and running our software.
 
 ### Development
 
@@ -46,17 +43,20 @@ We can't help you with this topic though.<br>
 If you're a Windows user you need to setup a UNIX-like environment.<br>
 That means installing a software like [MINGW](http://www.mingw.org/) or [Cygwin](https://www.cygwin.com/)
 and using BASH instead of CMD or PowerShell.
+Main development takes place in unix-like environments so we can't help you setting up a windows environment.
+
+***WARNING:*** There are known bugs of Go's `/dev/stdin` reader on Windows.<br>
+You ***cannot*** develop any music/audio related parts of karen.
 
 <br>
 
-***PLEASE NOTE:***<br>
+***PLEASE NOTE:*** <br>
 Do **NOT** use the "classic" POSIX Shell (`sh`).<br>
 Our scripts use advanced parameter-expansion and the double-braced `if` condition (`[[ <condition> ]];`) <br>
 and those features are not supported below bash.
 
 ## Getting Started
 
-* Make sure you have a registered account at Lukas' Git (https://git.lukas.moe).
 * Submit an issue that describes you problem or idea, assuming one does not already exist.
   * Clearly describe the issue/idea including steps to reproduce when it is a bug.
   * Make sure you fill in the earliest version that you know has the issue if you're reporting a bug.
@@ -64,9 +64,9 @@ and those features are not supported below bash.
 
 ## Getting the code
 
-* Make sure that the folder `$GOPATH/src/git.lukas.moe/sn0w` exists
+* Make sure that the folder `$GOPATH/src/code.lukas.moe/x` exists
 * Fork the repository
-* Clone the repository to `$GOPATH/src/git.lukas.moe/sn0w/Karen`
+* Clone the repository to `$GOPATH/src/code.lukas.moe/x/karen`
     * This is needed to avoid namespacing issues with Go's compiler.
 * Create a topic branch from where you want to base your work.
   * This is usually the master branch.
