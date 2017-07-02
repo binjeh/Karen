@@ -20,21 +20,14 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-set(EXCLUDE_MUSIC 0 CACHE STRING "Exclude the musicbot? (0/1)")
-set(EXCLUDE_RADIO 0 CACHE STRING "Exclude radio streaming? (0/1)")
 set(EXCLUDE_PLUGINS 0 CACHE STRING "Exclude plugins? (0/1)")
 set(EXCLUDE_SCRIPTING 0 CACHE STRING "Exclude scripting engine? (0/1)")
 
-message(STATUS "[KAREN] [DYN] -= Build Flavour =-")
-message(STATUS "[KAREN] [DYN] EXCLUDE_MUSIC     -> ${EXCLUDE_MUSIC}")
-message(STATUS "[KAREN] [DYN] EXCLUDE_RADIO     -> ${EXCLUDE_RADIO}")
 message(STATUS "[KAREN] [DYN] EXCLUDE_PLUGINS   -> ${EXCLUDE_PLUGINS}")
 message(STATUS "[KAREN] [DYN] EXCLUDE_SCRIPTING -> ${EXCLUDE_SCRIPTING}")
 
 ADD_CUSTOM_TARGET(configure
     COMMAND ./ppw.sh \"
-        -DEXCLUDE_MUSIC=${EXCLUDE_MUSIC}
-        -DEXCLUDE_RADIO=${EXCLUDE_RADIO}
         -DEXCLUDE_PLUGINS=${EXCLUDE_PLUGINS}
         -DEXCLUDE_SCRIPTING=${EXCLUDE_SCRIPTING}
     \"
