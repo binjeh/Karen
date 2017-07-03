@@ -2,19 +2,13 @@
   <img alt="karen" width="96" src="http://i.imgur.com/VfgrwQz.jpg">
   <br>
   <a href="https://travis-ci.org/SubliminalHQ/karen">
-    <img alt="build status" src="https://travis-ci.org/SubliminalHQ/karen.svg?branch=master" />
-  </a>
-  <a href="https://www.codacy.com/app/lukas-breuer/karen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sn0w/karen&amp;utm_campaign=Badge_Grade">
-    <img src="https://api.codacy.com/project/badge/Grade/ec90cbf66f5c4ecbab15d5dfe73c0ddd"/>
-  </a>
-  <a href="https://codebeat.co/projects/github-com-sn0w-karen-master">
-    <img alt="codebeat badge" src="https://codebeat.co/badges/2d89b948-da1b-40e4-8ecd-f3b7dc394591" />
+    <img alt="build status" src="https://img.shields.io/travis/SubliminalHQ/karen/master.svg" />
   </a>
   <a href="#">
-    <img src="https://img.shields.io/github/tag/sn0w/karen.svg?style=flat-square" alt="GitHub tag"/>
+    <img src="https://img.shields.io/github/tag/SubliminalHQ/karen.svg" alt="GitHub tag"/>
   </a>
-  <a href="https://gowalker.org/github.com/sn0w/Karen">
-    <img src="http://gowalker.org/api/v1/badge" alt="Go Walker" />
+  <a href="#">
+    <img src="https://img.shields.io/github/release/SubliminalHQ/karen.svg" alt="GitHub release"/>
   </a>
   <br>
   Karen is a highly efficient, multipurpose Discord bot written in Golang.
