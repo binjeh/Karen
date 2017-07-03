@@ -1,5 +1,5 @@
 dist: trusty
-sudo: required
+sudo: false
 
 language: go
 go: 1.x
@@ -8,10 +8,12 @@ go_import_path: code.lukas.moe/x/karen
 addons:
   apt:
     packages:
-      - gpp
-
+    - gpp
 env:
-  - GOOS=linux GOARCH=amd64 GOTARGET=karen.o
+  - GOOS=linux GOARCH=amd64 GOTARGET=karen_linux-amd64.o
+  - GOOS=openbsd GOARCH=amd64 GOTARGET=karen_openbsd-amd64.o
+  - GOOS=darwin GOARCH=amd64 GOTARGET=karen_darwin-amd64.o
+  - GOOS=windows GOARCH=amd64 GOTARGET=karen_windows-amd64.exe
 
 before_install:
   - go get -u -v github.com/Masterminds/glide
@@ -25,3 +27,21 @@ install:
 script:
   - cmake .
   - make compile
+
+notifications:
+  webhooks:
+    urls:
+      secure: YavvtAh+64Vx2ShC//lN3FfvDq27wBhk8jEV4T7ASThaqlTfLKA/f4700kqC7xmpCLyPWCHJE/S94FR+VMCfBk8v73xOjw7gI52TF7zwWJb29u0NG9y18K5sRDPZDBEiorlfuRlRqu69CTq8iHId4R3g7E2sFU7PtBwrYAPTncdjUJueIR3uaVPKFMbk0tmIIWdEO46TfQJNY3pSHj0H6zfLzqQB6ErukK84cKGP3KJpkPaNMRCgzTPKlCH2JJeet0Dkbjg6+yQ4vHJ84JH0k//ozD5ySZNkPhHe//SoQ9gdTFcsbZh3iEFVZU61c44NLSDbh0AUIFr2VH3UhkylTRDEeY4Ox6UbnE01W7REMrgRnNIC26lmmwxw1dISNSApndtLpbBWMcawY5AuKRmE4sGiIzK1bceNtE8hNa+lVBFgJCUMlZZTNv5Km5V1sbnGMKbWAEanI0MON1YtqYnl89Nywh5n9t2atBzqCDlFhuUlFJNndUZd9D3XnrLHPgOEzExB/JV7CY62cokvGjJelB9XugwHFbHdGb28A/OL6R3Ckq3x3asW92ivWxUYx8zLL45aGR7U3mdlKMzwD+QGD+7n4tQFZHQb9aEu0l/03GKCdiZx+UIznga0x9zc82lxGGEI7MwVHbdMfNE6tSCUVXh3EMZrV5IuET8HJR0yuNY=
+
+deploy:
+  provider: releases
+  api_key:
+    secure: jzI5A6t7jJ2fXoboLcPWOkT/Hny30KdTUhphiHLQ+36xVJox82dLQgweM/Jzb9gAYDym6vbqqiGVnoE8LA+/pHBUyQXUN9e+4kRB8PYyO7YDzenmU9dCQIYFCimp+At/ck/C55vOCRT7/P6IGm+buKHkDhyiu1gYNkgcE8cZrxGeeayyU7wq0D6HiAa87Er/oCBcdJ+xZWpRi7GEFvgfCLvwkO6Xox2/tlhlkj3J0xWA8ktsoIhb4DhRF0ASVAPCk8GVt6gqTPs2Vqbu7r6GtpM7LX+QsOzji1C5FZhOAloRpCOFjcBkNpxG+wwoP2WLSwO0MPiWzpddnyAWoNngAiQ8f6aCFdbNnFeduC1NhXgUTndm5TA3SK9j1tarSSEQIjzCTenjoWC5WIX/BrdjzpJilL1yoPlCqG8GyVtZ48XvzOvCFCdgJCU/el43HPJSJ3d6Ly2jCRI6b5yTpC/s454bnK4Ztfxn1tdQ8N5PIugsRZ6/CUTuo4ljlUGBCSa92y53Vytth0kXxNVK5r3MOZqmjodxXQYG53zKDF3gBpz4j4SRUWVzuGYfCuTmiN3vhqA8ltS6SFLwrCZ3PLCIG7ytY8rqlPUI3ZOW7N12X6iM2AaRhO/r5APuJkzps54uQ+ZgkZxchox0HBx/qj0lJURM+dqfy0040w1J0x0p8vQ=
+  file:
+    - karen_linux-amd64.o
+    - karen_openbsd-amd64.o
+    - karen_darwin-amd64.o
+    - karen_windows-amd64.exe
+  skip_cleanup: true
+  on:
+    tags: true
