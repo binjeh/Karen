@@ -1,20 +1,14 @@
-Origin: https://git.lukas.moe/sn0w/Karen<br>
-Mirror: https://github.com/sn0w/Karen
-
-<hr>
-
 <p align="center">
-  <a href="https://git.lukas.moe/sn0w/Karen/commits/master">
-    <img alt="build status" src="https://git.lukas.moe/sn0w/Karen/badges/master/build.svg" />
+  <img alt="karen" width="96" src="http://i.imgur.com/VfgrwQz.jpg">
+  <br>
+  <a href="https://travis-ci.org/SubliminalHQ/karen">
+    <img alt="build status" src="https://img.shields.io/travis/SubliminalHQ/karen/master.svg" />
   </a>
-  <a href="/">
-    <img src="https://img.shields.io/github/tag/sn0w/karen.svg?style=flat-square" alt="GitHub tag"/>
+  <a href="#">
+    <img src="https://img.shields.io/github/tag/SubliminalHQ/karen.svg" alt="GitHub tag"/>
   </a>
-  <a href="https://goreportcard.com/report/github.com/sn0w/Karen">
-    <img src="https://goreportcard.com/badge/github.com/sn0w/Karen?style=flat-square" alt="Go Report Card"/>
-  </a>
-  <a href="https://gowalker.org/github.com/sn0w/Karen">
-    <img src="http://gowalker.org/api/v1/badge" alt="Go Walker" />
+  <a href="#">
+    <img src="https://img.shields.io/github/release/SubliminalHQ/karen.svg" alt="GitHub release"/>
   </a>
   <br>
   Karen is a highly efficient, multipurpose Discord bot written in Golang.
@@ -22,56 +16,11 @@ Mirror: https://github.com/sn0w/Karen
   <br>
   Got any problems or just want to chat with me and other devs?<br>
   Join the Discord Server! :)<br>
-  <a href="https://discord.meetkaren.xyz">
+  <a href="https://discord.karen.vc">
     <img src="https://discordapp.com/api/guilds/180818466847064065/widget.png">
   </a>
 </p>
 <hr/>
-
-### Invite
-Public invite link is coming after the private beta ends.
-
-Want access?<br>
-Register here: https://goo.gl/forms/9J9GYMg8c9IM6a5Z2
-
-### How does this work?
-I've drawn a colorful picture just for you!
-
-![](http://i.imgur.com/lI3VJDo.png)
-
-### Why are you saying `high performance` all the time?
-I've built a few bots already and all of them were far from performant.<br>
-Why do we live in a time where it's acceptable that an EMPTY Java class consumes 10mb RAM?<br>
-Why does no one care about optimizing anymore?
-
-That's why I'm building Karen.<br>
-I want to create a bot that:
-
- - Can handle an almost infinite amount of joined guilds
- - Is able to scale vertically **and** horizontally
- - Can play music for free, forever. (Not like that freemium stuff Mee6 does)
- - Will **never** use more resources than absolutely needed
- - Never crashes (or to be precise: be able to recover from almost any `panic()`)
- 
-To archieve these goals I defined some basic rules:
- - Plugins are compiled into the bot instead of lazy-loading
- - All commands are stateless
- - If a plugin cannot work without states (like `music.go`) it has to implement the state-handling itself
- - Write as much async code as possible
- - Channels > Callbacks
- - Write optimized helper functions instead of duplicated boilerplate code
- - `panic()` on **any** error that is not user-related and `recover()` later
- - Mind your CPU! A coroutine should die as soon as possible
- - If you wait for something in an endless loop let it `sleep()` as long as possible between iterations.
- - A function's cyclomatic complexity should be as low as possible
- - A function should have as few responsibilities as possible
- 
-### Achievements
-
-- Never exceeded 1% CPU usage at the time of writing.
-- Never used more than 6MB of it's allocated heap.
-
-![](https://i.imgur.com/lGf08Yo.png)
 
 ### Docs
 Hancrafted guide soon (tm)
@@ -83,14 +32,37 @@ the homepage for usage help.
 This bot is still in a early stage.<br>
 Please expect (rare) crashes and minor performance problems until the bot is mature enough.
 
-### Selfhosted Bot
-I'd prefer if you don't run a copy of Karen "on premises".<br>
-The source code is mostly provided for educational purposes and transparency.<br>
-If you still want to run her yourself please ping me on discord.<br>
-The setup is not as trivial as intended so you might need some help from me.
+### Achievements
 
-### About the bad GoReportCard score
-This project will probably never reach more than a D on GoReportCard because I hugely disagree on gofmt's decision to use tabs instead of spaces. I know that this discussion is as old as programming itself, but this is my opinion on this. I prefer spaces. Always. I might create a fork of gofmt that allows spaces at some point.
+- Never exceeded 2% CPU usage at the time of writing.
+- Never used more than 8MB of the allocated heap (=<20MB).
 
-The primary reason for having GoReportCard at all are the go_vet, gocyclo, ineffassign and misspell tests.<br>
-You are forced to keep the score as-is or improve it when making contributions to the project.
+![](https://i.imgur.com/lGf08Yo.png)
+
+### Can you help me self-hosting Karen?
+No.<br>
+You are allowed to host Karen and fork the project (given that you comply to the license),
+but there will be neither guides nor setup help.<br>
+
+### Why does `go get / build / ...` not work?
+Golang's ecosystem is pretty good - but not for us.<br>
+Karen has a lot of features that required me (@sn0w) to read hundrets of websites just to get to the one sad conclusion:
+
+"Go has a nice set of tools but they're useless for us"
+
+The problems range from simple stuff like proper version locking of dependencies to more advanced problems like conditional compilation and c-like macros.
+Ultimately I decided to drop `go {get,build}` compatibility and moved to the CMake+Shell-Magic combo.
+
+For some more information about my golang-frustration take a look at my blog:<br>
+https://lukas.moe/2017/06/golang-love-hate/
+
+### Karen's Friends :tada:
+
+Bots built by friends or awesome strangers
+
+|Avatar|Name|Language|Link|
+|:-:|:-:|:-:|:-:|
+|![](http://i.imgur.com/SrgZI3g.png)|Emily|Java|[MaikWezinkhof/DiscordBot](https://github.com/MaikWezinkhof/DiscordBot)
+|![](https://cdn.discordapp.com/avatars/270931284489011202/b7b1f9820c4751ffa3d0e11c97bc2f38.png?size=64)|Sora|C#|[Serenity/Sora](http://git.argus.moe/serenity/SoraBot)
+|![](https://cdn.discordapp.com/avatars/260867076774821899/2dda452db1e35f833a187df9dd4f1749.png?size=64)|Nep|C#|[Serraniel/Nep-Bot](https://github.com/Serraniel/Nep-Bot)
+|![](http://i.imgur.com/Tb0FZoZ.png)|Shinobu-Chan|Python 3|[Der-Eddy/discord_bot](https://github.com/Der-Eddy/discord_bot)

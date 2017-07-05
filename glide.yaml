@@ -1,31 +1,54 @@
-package: git.lukas.moe/sn0w/Karen
+#
+# Karen - A highly efficient, multipurpose Discord bot written in Golang
+#
+# Copyright (C) 2015-2017 Lukas Breuer
+# Copyright (C) 2017 Subliminal Apps
+#
+# This file is a part of the Karen Discord-Bot Project ("Karen").
+#
+# Karen is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or (at your option) any later version.
+#
+# Karen is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See the GNU Affero General Public License for more details.
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
+package: code.lukas.moe/x/karen
 import:
-- package: github.com/Jeffail/gabs
-  version: ^1.0.0
-- package: github.com/dustin/go-humanize
-- package: github.com/getsentry/raven-go
-- package: github.com/PuerkitoBio/goquery
-  version: ^1.0.2
 - package: golang.org/x/net
   subpackages:
   - html
 - package: golang.org/x/text
   subpackages:
   - unicode/norm
-- package: github.com/ttacon/chalk
-  version: ^0.1.0
-- package: github.com/marcmak/calc
-- package: github.com/olebedev/when
-- package: github.com/bwmarrin/discordgo
-  version: develop
-- package: github.com/gorethink/gorethink
-  version: ^3.0.1
-- package: github.com/bwmarrin/snowflake
-- package: git.lukas.moe/sn0w/radio-b
-- package: github.com/gorilla/websocket
-  version: ^1.1.0
-- package: github.com/CleverbotIO/go-cleverbot.io
+- package: golang.org/x/image
+  subpackages:
+  - font
 - package: cloud.google.com/go
-  version: ^0.6.0
   subpackages:
   - translate
+- package: github.com/Jeffail/gabs
+- package: github.com/dustin/go-humanize
+- package: github.com/getsentry/raven-go
+- package: github.com/PuerkitoBio/goquery
+- package: github.com/ttacon/chalk
+- package: github.com/marcmak/calc
+- package: github.com/olebedev/when
+- package: github.com/gorethink/gorethink
+- package: github.com/gorilla/websocket
+- package: github.com/ugjka/cleverbot-go
+- package: github.com/golang/freetype
+- package: github.com/pelletier/go-toml
+- package: github.com/bwmarrin/discordgo
+  version: develop
+- package: git.lukas.moe/sn0w/radio-b
+- package: github.com/yuin/gopher-lua
+- package: layeh.com/gopher-luar
+- package: github.com/miekg/dns

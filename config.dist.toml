@@ -1,0 +1,58 @@
+#
+# Karen - A highly efficient, multipurpose Discord bot written in Golang
+#
+# Copyright (C) 2015-2017 Lukas Breuer
+# Copyright (C) 2017 Subliminal Apps
+#
+# This file is a part of the Karen Discord-Bot Project ("Karen").
+#
+# Karen is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or (at your option) any later version.
+#
+# Karen is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See the GNU Affero General Public License for more details.
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
+[core]
+    debugMode = false
+
+    [core.profile]
+        name = "Karen"
+        avatar = ""
+
+    [core.discord]
+        id = "DISCORD_APP_ID"
+        perms = 104320064
+        token = "DISCORD_BOT_TOKEN"
+
+    [core.db]
+        name = "karen"
+        ip = "127.0.0.1"
+        port = "28015"
+
+    [core.metrics]
+        ip = "0.0.0.0"
+        port = "1337"
+
+    [core.sentry]
+        dsn = "https://YOU_SENTRY_TOKEN_1:YOUR_SENTRY_TOKEN_2@sentry.io/YOUR_SENTRY_PROJECT"
+
+[modules]
+    [modules.cleverbot]
+        key = "..."
+
+    [modules.google.translator]
+        key = "..."
+
+    [modules.listen_moe]
+        key = "YOUR_LISTEN.MOE_TOKEN"
+
+    [modules.osu]
+        key = "YOUR_OSU_API_TOKEN"
